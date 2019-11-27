@@ -1,22 +1,114 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
-    <Filter Include="Source Files">
-      <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
-      <Extensions>cpp;c;cc;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
-    </Filter>
-    <Filter Include="Header Files">
-      <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
-      <Extensions>h;hh;hpp;hxx;hm;inl;inc;ipp;xsd</Extensions>
-    </Filter>
-    <Filter Include="Resource Files">
-      <UniqueIdentifier>{67DA6AB6-F800-4c08-8B7A-83BB121AAD01}</UniqueIdentifier>
-      <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
-    </Filter>
+    <ClCompile Include="src\Entities\Power UP\Power_Up.cpp" />
+    <ClCompile Include="src\Entities\Player\Player.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Enemy.cpp" />
+    <ClCompile Include="src\Screen_state\Game.cpp" />
+    <ClCompile Include="src\Screen_state\Game_Materials.cpp" />
+    <ClCompile Include="src\Screen_state\Menu.cpp" />
+    <ClCompile Include="src\Screen_state\Options.cpp" />
+    <ClCompile Include="src\Screen_state\Pause.cpp" />
+    <ClCompile Include="src\Screen_state\Quit.cpp" />
+    <ClCompile Include="src\Asset_management\Image.cpp" />
+    <ClCompile Include="src\Asset_management\Sound.cpp" />
+    <ClCompile Include="src\Source.cpp" />
+    <ClCompile Include="src\Tile_map.cpp" />
+    <ClCompile Include="src\Animation.cpp" />
+    <ClCompile Include="src\Collision.cpp" />
+    <ClCompile Include="src\Entity.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Player_Weapon.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Arrow.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Atom_Bomb.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\BiNuke.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Bomb.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Fire_bomb.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Ice_Bomb.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Lazer.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Rocket_lazer.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Slicer.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Stunner.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Triangular_Missle.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\TriNuke.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Enemy_Weapon.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Ball.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Cannon_Slug.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Diamondo.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Magic_Mask.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Tripus.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Bubble_Blast.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Diamond_Ice.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Fire.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Grapple.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Gunk.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Missle.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Rock_Candy_Bomb.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Star_Bomb.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Stop_time.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Thunder.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Venom_Spit.cpp" />
+    <ClCompile Include="src\Entities\Power UP\Ammo.cpp" />
+    <ClCompile Include="src\Entities\Power UP\B2_Bomber_Strike_Call.cpp" />
+    <ClCompile Include="src\Entities\Power UP\Copy_Chip.cpp" />
+    <ClCompile Include="src\Entities\Power UP\Gliding_Chip.cpp" />
+    <ClCompile Include="src\Entities\Power UP\Healing_Spot.cpp" />
+    <ClCompile Include="src\Entities\Power UP\Health_Chip.cpp" />
+    <ClCompile Include="src\Entities\Power UP\Needle_Blast_Wind_Chip.cpp" />
+    <ClCompile Include="src\Entities\Power UP\Stop_Time_Chip.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="Source.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
+    <ClInclude Include="src\Entities\Power UP\Power_Up.h" />
+    <ClInclude Include="src\Entities\Player\Player.h" />
+    <ClInclude Include="src\Entities\Enemy\Enemy.h" />
+    <ClInclude Include="src\Screen_state\Game.h" />
+    <ClInclude Include="src\Screen_state\Game_Materials.h" />
+    <ClInclude Include="src\Screen_state\Menu.h" />
+    <ClInclude Include="src\Screen_state\Options.h" />
+    <ClInclude Include="src\Screen_state\Pause.h" />
+    <ClInclude Include="src\Screen_state\Quit.h" />
+    <ClInclude Include="src\Asset_management\Image.h" />
+    <ClInclude Include="src\Asset_management\Sound.h" />
+    <ClInclude Include="src\Tile_map.h" />
+    <ClInclude Include="src\Animation.h" />
+    <ClInclude Include="src\Collision.h" />
+    <ClInclude Include="src\Entity.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Player_Weapon.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Arrow.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Atom_Bomb.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\BiNuke.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Bomb.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Fire_bomb.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Ice_Bomb.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Lazer.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Rocket_lazer.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Slicer.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Stunner.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Triangular_Missle.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\TriNuke.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Enemy_Weapon.h" />
+    <ClInclude Include="src\Entities\Enemy\Ball.h" />
+    <ClInclude Include="src\Entities\Enemy\Cannon_Slug.h" />
+    <ClInclude Include="src\Entities\Enemy\Diamondo.h" />
+    <ClInclude Include="src\Entities\Enemy\Magic_Mask.h" />
+    <ClInclude Include="src\Entities\Enemy\Tripus.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Bubble_Blast.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Diamond_Ice.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Fire.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Grapple.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Gunk.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Missle.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Rock_Candy_Bomb.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Star_Bomb.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Stop_time.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Thunder.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Venom_Spit.h" />
+    <ClInclude Include="src\Entities\Power UP\Ammo.h" />
+    <ClInclude Include="src\Entities\Power UP\B2_Bomber_Strike_Call.h" />
+    <ClInclude Include="src\Entities\Power UP\Copy_Chip.h" />
+    <ClInclude Include="src\Entities\Power UP\Gliding_Chip.h" />
+    <ClInclude Include="src\Entities\Power UP\Healing_Spot.h" />
+    <ClInclude Include="src\Entities\Power UP\Health_Chip.h" />
+    <ClInclude Include="src\Entities\Power UP\Needle_Blast_Wind_Chip.h" />
+    <ClInclude Include="src\Entities\Power UP\Stop_Time_Chip.h" />
   </ItemGroup>
 </Project>
