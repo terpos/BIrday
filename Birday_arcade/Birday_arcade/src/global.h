@@ -13,6 +13,7 @@
 #include <random>
 #include <time.h>
 #include <math.h>
+#include <utility>
 
 
 
@@ -20,3 +21,4 @@
 #define winx 1360
 #define winy 768
 
+enum {PLAYER, ENEMY, PWEAPON, EWEAPON, TILES, POWERUP};
