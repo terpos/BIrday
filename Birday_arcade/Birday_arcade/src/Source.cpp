@@ -16,8 +16,15 @@ int main()
 	ALLEGRO_DISPLAY *display = al_create_display(1360, 768);
 	//Image image;
 	//image.Load_Images();
-	ALLEGRO_BITMAP * bmp = al_load_bitmap("Birday_arcade/src/Mario.png");
+	ALLEGRO_BITMAP * bmp = al_load_bitmap("Mario.png");
 	
+	if (bmp == NULL)
+	{
+		std::cout << "CANNOT LOAD" << std::endl;
+		system("pause");
+		exit(EXIT_FAILURE);
+	}
+
 	al_set_display_flag(display, ALLEGRO_NOFRAME, true);
 
 	while (1)
