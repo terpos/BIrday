@@ -1,8 +1,16 @@
+#include "P_Weapon.h"
+
 #pragma once
-class Triangular_Missle
+class Triangular_Missle:public P_Weapon
 {
 public:
-	Triangular_Missle();
+	Triangular_Missle(Image &sprite_sheet, int x, int y, int vel, int direction);
 	~Triangular_Missle();
+
+private:
+	int type;
+
+	ALLEGRO_BITMAP *cropping;
+	ALLEGRO_BITMAP *cropping2;
 };
 

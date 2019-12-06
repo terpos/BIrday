@@ -1,8 +1,16 @@
+#include "P_Weapon.h"
+
 #pragma once
-class Lazer
+class Lazer: public P_Weapon
 {
 public:
-	Lazer();
+	Lazer(Image &sprite_sheet, int x, int y, int vel, int direction);
 	~Lazer();
+
+private:
+	int type;
+
+	ALLEGRO_BITMAP *cropping;
+	ALLEGRO_BITMAP *cropping2;
 };
 

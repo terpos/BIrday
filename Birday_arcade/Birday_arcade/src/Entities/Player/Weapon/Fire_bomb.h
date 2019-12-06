@@ -1,8 +1,17 @@
+#include "P_Weapon.h"
+
 #pragma once
-class Fire_bomb
+class Fire_bomb: public P_Weapon
 {
 public:
-	Fire_bomb();
+	Fire_bomb(Image &sprite_sheet, int x, int y, int vel, int direction);
 	~Fire_bomb();
+
+private:
+	int type;
+
+	ALLEGRO_BITMAP *cropping;
+	ALLEGRO_BITMAP *cropping2;
+
 };
 
