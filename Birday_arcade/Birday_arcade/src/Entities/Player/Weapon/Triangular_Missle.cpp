@@ -21,3 +21,16 @@ Triangular_Missle::Triangular_Missle(Image &sprite_sheet, int x, int y, int vel,
 Triangular_Missle::~Triangular_Missle()
 {
 }
+
+int Triangular_Missle::damage()
+{
+	return 8;
+}
+
+void Triangular_Missle::abilities(bool collide)
+{
+	if (collide)
+	{
+		set_kill(true);
+	}
+}

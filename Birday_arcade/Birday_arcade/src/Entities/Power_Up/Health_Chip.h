@@ -7,6 +7,8 @@ public:
 	Health_Chip(Image image, int x, int y);
 	~Health_Chip();
 
+	void power_up_abilities(Player &player, std::vector <Enemy*> &enemy);
+
 private:
 	int x, y;
 

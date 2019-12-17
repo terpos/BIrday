@@ -21,3 +21,16 @@ Rocket_lazer::Rocket_lazer(Image &sprite_sheet, int x, int y, int vel, int direc
 Rocket_lazer::~Rocket_lazer()
 {
 }
+
+int Rocket_lazer::damage()
+{
+	return 2;
+}
+
+void Rocket_lazer::abilities(bool collide)
+{
+	if (collide)
+	{
+		set_kill(true);
+	}
+}

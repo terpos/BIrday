@@ -21,3 +21,8 @@ Bomb::Bomb(Image &sprite_sheet, int x, int y, int vel, int direction): P_Weapon(
 Bomb::~Bomb()
 {
 }
+
+void Bomb::render()
+{
+	al_draw_bitmap_region(get_bitmap().first, 0, 0, al_get_bitmap_width(cropping2), al_get_bitmap_height(cropping2), get_x(), get_y(), NULL);
+}

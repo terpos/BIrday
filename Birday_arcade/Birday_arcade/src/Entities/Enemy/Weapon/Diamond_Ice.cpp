@@ -17,3 +17,8 @@ Diamond_Ice::Diamond_Ice(Image &sprite_sheet, int x, int y, int vel, int directi
 Diamond_Ice::~Diamond_Ice()
 {
 }
+
+int Diamond_Ice::damage()
+{
+	return 20;
+}

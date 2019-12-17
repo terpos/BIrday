@@ -25,6 +25,8 @@ public:
 	virtual void set_vel(int vel);
 	virtual void set_direction(int direction);
 
+	virtual int damage();
+
 	//sets the bitmap information
 	virtual void set_bitmap(ALLEGRO_BITMAP* image, int entity_num);
 

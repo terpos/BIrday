@@ -7,6 +7,10 @@ public:
 	Fisher(Image &sprite_sheet, int version, int x, int y, int vel, int direction);
 	~Fisher();
 
+	int Damage();
+	void react(Image &image, Player &player, std::vector <E_Weapon*> &eweapon);
+	void shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet);
+
 private:
 	int x, y, vel, direction;
 	unsigned int health;

@@ -7,6 +7,8 @@ public:
 	Needle_Blast_Wind_Chip(Image image, int x, int y);
 	~Needle_Blast_Wind_Chip();
 
+
+	void power_up_abilities(Player &player, std::vector <Enemy*> &enemy);
 private:
 	int x, y;
 

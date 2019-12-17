@@ -7,6 +7,8 @@ public:
 	Ice_Bomb(Image &sprite_sheet, int x, int y, int vel, int direction);
 	~Ice_Bomb();
 
+	void render();
+
 private:
 	int type;
 

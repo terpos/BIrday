@@ -17,3 +17,8 @@ Bubble_Blast::Bubble_Blast(Image &sprite_sheet, int x, int y, int vel, int direc
 Bubble_Blast::~Bubble_Blast()
 {
 }
+
+int Bubble_Blast::damage()
+{
+	return 15;
+}

@@ -13,3 +13,12 @@ Gliding_Chip::Gliding_Chip(Image image, int x, int y): Power_Up(image, x, y)
 Gliding_Chip::~Gliding_Chip()
 {
 }
+
+void Gliding_Chip::power_up_abilities(Player & player, std::vector<Enemy*>& enemy)
+{
+	player.set_vel(10);
+	player.set_glide(true);
+	player.set_delay_movemement(20);
+
+
+}

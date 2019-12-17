@@ -12,7 +12,7 @@ Slicer::Slicer(Image &sprite_sheet, int x, int y, int vel, int direction): P_Wea
 
 	cropping = al_create_bitmap(80, 80);
 	cropping2 = al_create_bitmap(40, 40);
-
+	set_kill(false);
 
 	type = 1;
 }
@@ -21,3 +21,15 @@ Slicer::Slicer(Image &sprite_sheet, int x, int y, int vel, int direction): P_Wea
 Slicer::~Slicer()
 {
 }
+
+int Slicer::damage()
+{
+	return 20;
+}
+
+void Slicer::abilities(bool collide)
+{
+	set_kill(false);
+}
+
+

@@ -13,3 +13,11 @@ Stop_Time_Chip::Stop_Time_Chip(Image image, int x, int y): Power_Up(image, x, y)
 Stop_Time_Chip::~Stop_Time_Chip()
 {
 }
+
+void Stop_Time_Chip::power_up_abilities(Player & player, std::vector<Enemy*>& enemy)
+{
+	for (int i = 0; i < enemy.size(); i++)
+	{
+		enemy[i]->set_vel(0);
+	}
+}

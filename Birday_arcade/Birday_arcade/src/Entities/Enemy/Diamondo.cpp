@@ -34,3 +34,47 @@ Diamondo::Diamondo(Image &sprite_sheet, int version, int x, int y, int vel, int 
 Diamondo::~Diamondo()
 {
 }
+
+int Diamondo::Damage()
+{
+	if (get_version() == 1)
+	{
+		return 4;
+	}
+
+	else
+	{
+		return 8;
+	}
+}
+
+void Diamondo::shoot(std::vector<E_Weapon*>& eweapon, Image spritesheet)
+{
+	std::uniform_int_distribution<int > shoot(0, 11);
+
+	if (reload_time > 0)
+	{
+		this->reload_time--;
+	}
+
+	else if (reload_time == 0)
+	{
+		if (shoot(shooting_probability) > 5)
+		{
+			eweapon.push_back(new Diamond_Ice(spritesheet, get_x(), get_y(), 20, get_direction()));
+			this->reload_time = 20;
+		}
+
+		else if (shoot(shooting_probability) > 15)
+		{
+			eweapon.push_back(new Star_Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+			this->reload_time = 40;
+		}
+
+		else
+		{
+			reload_time = 40;
+		}
+
+	}
+}

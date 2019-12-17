@@ -45,7 +45,7 @@ void Power_Up::set_bitmap(ALLEGRO_BITMAP * image, int entity_num)
 	this->image.second = entity_num;
 }
 
-void Power_Up::power_up_abilities()
+void Power_Up::power_up_abilities(Player &player, std::vector <Enemy*> &enemy)
 {
 }
 

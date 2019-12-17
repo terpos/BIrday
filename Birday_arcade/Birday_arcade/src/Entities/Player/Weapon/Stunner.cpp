@@ -21,3 +21,16 @@ Stunner::Stunner(Image &sprite_sheet, int x, int y, int vel, int direction):P_We
 Stunner::~Stunner()
 {
 }
+
+int Stunner::damage()
+{
+	return 3;
+}
+
+void Stunner::abilities(bool collide)
+{
+	if (collide)
+	{
+		set_kill(true);
+	}
+}

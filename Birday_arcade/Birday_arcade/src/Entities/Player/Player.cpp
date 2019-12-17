@@ -10,15 +10,18 @@ Player::Player(Image &sprite_sheet, int x, int y, int vel, int direction, int bu
 	set_vel(vel);
 	set_direction(direction);
 	set_hit(false, NULL);
-	set_health(10);
+	set_health(100);
 	set_buttons(buttons);
 	cropping = al_create_bitmap(80, 80);
 	key[0] = false;
 	key[1] = false;
 	key[2] = false;
 	key[3] = false;
-
-
+	this->glide = false;
+	set_glide(this->glide);
+	this->delay_movement = 3;
+	set_delay_movemement(this->delay_movement);
+	this->option_weapon = 0;
 }
 
 
@@ -59,9 +62,19 @@ int Player::get_direction()
 	return this->direction;
 }
 
+bool Player::is_gliding()
+{
+	return this->glide;
+}
+
 int Player::get_buttons(int index)
 {
 	return this->buttons[index];
+}
+
+int Player::get_delay_movement()
+{
+	return this->delay_movement;
 }
 
 void Player::set_x(int x)
@@ -109,7 +122,7 @@ void Player::set_buttons(int buttons[7])
 	}
 }
 
-unsigned int Player::get_health()
+signed int Player::get_health()
 {
 	return this->health;
 }
@@ -153,17 +166,64 @@ void Player::control(Image spritesheet, ALLEGRO_EVENT e, std::vector <P_Weapon*>
 
 		if (e.keyboard.keycode == get_buttons(4))
 		{
-			pweapon.push_back(new Lazer(spritesheet, get_x(), get_y(), 20, get_direction()));
+			switch (option_weapon)
+			{
+			case LAZER:
+				pweapon.push_back(new Lazer(spritesheet, get_x(), get_y(), 40, get_direction()));
+				break;
+			case ROCKET_LAZER:
+				pweapon.push_back(new Rocket_lazer(spritesheet, get_x(), get_y(), 40, get_direction()));
+				break;
+			case STUNNER:
+				pweapon.push_back(new Stunner(spritesheet, get_x(), get_y(), 40, get_direction()));
+				break;
+			case BOMBS:
+				pweapon.push_back(new Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+				break;
+			case ICE_BOMBS:
+				pweapon.push_back(new Ice_Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+				break;
+			case FIRE_BOMBS:
+				pweapon.push_back(new Fire_bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+				break;
+			case ATOMIC_BOMBS:
+				pweapon.push_back(new Atom_Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+				break;
+			case BI_NUKE:
+				pweapon.push_back(new BiNuke(spritesheet, get_x(), get_y(), 40, get_direction()));
+				break;
+			case TRI_NUKE:
+				pweapon.push_back(new TriNuke(spritesheet, get_x(), get_y(), 40, get_direction()));
+				break;
+			case TRIANGULAR_MISSILE:
+				pweapon.push_back(new Triangular_Missle(spritesheet, get_x(), get_y(), 40, get_direction()));
+				break;
+			case SLICER:
+				pweapon.push_back(new Slicer(spritesheet, get_x(), get_y(), 40, get_direction()));
+				break;
+			case ARROW:
+				pweapon.push_back(new Arrow(spritesheet, get_x(), get_y(), 40, get_direction()));
+				break;
+			}
 		}
 
 		if (e.keyboard.keycode == get_buttons(5))
 		{
-			std::cout << get_buttons(5) << std::endl;
+			option_weapon--;
+			if (option_weapon < 0)
+			{
+				option_weapon = 11;
+			}
 		}
 
 		if (e.keyboard.keycode == get_buttons(6))
 		{
-			std::cout << get_buttons(6) << std::endl;
+			option_weapon++;
+			if (option_weapon > 11)
+			{
+				option_weapon = 0;
+			}
+			
 		}
 
 	}
@@ -195,41 +255,158 @@ void Player::control(Image spritesheet, ALLEGRO_EVENT e, std::vector <P_Weapon*>
 	}
 }
 
-void Player::col_update()
+void Player::damage_col_update()
 {
+	//if player's health is greater than 0 and hit is false
+	if (get_health() > 0 && !is_hit().first)
+	{
+		set_hit(true, 1);
+		
+		std::cout << "Player's Health: " << get_health() << std::endl;
+		recover = 50;
+	
+		if (get_direction() == 0)
+		{
+			set_y(get_y() - get_vel());
+		}
+
+		if (get_direction() == 1)
+		{
+			set_y(get_y() + get_vel());
+		}
+
+		if (get_direction() == 2)
+		{
+			set_x(get_x() - get_vel());
+		}
+
+		if (get_direction() == 3)
+		{
+			set_x(get_x() + get_vel());
+		}
+	}
+	
+	//if player's health reaches 0 or under zero
+	if (get_health() <= 0)
+	{
+		std::cout << "Game Over" << std::endl;
+	}
+
+
+}
+
+void Player::set_delay_movemement(int delay)
+{
+	this->delay_movement = delay;
+}
+
+void Player::damage_col_tile_update()
+{
+	if (get_health() > 0)
+	{
+		set_health(get_health() - 1);
+		std::cout << "Player's Health: " << get_health() << std::endl;
+	}
+
+
+	else if (get_health() <= 0)
+	{
+		std::cout << "Game Over" << std::endl;
+	}
+
 	if (get_direction() == 0)
 	{
-		set_y(get_y() - 80);
+		set_y(get_y() - get_vel());
 	}
 
 	if (get_direction() == 1)
 	{
-		set_y(get_y() + 80);
+		set_y(get_y() + get_vel());
 	}
 
 	if (get_direction() == 2)
 	{
-		set_x(get_x() - 80);
+		set_x(get_x() - get_vel());
 	}
 
 	if (get_direction() == 3)
 	{
-		set_x(get_x() + 80);
+		set_x(get_x() + get_vel());
 	}
+}
+
+void Player::col_update()
+{
+	if (get_direction() == 0)
+	{
+		set_y(get_y() - get_vel());
+	}
+
+	if (get_direction() == 1)
+	{
+		set_y(get_y() + get_vel());
+	}
+
+	if (get_direction() == 2)
+	{
+		set_x(get_x() - get_vel());
+	}
+
+	if (get_direction() == 3)
+	{
+		set_x(get_x() + get_vel());
+	}
+}
+
+void Player::set_glide(bool glide)
+{
+	this->glide = glide;
 }
 
 void Player::update(Options &option, std::vector <P_Weapon*> &pweapon)
 {
-	set_y(get_y() + get_vel()*key[0]);
-	set_y(get_y() - get_vel()*key[1]);
-	set_x(get_x() + get_vel()*key[2]);
-	set_x(get_x() - get_vel()*key[3]);
-
-	//updates player weapon
-	for (int i = 0; i < pweapon.size(); i++)
+	if (recover != 0)
 	{
-		pweapon[i]->update();
+		recover--;
 	}
+
+	else if (recover == 0)
+	{
+		set_hit(false, 0);
+	}
+
+	if (get_delay_movement() == 0 && !is_gliding())
+	{
+		set_y(get_y() + get_vel()*key[0]);
+		set_y(get_y() - get_vel()*key[1]);
+		set_x(get_x() + get_vel()*key[2]);
+		set_x(get_x() - get_vel()*key[3]);
+		set_delay_movemement(3);
+	}
+	
+	if (is_gliding() && get_delay_movement() > 0)
+	{
+		set_y(get_y() + get_vel()*key[0]);
+		set_y(get_y() - get_vel()*key[1]);
+		set_x(get_x() + get_vel()*key[2]);
+		set_x(get_x() - get_vel()*key[3]);
+	}
+
+	if (get_delay_movement() == 0 && is_gliding())
+	{
+		set_x(get_x() % 80 + (80 - get_x() % 80));
+		set_y(get_y() % 80 + (80 - get_y() % 80));
+		set_vel(80);
+		set_glide(false);
+		set_delay_movemement(3);
+	}
+
+	else
+	{
+		set_delay_movemement(get_delay_movement() - 1);
+	}
+
+	
 
 }
 

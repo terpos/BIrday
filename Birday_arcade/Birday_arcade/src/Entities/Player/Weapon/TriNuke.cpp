@@ -13,11 +13,30 @@ TriNuke::TriNuke(Image &sprite_sheet, int x, int y, int vel, int direction): P_W
 	cropping = al_create_bitmap(80, 80);
 	cropping2 = al_create_bitmap(40, 40);
 
-
-	type = 1;
+	this->hit_count = 0;
+	this->type = 1;
 }
 
 
 TriNuke::~TriNuke()
 {
+}
+
+int TriNuke::damage()
+{
+	return 10;
+}
+
+void TriNuke::abilities(bool collide)
+{
+	if (collide && hit_count == 2)
+	{
+		set_kill(true);
+	}
+
+	else
+	{
+		hit_count++;
+		change_direction();
+	}
 }

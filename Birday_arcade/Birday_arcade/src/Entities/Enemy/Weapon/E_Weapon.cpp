@@ -62,6 +62,11 @@ void E_Weapon::set_direction(int direction)
 	this->direction = direction;
 }
 
+int E_Weapon::damage()
+{
+	return 0;
+}
+
 void E_Weapon::set_bitmap(ALLEGRO_BITMAP * image, int entity_num)
 {
 	this->image.first = image;

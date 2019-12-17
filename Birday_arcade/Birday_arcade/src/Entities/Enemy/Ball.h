@@ -7,6 +7,8 @@ public:
 	Ball(Image &sprite_sheet, int version, int x, int y, int vel, int direction);
 	~Ball();
 
+	int Damage();
+
 private:
 	int x, y, vel, direction;
 	unsigned int health;

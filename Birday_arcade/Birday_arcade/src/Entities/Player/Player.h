@@ -12,6 +12,7 @@
 #include "Entities/Player/Weapon/Lazer.h"
 #include "Entities/Player/Weapon/Rocket_lazer.h"
 #include "Entities/Player/Weapon/Slicer.h"
+#include "Entities/Player/Weapon/Stunner.h"
 #include "Entities/Player/Weapon/Triangular_Missle.h"
 #include "Entities/Player/Weapon/TriNuke.h"
 
@@ -28,9 +29,11 @@ public:
 	int get_y();
 	int get_vel();
 	int get_direction();
+
+	bool is_gliding();
 	
 	//gets the positive value of health
-	unsigned int get_health();
+	signed int get_health();
 
 	//controls the player when a key is hit
 	void control(Image spritesheet, ALLEGRO_EVENT e, std::vector <P_Weapon*> &pweapon);
@@ -43,6 +46,8 @@ public:
 
 	//returns the buttons
 	int get_buttons(int index);
+
+	int get_delay_movement();
 
 	//sets the x position, y position, speed, and direction of the player 
 	void set_x(int x);
@@ -63,7 +68,15 @@ public:
 	void set_buttons(int buttons[7]);
 
 	//updates the player's movement when collided (player moves backward)
+	void damage_col_update();
+	
+	void set_delay_movemement(int delay);
+
+	void damage_col_tile_update();
+
 	void col_update();
+
+	void set_glide(bool glide);
 
 	//updates the player's movement as well as the weapon's movement
 	void update(Options &option, std::vector <P_Weapon*> &pweapon);
@@ -73,11 +86,11 @@ public:
 
 private:
 	//integer variables
-	int x, y, vel, direction, buttons[7];
+	int x, y, vel, direction, buttons[7], delay_movement, recover, option_weapon;
 	unsigned int health;
 
 	//boolean variables and boolean variables array
-	bool draw;
+	bool draw, glide;
 	bool key[4];
 
 	//pair variables

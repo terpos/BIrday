@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entities\Enemy\Weapon\Ball_shot.cpp" />
     <ClCompile Include="src\Entities\Enemy\Fisher.cpp" />
     <ClCompile Include="src\Entities\Power_Up\Ammo.cpp" />
     <ClCompile Include="src\Entities\Power_Up\B_2_Bomber_Strike_Chip.cpp" />
@@ -72,6 +73,7 @@
     <ClCompile Include="src\Entities\Power_Up\Stop_Time_Chip.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entities\Enemy\Weapon\Ball_shot.h" />
     <ClInclude Include="src\Entities\Enemy\Fisher.h" />
     <ClInclude Include="src\Entities\Power_Up\Ammo.h" />
     <ClInclude Include="src\Entities\Power_Up\B_2_Bomber_Strike_Chip.h" />
@@ -250,6 +252,9 @@
     <Media Include="Assets\Sound\Sound Effects\Blast-SoundBible.com-2068539061.mp3" />
     <Media Include="Assets\Sound\Sound Effects\Flame Arrow-SoundBible.com-618067908.wav" />
     <Media Include="Assets\Sound\Sound Effects\Spit_Splat-Mike_Koenig-1170500447.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\Tile_map.txt" />
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>

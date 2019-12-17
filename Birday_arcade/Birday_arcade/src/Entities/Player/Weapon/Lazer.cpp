@@ -12,7 +12,7 @@ Lazer::Lazer(Image &sprite_sheet, int x, int y, int vel, int direction) : P_Weap
 
 	cropping = al_create_bitmap(80, 80);
 	cropping2 = al_create_bitmap(40, 40);
-
+	set_kill(false);
 
 	type = 0;
 }
@@ -20,4 +20,14 @@ Lazer::Lazer(Image &sprite_sheet, int x, int y, int vel, int direction) : P_Weap
 
 Lazer::~Lazer()
 {
+}
+
+int Lazer::damage()
+{
+	return 1;
+}
+
+void Lazer::abilities(bool collide)
+{
+	set_kill(true);
 }

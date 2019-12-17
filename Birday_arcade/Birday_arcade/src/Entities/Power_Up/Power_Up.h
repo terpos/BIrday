@@ -1,3 +1,5 @@
+#include "Entities/Player/Player.h"
+#include "Entities/Enemy/Enemy.h"
 #include "Asset_management/Image.h"
 #include "global.h"
 
@@ -20,7 +22,7 @@ public:
 	virtual void set_bitmap(ALLEGRO_BITMAP *image, int entity_num);
 
 	//functionality of the power up
-	virtual void power_up_abilities();
+	virtual void power_up_abilities(Player &player, std::vector <Enemy*> &enemy);
 
 	//displays the powerup
 	virtual void render();

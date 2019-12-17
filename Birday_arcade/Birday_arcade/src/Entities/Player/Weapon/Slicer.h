@@ -7,6 +7,10 @@ public:
 	Slicer(Image &sprite_sheet, int x, int y, int vel, int direction);
 	~Slicer();
 
+	int damage();
+
+	void abilities(bool collide);
+
 private:
 	int type;
 

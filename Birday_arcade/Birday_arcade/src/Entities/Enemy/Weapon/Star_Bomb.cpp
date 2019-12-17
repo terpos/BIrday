@@ -17,3 +17,8 @@ Star_Bomb::Star_Bomb(Image &sprite_sheet, int x, int y, int vel, int direction):
 Star_Bomb::~Star_Bomb()
 {
 }
+
+int Star_Bomb::damage()
+{
+	return 30;
+}

@@ -17,3 +17,8 @@ Missile::Missile(Image &sprite_sheet, int x, int y, int vel, int direction) : E_
 Missile::~Missile()
 {
 }
+
+int Missile::damage()
+{
+	return 35;
+}

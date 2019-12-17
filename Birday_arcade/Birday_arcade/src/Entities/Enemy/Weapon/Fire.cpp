@@ -17,3 +17,8 @@ Fire::Fire(Image &sprite_sheet, int x, int y, int vel, int direction): E_Weapon(
 Fire::~Fire()
 {
 }
+
+int Fire::damage()
+{
+	return 5;
+}

@@ -4,12 +4,13 @@
 
 Enemy::Enemy(Image &sprite_sheet, int version, int x, int y, int vel, int direction)
 {
+	set_version(version);
 	set_x(x);
 	set_y(y);
 	set_vel(vel);
 	set_direction(direction);
 	set_hit(false, NULL);
-	set_health(10);
+	set_health(5);
 
 	seed = std::chrono::system_clock::now().time_since_epoch().count();
 	movement.seed(seed);
@@ -46,9 +47,19 @@ int Enemy::get_direction()
 	return this->direction;
 }
 
+int Enemy::get_version()
+{
+	return this->version;
+}
+
 signed int Enemy::get_health()
 {
 	return this->health;
+}
+
+int Enemy::Damage()
+{
+	return 1;
 }
 
 std::pair<bool, int> Enemy::is_hit()
@@ -86,6 +97,11 @@ void Enemy::set_direction(int direction)
 	this->direction = direction;
 }
 
+void Enemy::set_version(int version)
+{
+	this->version = version;
+}
+
 void Enemy::set_hit(bool ishit, int status)
 {
 	this->hit.first = ishit;
@@ -98,70 +114,100 @@ void Enemy::set_bitmap(ALLEGRO_BITMAP * image, int entity_num)
 	this->image.second = entity_num;
 }
 
-void Enemy::col_update()
+void Enemy::damage_col_update()
+{
+	if (get_health() > 0)
+	{
+		set_health(get_health() - 1);
+		std::cout << "Enemy's Health: " << get_health() << std::endl;
+	}
+
+	
+}
+
+void Enemy::react(Image &image, Player & player, std::vector<E_Weapon*>& eweapon)
+{
+
+}
+
+void Enemy::change_direction()
 {
 	if (get_direction() == 0)
 	{
-		set_x(get_x() - 80);
+		set_x(get_x() - get_vel());
 	}
 
 	if (get_direction() == 1)
 	{
-		set_x(get_x() + 80);
+		set_x(get_x() + get_vel());
 	}
 
 	if (get_direction() == 2)
 	{
-		set_y(get_y() - 80);
+		set_y(get_y() - get_vel());
 	}
 
 	if (get_direction() == 3)
 	{
-		set_y(get_y() + 80);
+		set_y(get_y() + get_vel());
+	}
+
+	std::uniform_int_distribution<int > d(0, 3);
+
+	set_direction(d(movement));
+
+	this->nochange = 50;
+}
+
+void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet)
+{
+	std::uniform_int_distribution<int > shoot(0, 11);
+
+	if (reload_time > 0)
+	{
+		this->reload_time--;
+	}
+
+	else if (reload_time == 0)
+	{
+		if (shoot(shooting_probability) > 5)
+		{
+			//eweapon.push_back(new Missile(spritesheet, get_x(), get_y(), 20, get_direction()));
+			this->reload_time = 20;
+		}
+
+		else
+		{
+			reload_time = 20;
+		}
+
 	}
 }
 
 void Enemy::update(std::vector <E_Weapon*> &eweapon, Image spritesheet)
 {
-//	std::cout << nochange << std::endl;
-	std::uniform_int_distribution<int > d(0 , 3);
-	std::uniform_int_distribution<int > shoot(0, 11);
-	
+	//	std::cout << nochange << std::endl;
+	std::uniform_int_distribution<int > d(0, 3);
+	if (get_vel() > 0)
+	{
+
 		if (nochange > 0)
 		{
-			nochange--;
+			this->nochange--;
 		}
 
 		else if (nochange == 0)
 		{
 			set_direction(d(movement));
-			
-			nochange = 50;
+
+			this->nochange = 50;
 			//std::cout << get_direction() << std::endl;
 
 		}
 
-		if (reload_time > 0)
-		{
-			reload_time--;
-		}
+		shoot(eweapon, spritesheet);
 
-		else if (reload_time == 0)
-		{
-			if (shoot(shooting_probability) > 5)
-			{
-				eweapon.push_back(new Missile(spritesheet, get_x(), get_y(), 20, get_direction()));
-				reload_time = 20;
-			}
 
-			else
-			{
-				reload_time = 20;
-			}
-
-		}
-
-		
 
 		if (get_direction() == 0)
 		{
@@ -183,6 +229,7 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Image spritesheet)
 			set_y(get_y() - get_vel());
 		}
 	}
+}
 
 void Enemy::render()
 {

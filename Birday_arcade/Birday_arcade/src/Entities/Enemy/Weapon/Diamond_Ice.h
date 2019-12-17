@@ -7,6 +7,8 @@ public:
 	Diamond_Ice(Image &sprite_sheet, int x, int y, int vel, int direction);
 	~Diamond_Ice();
 
+	int damage();
+
 private:
 	int x, y, vel, direction, buttons[7], type;
 

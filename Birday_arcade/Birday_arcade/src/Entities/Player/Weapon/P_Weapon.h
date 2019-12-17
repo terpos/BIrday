@@ -15,6 +15,9 @@ public:
 	virtual int get_y();
 	virtual int get_vel();
 	virtual int get_direction();
+	virtual int damage();
+
+	virtual bool is_dead();
 
 	//returns bitmap value
 	std::pair <ALLEGRO_BITMAP*, int> get_bitmap();
@@ -24,6 +27,10 @@ public:
 	virtual void set_y(int y);
 	virtual void set_vel(int vel);
 	virtual void set_direction(int direction);
+	virtual void set_kill(bool kill);
+	virtual void abilities(bool collide);
+
+	virtual void change_direction();
 
 	//sets the bitmap information
 	virtual void set_bitmap(ALLEGRO_BITMAP* image, int entity_num);
@@ -39,11 +46,14 @@ private:
 	int x, y, vel, direction, buttons[7], type;
 
 	//boolean variable
-	bool draw;
+	bool draw, kill;
 
 	//bitmap instance variables
 	ALLEGRO_BITMAP *cropping;
 	ALLEGRO_BITMAP *cropping2;
+
+
+	std::default_random_engine movement;
 
 	//pair variable
 	std::pair <ALLEGRO_BITMAP*, int> image;

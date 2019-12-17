@@ -17,3 +17,8 @@ Thunder::Thunder(Image &sprite_sheet, int x, int y, int vel, int direction): E_W
 Thunder::~Thunder()
 {
 }
+
+int Thunder::damage()
+{
+	return 5;
+}

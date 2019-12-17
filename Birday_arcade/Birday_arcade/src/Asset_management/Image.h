@@ -1,5 +1,4 @@
 #include "Tile_map.h"
-#include "global.h"
 
 #pragma once
 class Image
@@ -15,7 +14,7 @@ public:
 	void Image_error_check();
 
 	//destroys image memory
-	void Deallocate_image();
+	void Deallocate_image(Tile_map &tile_map_file);
 		
 	//returns enemy image depending on which enemy
 	std::pair <ALLEGRO_BITMAP*, int> Enemy_image(int enemy_num);
@@ -33,13 +32,11 @@ public:
 	std::pair <ALLEGRO_BITMAP*, int> Enemy_Weapon_image(int eweapon_num);
 
 	//returns tile image depending on which tile number and tile
-	std::pair <ALLEGRO_BITMAP*, int> Tiles(Tile_map tiles, int number);
+	std::pair <ALLEGRO_BITMAP*, int> Tiles(int tile_piece_num);
 
 private:
 	//vector pair variables
-	std::vector < std::pair <ALLEGRO_BITMAP*, int> > tiles, enemies, player, P_weapon, E_weapon, PowerUp;
+	std::vector < std::pair <ALLEGRO_BITMAP*, int> > tile_piece, enemies, player, P_weapon, E_weapon, PowerUp;
 	
-	//object variable
-	Tile_map tile;
 };
 

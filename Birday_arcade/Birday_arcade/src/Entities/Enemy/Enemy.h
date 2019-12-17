@@ -10,6 +10,8 @@
 #include "Weapon/Star_Bomb.h"
 #include "Weapon/Thunder.h"
 #include "Weapon/Venom_Spit.h"
+#include "Weapon/Ball_shot.h"
+#include "Entities/Player/Player.h"
 
 #pragma once
 class Enemy
@@ -25,8 +27,12 @@ public:
 	virtual int get_vel();
 	virtual int get_direction();
 
+	virtual int get_version();
+
 	//gets the positive value of health
 	virtual signed int get_health();
+
+	virtual int Damage();
 
 	//checks if the player is hit
 	virtual std::pair <bool, int> is_hit();
@@ -40,6 +46,8 @@ public:
 	virtual void set_vel(int vel);
 	virtual void set_direction(int direction);
 
+	virtual void set_version(int version);
+
 	//sets the positive value of health
 	virtual void set_health(signed int health);
 
@@ -50,7 +58,13 @@ public:
 	virtual void set_bitmap(ALLEGRO_BITMAP* image, int entity_num);
 
 	//updates the enemy's info when collided (player moves backward)
-	virtual void col_update();
+	virtual void damage_col_update();
+
+	virtual void react(Image &image, Player & player, std::vector<E_Weapon*>& eweapon);
+
+	virtual void change_direction();
+
+	virtual void shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet);
 
 	//updates the enemies's info as well as the weapon's movement
 	virtual void update(std::vector <E_Weapon*> &eweapon, Image spritesheet);
@@ -60,7 +74,7 @@ public:
 
 private:
 	//integer variables
-	int x, y, vel, direction, nochange, reload_time;
+	int x, y, vel, direction, nochange, reload_time, version;
 	unsigned int health;
 
 	//positive whole number variables

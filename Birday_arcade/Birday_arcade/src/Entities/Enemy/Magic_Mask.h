@@ -7,6 +7,10 @@ public:
 	Magic_Mask(Image &sprite_sheet, int version, int x, int y, int vel, int direction);
 	~Magic_Mask();
 
+	int Damage();
+
+	void shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet);
+
 private:
 	int x, y, vel, direction;
 	unsigned int health;

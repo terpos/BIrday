@@ -26,11 +26,24 @@ Ball::Ball(Image &sprite_sheet, int version, int x, int y, int vel, int directio
 	shooting_probability.seed(seed);
 
 	nochange = 25;
-	reload_time = 25;
+	reload_time = 40;
 	cropping = al_create_bitmap(80, 80);
 }
 
 
 Ball::~Ball()
 {
+}
+
+int Ball::Damage()
+{
+	if (get_version() == 1)
+	{
+		return 12;
+	}
+
+	else
+	{
+		return 36;
+	}
 }
