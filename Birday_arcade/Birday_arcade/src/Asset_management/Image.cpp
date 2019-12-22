@@ -27,8 +27,8 @@ void Image::Load_Images()
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Bi_Nuke.png"), PWEAPON));
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Tri_Nuke.png"), PWEAPON));
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Triangular_Missle.png"), PWEAPON));
-	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Slicer.png"), PWEAPON));
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Arrow.png"), PWEAPON));
+	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Slicer.png"), PWEAPON));
 
 	//Enemy Version 1
 	this->enemies.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Enemy/Tripus.png"), ENEMY));
@@ -65,18 +65,19 @@ void Image::Load_Images()
 	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Needle_Wind_blast_Chip.png"), POWERUP));
 	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Stop_Chip.png"), POWERUP));
 	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/B_2_Bomber_Strike_Chip.png"), POWERUP));
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Arrow_Ammo.png"), POWERUP));
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Atomic_Bomb_Ammo.png"), POWERUP));
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Bi_Nuke_Ammo.png"), POWERUP));
 
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Bomb_Ammo.png"), POWERUP));
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Fire_Bomb_Ammo.png"), POWERUP));
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ice_Bomb_Ammo.png"), POWERUP));
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Rocket_Lazer_Ammo.png"), POWERUP));
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Slicer_Ammo.png"), POWERUP));
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Stunner_Ammo.png"), POWERUP));
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Tri_Nuke_Ammo.png"), POWERUP));
-	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Triangular_Missile_Ammo.png"), POWERUP));
+	//Ammo
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Rocket_Lazer_Ammo.png"), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Stunner_Ammo.png"), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Bomb_Ammo.png"), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Ice_Bomb_Ammo.png"), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Fire_Bomb_Ammo.png"), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Atomic_Bomb_Ammo.png"), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Bi_Nuke_Ammo.png"), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Tri_Nuke_Ammo.png"), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Triangular_Missile_Ammo.png"), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Arrow_Ammo.png"), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Slicer_Ammo.png"), AMMO));
 
 	//Tiles
 	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/Blue_Circle_Tile.png"), TILES));
@@ -94,6 +95,22 @@ void Image::Load_Images()
 	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/Sand_Tile.png"), TILES));
 	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/White_Circle_Tile.png"), TILES));
 	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/white_Tile.png"), TILES));
+
+	//Background
+	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Menu.png"), BACKGROUND));
+	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Game_Over.png"), BACKGROUND));
+	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Birday_Title.png"), BACKGROUND));
+	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Ammo_Materials.png"), BACKGROUND));
+	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Character_Materials.png"), BACKGROUND));
+	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Enemy_Weapon_Materials.png"), BACKGROUND));
+	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Player_Weapon_Materials.png"), BACKGROUND));
+	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Power_Up_Materials.png"), BACKGROUND));
+	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Next_Prev.png"), BACKGROUND));
+
+
+	//Destruction
+	this->Destruction.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Enemy_Destroyed.png"), DESTRUCTION));
+	this->Destruction.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Explosion_From_Weapon.png"), DESTRUCTION));
 
 }
 
@@ -153,6 +170,11 @@ std::pair<ALLEGRO_BITMAP*, int> Image::Power_Up_image(int power_up_num)
 	return std::make_pair(this->PowerUp[power_up_num].first, this->PowerUp[power_up_num].second);
 }
 
+std::pair<ALLEGRO_BITMAP*, int> Image::Ammo_image(int ammo_num)
+{
+	return std::make_pair(this->Player_Weapon_Ammo[ammo_num].first, this->Player_Weapon_Ammo[ammo_num].second);
+}
+
 std::pair<ALLEGRO_BITMAP*, int> Image::Enemy_Weapon_image(int eweapon_num)
 {
 	return std::make_pair(this->E_weapon[eweapon_num].first, this->E_weapon[eweapon_num].second);
@@ -161,5 +183,14 @@ std::pair<ALLEGRO_BITMAP*, int> Image::Enemy_Weapon_image(int eweapon_num)
 std::pair<ALLEGRO_BITMAP*, int> Image::Tiles(int tile_piece_num)
 {
 	return std::make_pair(this->tile_piece[tile_piece_num].first, this->tile_piece[tile_piece_num].second);
+}
 
+std::pair<ALLEGRO_BITMAP*, int> Image::Background_image(int background_num)
+{
+	return std::pair<ALLEGRO_BITMAP*, int>(this->Background[background_num].first, this->Background[background_num].second);
+}
+
+std::pair<ALLEGRO_BITMAP*, int> Image::Destruction_image(int destruction_num)
+{
+	return std::pair<ALLEGRO_BITMAP*, int>(this->Destruction[destruction_num].first, this->Destruction[destruction_num].second);
 }

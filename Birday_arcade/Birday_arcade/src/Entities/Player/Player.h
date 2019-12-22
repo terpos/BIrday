@@ -1,7 +1,10 @@
 #include "global.h"
+
+#include "Screen_state/Options.h"
+
 #include "Asset_management/Image.h"
 #include "Asset_management/Sound.h"
-#include "Screen_state/Options.h"
+
 #include "Entities/Player/Weapon/P_Weapon.h"
 #include "Entities/Player/Weapon/Arrow.h"
 #include "Entities/Player/Weapon/Atom_Bomb.h"
@@ -36,7 +39,7 @@ public:
 	signed int get_health();
 
 	//controls the player when a key is hit
-	void control(Image spritesheet, ALLEGRO_EVENT e, std::vector <P_Weapon*> &pweapon);
+	void control(Image spritesheet, ALLEGRO_EVENT e, Options &option, std::vector <P_Weapon*> &pweapon);
 	
 	//checks if the player is hit
 	std::pair <bool, int> is_hit();
@@ -79,7 +82,7 @@ public:
 	void set_glide(bool glide);
 
 	//updates the player's movement as well as the weapon's movement
-	void update(Options &option, std::vector <P_Weapon*> &pweapon);
+	void update(std::vector <P_Weapon*> &pweapon);
 
 	//displays the player
 	void render();

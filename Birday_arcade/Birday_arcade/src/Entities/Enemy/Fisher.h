@@ -8,7 +8,7 @@ public:
 	~Fisher();
 
 	int Damage();
-	void react(Image &image, Player &player, std::vector <E_Weapon*> &eweapon);
+	void react(Image &image, Player* &player, std::vector <E_Weapon*> &eweapon);
 	void shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet);
 
 private:

@@ -13,26 +13,26 @@ Collision::~Collision()
 {
 }
 
-void Collision::Window_Collision(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT & e, Player & player)
+void Collision::Window_Collision(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT & e, Player* & player)
 {
-	if (player.get_x() < 0)
+	if (player->get_x() < 0)
 	{
-		player.set_x(player.get_x() + player.get_vel());
+		player->set_x(player->get_x() + player->get_vel());
 	}
 
-	else if (player.get_y() < 0)
+	else if (player->get_y() < 0)
 	{
-		player.set_y(player.get_y() + player.get_vel());
+		player->set_y(player->get_y() + player->get_vel());
 	}
 
-	else if (player.get_x() + 80 > al_get_display_width(display))
+	else if (player->get_x() + 80 > al_get_display_width(display))
 	{
-		player.set_x(player.get_x() - player.get_vel());
+		player->set_x(player->get_x() - player->get_vel());
 	}
 
-	else if (player.get_y() + 80 > 720)
+	else if (player->get_y() + 80 > 720)
 	{
-		player.set_y(player.get_y() - player.get_vel());
+		player->set_y(player->get_y() - player->get_vel());
 	}
 
 	

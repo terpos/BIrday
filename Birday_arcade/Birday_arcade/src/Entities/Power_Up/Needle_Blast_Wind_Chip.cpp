@@ -14,11 +14,11 @@ Needle_Blast_Wind_Chip::~Needle_Blast_Wind_Chip()
 {
 }
 
-void Needle_Blast_Wind_Chip::power_up_abilities(Player &player, std::vector<Enemy*>& enemy)
+void Needle_Blast_Wind_Chip::power_up_abilities(Player* &player, std::vector<Enemy*>& enemy)
 {
 	for (int i = 0; i < enemy.size(); i++)
 	{
-		if (enemy[i]->get_x() < player.get_x())
+		if (enemy[i]->get_x() < player->get_x())
 		{
 			enemy.erase(enemy.begin() + i);
 		}

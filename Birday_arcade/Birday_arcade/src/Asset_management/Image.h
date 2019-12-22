@@ -27,16 +27,26 @@ public:
 	
 	//returns power up image depending on which power up
 	std::pair <ALLEGRO_BITMAP*, int> Power_Up_image(int power_up_num);
+
+	//returns ammo image depending on which ammo
+	std::pair <ALLEGRO_BITMAP*, int> Ammo_image(int ammo_num);
 	
 	//returns enemy weapon image depending on which enemy weapon
 	std::pair <ALLEGRO_BITMAP*, int> Enemy_Weapon_image(int eweapon_num);
 
-	//returns tile image depending on which tile number and tile
+	//returns tile image depending on which tile number
 	std::pair <ALLEGRO_BITMAP*, int> Tiles(int tile_piece_num);
+
+	//returns the background depending on which background number
+	std::pair <ALLEGRO_BITMAP*, int> Background_image(int background_num);
+
+	//returns the destruction depending on destruction number
+	std::pair <ALLEGRO_BITMAP*, int> Destruction_image(int destruction_num);
 
 private:
 	//vector pair variables
-	std::vector < std::pair <ALLEGRO_BITMAP*, int> > tile_piece, enemies, player, P_weapon, E_weapon, PowerUp;
+	std::vector < std::pair <ALLEGRO_BITMAP*, int> > tile_piece, enemies, player, P_weapon, 
+		E_weapon, PowerUp, Player_Weapon_Ammo, Background, Destruction, Banner;
 	
 };
 

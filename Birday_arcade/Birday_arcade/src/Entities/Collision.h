@@ -11,7 +11,7 @@ public:
 	Collision();
 	~Collision();
 
-	void Window_Collision(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT &e, Player &player);
+	void Window_Collision(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT &e, Player* &player);
 	void Window_Collision(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT & e, Enemy* & enemy);
 	void Window_Collision(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT & e, std::vector <P_Weapon*> & pweapon, std::vector <E_Weapon *> &eweapon);
 

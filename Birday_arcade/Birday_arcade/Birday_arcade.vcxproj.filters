@@ -53,6 +53,8 @@
     <ClCompile Include="src\Entities\Power_Up\Power_Up.cpp" />
     <ClCompile Include="src\Entities\Power_Up\Stop_Time_Chip.cpp" />
     <ClCompile Include="src\Entities\Collision.cpp" />
+    <ClCompile Include="src\Asset_management\Font.cpp" />
+    <ClCompile Include="src\Screen_state\Game_Over.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Screen_state\Game.h" />
@@ -108,6 +110,8 @@
     <ClInclude Include="src\Entities\Power_Up\Power_Up.h" />
     <ClInclude Include="src\Entities\Power_Up\Stop_Time_Chip.h" />
     <ClInclude Include="src\Entities\Collision.h" />
+    <ClInclude Include="src\Asset_management\Font.h" />
+    <ClInclude Include="src\Screen_state\Game_Over.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

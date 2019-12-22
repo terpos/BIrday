@@ -22,7 +22,7 @@ public:
 	virtual void set_bitmap(ALLEGRO_BITMAP *image, int entity_num);
 
 	//functionality of the power up
-	virtual void power_up_abilities(Player &player, std::vector <Enemy*> &enemy);
+	virtual void power_up_abilities(Player* &player, std::vector <Enemy*> &enemy);
 
 	//displays the powerup
 	virtual void render();

@@ -14,7 +14,7 @@ B_2_Bomber_Strike_Chip::~B_2_Bomber_Strike_Chip()
 {
 }
 
-void B_2_Bomber_Strike_Chip::power_up_abilities(Player & player, std::vector<Enemy*>& enemy)
+void B_2_Bomber_Strike_Chip::power_up_abilities(Player* & player, std::vector<Enemy*>& enemy)
 {
 	enemy.clear();
 }

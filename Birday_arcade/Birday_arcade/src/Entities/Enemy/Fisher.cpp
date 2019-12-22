@@ -49,26 +49,26 @@ int Fisher::Damage()
 	}
 }
 
-void Fisher::react(Image &image, Player & player, std::vector<E_Weapon*>& eweapon)
+void Fisher::react(Image &image, Player* & player, std::vector<E_Weapon*>& eweapon)
 {
-	if ((player.get_x() < get_x() + 240 && player.get_x() + 240 > get_x() && player.get_y() < get_y() + 240 && player.get_y() + 240 > get_y()) && get_vel() > 0)
+	if ((player->get_x() < get_x() + 240 && player->get_x() + 240 > get_x() && player->get_y() < get_y() + 240 && player->get_y() + 240 > get_y()) && get_vel() > 0)
 	{
-		if (player.get_direction() == 2 && get_direction() == 1)
+		if (player->get_direction() == 2 && get_direction() == 1)
 		{
 			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
 		}
 
-		else if (player.get_direction() == 3 && get_direction() == 0)
+		else if (player->get_direction() == 3 && get_direction() == 0)
 		{
 			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
 		}
 
-		else if (player.get_direction() == 1 && get_direction() == 2)
+		else if (player->get_direction() == 1 && get_direction() == 2)
 		{
 			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
 		}
 
-		else if (player.get_direction() == 0 && get_direction() == 3)
+		else if (player->get_direction() == 0 && get_direction() == 3)
 		{
 			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
 		}

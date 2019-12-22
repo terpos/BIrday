@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Screen_state\Game_Over.cpp" />
+    <ClCompile Include="src\Asset_management\Font.cpp" />
     <ClCompile Include="src\Entities\Enemy\Weapon\Ball_shot.cpp" />
     <ClCompile Include="src\Entities\Enemy\Fisher.cpp" />
     <ClCompile Include="src\Entities\Power_Up\Ammo.cpp" />
@@ -73,6 +75,8 @@
     <ClCompile Include="src\Entities\Power_Up\Stop_Time_Chip.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Screen_state\Game_Over.h" />
+    <ClInclude Include="src\Asset_management\Font.h" />
     <ClInclude Include="src\Entities\Enemy\Weapon\Ball_shot.h" />
     <ClInclude Include="src\Entities\Enemy\Fisher.h" />
     <ClInclude Include="src\Entities\Power_Up\Ammo.h" />
@@ -317,6 +321,8 @@
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
     <Allegro_AddonAudio>true</Allegro_AddonAudio>
     <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
@@ -328,6 +334,8 @@
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
     <Allegro_AddonAudio>true</Allegro_AddonAudio>
     <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>

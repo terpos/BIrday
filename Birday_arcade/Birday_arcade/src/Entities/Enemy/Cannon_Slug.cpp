@@ -50,35 +50,35 @@ int Cannon_Slug::Damage()
 	
 }
 
-void Cannon_Slug::react(Image & image, Player & player, std::vector<E_Weapon*>& eweapon)
+void Cannon_Slug::react(Image & image, Player* & player, std::vector<E_Weapon*>& eweapon)
 {
 	if (get_vel() > 0)
 	{
-		if (player.get_y() >= get_y() && player.get_y() + 80 <= get_y() + 80)
+		if (player->get_y() >= get_y() && player->get_y() + 80 <= get_y() + 80)
 		{
 
-			if (player.get_x() > get_x() && get_direction() == 0)
+			if (player->get_x() > get_x() && get_direction() == 0)
 			{
 				set_vel(15);
 
 			}
 
-			else if (player.get_x() < get_x() && get_direction() == 1)
+			else if (player->get_x() < get_x() && get_direction() == 1)
 			{
 				set_vel(15);
 			}
 
 		}
 
-		else if (player.get_x() >= get_x() && player.get_x() + 80 <= get_x() + 80)
+		else if (player->get_x() >= get_x() && player->get_x() + 80 <= get_x() + 80)
 		{
 
-			if (player.get_y() > get_y() && get_direction() == 2)
+			if (player->get_y() > get_y() && get_direction() == 2)
 			{
 				set_vel(15);
 			}
 
-			else if (player.get_y() < get_y() && get_direction() == 3)
+			else if (player->get_y() < get_y() && get_direction() == 3)
 			{
 				set_vel(15);
 			}

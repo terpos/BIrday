@@ -2,7 +2,7 @@
 
 #include <string>
 
-std::string key_display[94] =
+static std::string key_display[94] =
 {
 	"",
 	"A",
@@ -31,6 +31,7 @@ std::string key_display[94] =
 	"X",
 	"Y",
 	"Z",
+
 	"0",
 	"1",
 	"2",

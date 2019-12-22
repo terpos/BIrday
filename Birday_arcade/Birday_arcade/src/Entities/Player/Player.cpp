@@ -127,7 +127,7 @@ signed int Player::get_health()
 	return this->health;
 }
 
-void Player::control(Image spritesheet, ALLEGRO_EVENT e, std::vector <P_Weapon*> &pweapon)
+void Player::control(Image spritesheet, ALLEGRO_EVENT e, Options &option, std::vector <P_Weapon*> &pweapon)
 {
 	//if you press a key, 
 	//if the key is directional, player moves
@@ -135,36 +135,36 @@ void Player::control(Image spritesheet, ALLEGRO_EVENT e, std::vector <P_Weapon*>
 	//if the key is a or s, player switch weapon
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
-
-		if (e.keyboard.keycode == get_buttons(0))
+		std::cout << e.keyboard.keycode << std::endl;
+		if (e.keyboard.keycode == option.get_control_options(0))
 		{
 			key[get_direction()] = false;
 			set_direction(0);
 			key[0] = true;
 		}
 
-		if (e.keyboard.keycode == get_buttons(1))
+		if (e.keyboard.keycode == option.get_control_options(1))
 		{
 			key[get_direction()] = false;
 			set_direction(1);
 			key[1] = true;
 		}
 
-		if (e.keyboard.keycode == get_buttons(2))
+		if (e.keyboard.keycode == option.get_control_options(2))
 		{
 			key[get_direction()] = false;
 			set_direction(2);
 			key[2] = true;
 		}
 
-		if (e.keyboard.keycode == get_buttons(3))
+		if (e.keyboard.keycode == option.get_control_options(3))
 		{
 			key[get_direction()] = false;
 			set_direction(3);
 			key[3] = true;
 		}
 
-		if (e.keyboard.keycode == get_buttons(4))
+		if (e.keyboard.keycode == option.get_control_options(4))
 		{
 			switch (option_weapon)
 			{
@@ -207,7 +207,7 @@ void Player::control(Image spritesheet, ALLEGRO_EVENT e, std::vector <P_Weapon*>
 			}
 		}
 
-		if (e.keyboard.keycode == get_buttons(5))
+		if (e.keyboard.keycode == option.get_control_options(5))
 		{
 			option_weapon--;
 			if (option_weapon < 0)
@@ -216,7 +216,7 @@ void Player::control(Image spritesheet, ALLEGRO_EVENT e, std::vector <P_Weapon*>
 			}
 		}
 
-		if (e.keyboard.keycode == get_buttons(6))
+		if (e.keyboard.keycode == option.get_control_options(6))
 		{
 			option_weapon++;
 			if (option_weapon > 11)
@@ -231,22 +231,22 @@ void Player::control(Image spritesheet, ALLEGRO_EVENT e, std::vector <P_Weapon*>
 	//if you stop pressing the key
 	if (e.type == ALLEGRO_EVENT_KEY_UP)
 	{
-		if (e.keyboard.keycode == get_buttons(0))
+		if (e.keyboard.keycode == option.get_control_options(0))
 		{
 			key[0] = false;
 		}
 
-		if (e.keyboard.keycode == get_buttons(1))
+		if (e.keyboard.keycode == option.get_control_options(1))
 		{
 			key[1] = false;
 		}
 
-		if (e.keyboard.keycode == get_buttons(2))
+		if (e.keyboard.keycode == option.get_control_options(2))
 		{
 			key[2] = false;
 		}
 
-		if (e.keyboard.keycode == get_buttons(3))
+		if (e.keyboard.keycode == option.get_control_options(3))
 		{
 			key[3] = false;
 		}
@@ -285,12 +285,6 @@ void Player::damage_col_update()
 			set_x(get_x() + get_vel());
 		}
 	}
-	
-	//if player's health reaches 0 or under zero
-	if (get_health() <= 0)
-	{
-		std::cout << "Game Over" << std::endl;
-	}
 
 
 }
@@ -311,7 +305,10 @@ void Player::damage_col_tile_update()
 
 	else if (get_health() <= 0)
 	{
-		std::cout << "Game Over" << std::endl;
+		key[0] = false;
+		key[1] = false;
+		key[2] = false;
+		key[3] = false;
 	}
 
 	if (get_direction() == 0)
@@ -363,7 +360,7 @@ void Player::set_glide(bool glide)
 	this->glide = glide;
 }
 
-void Player::update(Options &option, std::vector <P_Weapon*> &pweapon)
+void Player::update(std::vector <P_Weapon*> &pweapon)
 {
 	if (recover != 0)
 	{

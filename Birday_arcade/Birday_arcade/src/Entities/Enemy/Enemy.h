@@ -59,8 +59,8 @@ public:
 
 	//updates the enemy's info when collided (player moves backward)
 	virtual void damage_col_update();
-
-	virtual void react(Image &image, Player & player, std::vector<E_Weapon*>& eweapon);
+	
+	virtual void react(Image &image, Player* & player, std::vector<E_Weapon*>& eweapon);
 
 	virtual void change_direction();
 

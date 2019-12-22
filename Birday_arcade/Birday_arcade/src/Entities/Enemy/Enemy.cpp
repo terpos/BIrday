@@ -125,7 +125,7 @@ void Enemy::damage_col_update()
 	
 }
 
-void Enemy::react(Image &image, Player & player, std::vector<E_Weapon*>& eweapon)
+void Enemy::react(Image &image, Player* & player, std::vector<E_Weapon*>& eweapon)
 {
 
 }
