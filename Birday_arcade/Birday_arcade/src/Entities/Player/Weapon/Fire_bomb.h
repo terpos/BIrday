@@ -7,7 +7,9 @@ public:
 	Fire_bomb(Image &sprite_sheet, int x, int y, int vel, int direction);
 	~Fire_bomb();
 
-	void render();
+	void abilities();
+
+	void render(Image expl);
 
 private:
 	int type;

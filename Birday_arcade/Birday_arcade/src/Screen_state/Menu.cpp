@@ -13,7 +13,7 @@ Menu::~Menu()
 {
 }
 
-void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, ALLEGRO_EVENT &e, int &screennum, bool &done)
+void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, Sound sound, ALLEGRO_EVENT &e, int &screennum, bool &done)
 {
 	//waits until key is pressed (can be neglected since timer is on)
 	al_wait_for_event(q, &e);
@@ -47,9 +47,9 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 		if (e.keyboard.keycode == ALLEGRO_KEY_ENTER)
 		{
 			screennum = options;
+			al_stop_sample_instance(sound.bg_music(6));
 		}
 
-		std::cout << options << std::endl;
 
 	}
 
@@ -59,8 +59,9 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 	}
 }
 
-void Menu::render(Image image, Font font)
+void Menu::render(Image image, Sound sound, Font font)
 {
+	al_play_sample_instance(sound.bg_music(6));
 	al_draw_bitmap(image.Background_image(MENU).first, 0, 0, NULL);
 	al_draw_bitmap(image.Background_image(BANNER).first, -100, 0, NULL);
 

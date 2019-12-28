@@ -7,11 +7,13 @@ Cannon_Slug::Cannon_Slug(Image &sprite_sheet, int version, int x, int y, int vel
 	if (version == 1)
 	{
 		set_bitmap(sprite_sheet.Enemy_image(CANNON_SLUG).first, sprite_sheet.Player_image().second);
+		set_health(5);
 	}
 
 	else
 	{
 		set_bitmap(sprite_sheet.Enemy_image(CANNON_SLUG2).first, sprite_sheet.Player_image().second);
+		set_health(10);
 	}
 
 	set_x(x);
@@ -19,7 +21,6 @@ Cannon_Slug::Cannon_Slug(Image &sprite_sheet, int version, int x, int y, int vel
 	set_vel(vel);
 	set_direction(direction);
 	set_hit(false, NULL);
-	set_health(10);
 
 	seed = std::chrono::system_clock::now().time_since_epoch().count();
 	movement.seed(seed);

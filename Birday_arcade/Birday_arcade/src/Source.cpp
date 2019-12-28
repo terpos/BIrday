@@ -5,6 +5,7 @@
 #include "Screen_state/Pause.h"
 #include "Screen_state/Quit.h"
 #include "Screen_state/Game_Over.h"
+#include "Screen_state/Weapons_Unlocked_List.h"
 
 using namespace std;
 
@@ -27,9 +28,10 @@ int main()
 	al_init_acodec_addon();
 	al_init_font_addon();
 	al_init_ttf_addon();
+	al_init_primitives_addon();
 
 	//sets the new display flags
-	al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+	//al_set_new_display_flags(ALLEGRO_FULLSCREEN);
 
 	//initializes and creates display
 	ALLEGRO_DISPLAY *display = al_create_display(1360, 768);
@@ -43,6 +45,7 @@ int main()
 	double fps = 60.0;
 	Image image;
 	Font font;
+	Sound sound;
 
 	Game game;
 	Menu menu;
@@ -51,7 +54,7 @@ int main()
 	Game_Materials game_materials;
 	Quit quit;
 	Game_Over game_over;
-
+	Weapons_Unlocked_List weapon_unlock;
 
 	bool done = false;
 	
@@ -66,6 +69,8 @@ int main()
 	m.load("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Tile_map.txt");
 	image.Load_Images();
 	font.load();
+	sound.Load_Sound();
+
 	game.load(image);
 	
 
@@ -84,10 +89,10 @@ int main()
 		switch (screennum)
 		{
 		case MENU_SCREEN:
-			menu.update(display, q, image, ev, screennum, done);
+			menu.update(display, q, image, sound, ev, screennum, done);
 			break;
 		case GAME_SCREEN:
-			game.update(display, q, m, option, image, ev, screennum, done);
+			game.update(display, q, m, weapon_unlock, option, image, sound, ev, screennum, done);
 			break;
 		case OPTION_SCREEN:
 			option.update(display, q, image, ev, screennum, done);
@@ -102,8 +107,12 @@ int main()
 			pause.update(display, q, image, ev, screennum, done);
 			break;
 		case GAME_OVER_SCREEN:
-			game_over.update(display, q, image, ev, screennum, done);
+			game_over.update(display, q, image, sound, ev, screennum, done);
 			break;
+		case WEAPONS_UNLOCKED_SCREEN:
+			weapon_unlock.update(display, q, image, ev, screennum, done);
+			break;
+
 		}
 
 		//draw becomes true for the sake of cpu
@@ -115,10 +124,10 @@ int main()
 			switch (screennum)
 			{
 			case MENU_SCREEN:
-				menu.render(image, font);
+				menu.render(image, sound, font);
 				break;
 			case GAME_SCREEN:
-				game.render(image, m, font);
+				game.render(image, sound, m, font);
 				break;
 			case OPTION_SCREEN:
 				option.render(image, font);
@@ -133,7 +142,10 @@ int main()
 				pause.render(image, font);
 				break;
 			case GAME_OVER_SCREEN:
-				game_over.render(image, font);
+				game_over.render(image, sound, font);
+				break;
+			case WEAPONS_UNLOCKED_SCREEN:
+				weapon_unlock.render(image, font);
 				break;
 			}
 			
@@ -144,9 +156,10 @@ int main()
 		al_flip_display();
 	}
 	
-
+	
 	image.Deallocate_image(m);
 	font.deallocate();
+	sound.Deallocate_sound();
 
 	//stops the timer
 	al_stop_timer(timer);
@@ -160,6 +173,10 @@ int main()
 	al_destroy_timer(timer);
 	al_destroy_event_queue(q);
 	
-	system("pause");
+	std::cout << "Press [Enter] To Continue" << std::endl;
+
+	std::cin.get();
+
+
 	return 0;
 }

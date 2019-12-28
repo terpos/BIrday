@@ -16,6 +16,5 @@ Health_Chip::~Health_Chip()
 
 void Health_Chip::power_up_abilities(Player* & player, std::vector<Enemy*>& enemy)
 {
-	player->set_health(player->get_health() + 1);
-	std::cout << "Health +1" << std::endl;
+	player->set_health(player->get_health() + 25);
 }

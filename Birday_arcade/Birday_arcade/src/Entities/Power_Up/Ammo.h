@@ -19,14 +19,14 @@ public:
 	void set_bitmap(ALLEGRO_BITMAP *image, int entity_num);
 
 	//functionality of the power up
-	void power_up_abilities(Player* &player);
+	void ammo_reload(Player* &player);
 
 	//displays the powerup
 	void render();
 
 private:
 	//integer variables
-	int x, y;
+	int x, y, ammo_type;
 
 	//pair variables
 	std::pair <ALLEGRO_BITMAP *, int> image;

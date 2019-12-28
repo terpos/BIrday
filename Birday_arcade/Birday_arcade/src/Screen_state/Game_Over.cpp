@@ -12,9 +12,19 @@ Game_Over::~Game_Over()
 
 }
 
-void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, ALLEGRO_EVENT & e, int & screennum, bool & done)
+void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Sound sound, ALLEGRO_EVENT & e, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
+
+	if (al_get_sample_instance_position(sound.bg_music(0)) < 150000)
+	{
+		play = true;
+	}
+
+	else
+	{
+		play = false;
+	}
 
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
@@ -43,6 +53,9 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_ENTER)
 		{
+			play = true;
+			al_set_sample_instance_position(sound.bg_music(0), 0);
+			al_stop_sample_instance(sound.bg_music(0));
 			switch (options)
 			{
 			case 1:
@@ -60,9 +73,20 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 	
 }
 
-void Game_Over::render(Image image, Font font)
+void Game_Over::render(Image image, Sound sound, Font font)
 {
-	//al_clear_to_color(al_map_rgb(25, 0, 0));
+	//system("cls");
+	
+	if (play)
+	{
+		al_play_sample_instance(sound.bg_music(0));
+	}
+
+	else
+	{
+		al_set_sample_instance_position(sound.bg_music(0), 150000);
+		al_play_sample_instance(sound.bg_music(0));
+	}
 
 	al_draw_bitmap(image.Background_image(1).first, 0, 0, NULL);
 

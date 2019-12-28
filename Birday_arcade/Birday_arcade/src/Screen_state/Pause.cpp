@@ -47,7 +47,7 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 		{
 			if (options == 2)
 			{
-
+				screennum = WEAPONS_UNLOCKED_SCREEN;
 			}
 
 			else

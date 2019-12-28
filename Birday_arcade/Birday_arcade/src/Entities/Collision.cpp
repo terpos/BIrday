@@ -51,9 +51,9 @@ void Collision::Window_Collision(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT & e, s
 {
 	for (int i = 0; i < pweapon.size(); i++)
 	{
-		if (pweapon[i]->get_x() + 80 < 0 || pweapon[i]->get_y() + 80 < 0 || pweapon[i]->get_x() > al_get_display_width(display) || pweapon[i]->get_y() > 720)
+		if (pweapon[i]->get_x() < 0 || pweapon[i]->get_y() < 0 || pweapon[i]->get_x() + 80 > al_get_display_width(display) || pweapon[i]->get_y() + 80 > 720)
 		{
-			pweapon.erase(pweapon.begin() + i);
+			pweapon[i]->set_hit(true, pweapon[i]->is_hit().second);
 		}
 
 	}
@@ -75,8 +75,6 @@ bool Collision::collision_detect(int x, int y, int x2, int y2)
 	{
 		return true;
 	}
-
-
 
 	return 0;
 }

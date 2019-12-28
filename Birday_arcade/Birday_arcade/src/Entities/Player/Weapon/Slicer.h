@@ -9,10 +9,13 @@ public:
 
 	int damage();
 
-	void abilities(bool collide);
+	void abilities();
 
+	void render(Image expl);
 private:
 	int type;
+
+	
 
 	ALLEGRO_BITMAP *cropping;
 	ALLEGRO_BITMAP *cropping2;

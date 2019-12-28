@@ -18,7 +18,7 @@ void Gliding_Chip::power_up_abilities(Player* & player, std::vector<Enemy*>& ene
 {
 	player->set_vel(10);
 	player->set_glide(true);
-	player->set_delay_movemement(20);
+	player->set_delay_movemement(200);
 
 
 }

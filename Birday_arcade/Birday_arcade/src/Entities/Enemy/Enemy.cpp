@@ -15,10 +15,12 @@ Enemy::Enemy(Image &sprite_sheet, int version, int x, int y, int vel, int direct
 	seed = std::chrono::system_clock::now().time_since_epoch().count();
 	movement.seed(seed);
 	shooting_probability.seed(seed);
-
+	
+	is_damage = 0;
 	nochange = 25;
 	reload_time = 25;
 	cropping = al_create_bitmap(80, 80);
+	dead.set_frame(0);
 }
 
 
@@ -119,10 +121,7 @@ void Enemy::damage_col_update()
 	if (get_health() > 0)
 	{
 		set_health(get_health() - 1);
-		std::cout << "Enemy's Health: " << get_health() << std::endl;
 	}
-
-	
 }
 
 void Enemy::react(Image &image, Player* & player, std::vector<E_Weapon*>& eweapon)
@@ -184,9 +183,30 @@ void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet)
 	}
 }
 
-void Enemy::update(std::vector <E_Weapon*> &eweapon, Image spritesheet)
+void Enemy::update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pweapon, Image spritesheet)
 {
-	//	std::cout << nochange << std::endl;
+	if (damage.get_frame() >= 100)
+	{
+		set_hit(false, 0);
+		damage.reset_frame();
+	}
+
+	if (is_hit().first)
+	{
+		damage.increment_frame();
+	}
+
+	if (get_health() <= 0)
+	{
+		set_vel(0);
+		dead.increment_frame();
+	}
+
+	if (dead.get_frame() >= 20)
+	{
+		set_hit(false, 1);
+	}
+	
 	std::uniform_int_distribution<int > d(0, 3);
 	if (get_vel() > 0)
 	{
@@ -201,9 +221,15 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Image spritesheet)
 			set_direction(d(movement));
 
 			this->nochange = 50;
-			//std::cout << get_direction() << std::endl;
 
 		}
+
+		if (animation.get_frame() == 100)
+		{
+			animation.reset_frame();
+		}
+
+		animation.increment_frame();
 
 		shoot(eweapon, spritesheet);
 
@@ -231,33 +257,72 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Image spritesheet)
 	}
 }
 
-void Enemy::render()
+void Enemy::render(Image death)
 {
-
-
-	if (al_get_bitmap_width(get_bitmap().first) > 160)
+	if (get_health() <= 0)
 	{
-		switch (get_direction())
+		if (dead.get_frame_position(21) >= 0 && dead.get_frame_position(21) <= 10)
 		{
-		case 0:
-			al_draw_bitmap_region(get_bitmap().first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
-			break;
-		case 1:
-			al_draw_bitmap_region(get_bitmap().first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
-			break;
-		case 2:
-			al_draw_bitmap_region(get_bitmap().first, 160, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
-			break;
-		case 3:
-			al_draw_bitmap_region(get_bitmap().first, 240, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
-			break;
+			al_draw_bitmap_region(death.Destruction_image(0).first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+		}
+
+		else
+		{
+			al_draw_bitmap_region(death.Destruction_image(0).first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 		}
 	}
 
-	else if (al_get_bitmap_width(get_bitmap().first) == 160)
+	else
 	{
-		al_draw_bitmap_region(get_bitmap().first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+		if (is_hit().first)
+		{
+			if (damage.get_frame_position(11) >= 0 && damage.get_frame_position(11) <= 5)
+			{
+				is_damage = 1;
+			}
 
+			else if (damage.get_frame_position(11) > 5)
+			{
+				is_damage = 0;
+			}
+		}
+
+		else
+		{
+			is_damage = 0;
+		}
+
+		if (al_get_bitmap_width(get_bitmap().first) > 160)
+		{
+			switch (get_direction())
+			{
+			case 0:
+				al_draw_bitmap_region(get_bitmap().first, 0, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				break;
+			case 1:
+				al_draw_bitmap_region(get_bitmap().first, 80, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				break;
+			case 2:
+				al_draw_bitmap_region(get_bitmap().first, 160, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				break;
+			case 3:
+				al_draw_bitmap_region(get_bitmap().first, 240, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				break;
+			}
+		}
+
+		else if (al_get_bitmap_width(get_bitmap().first) == 160)
+		{
+			if (animation.get_frame_position(51) >= 0 && animation.get_frame_position(51) <= 25)
+			{
+				al_draw_bitmap_region(get_bitmap().first, 0, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+			}
+
+			else if (animation.get_frame_position(51) > 25)
+			{
+				al_draw_bitmap_region(get_bitmap().first, 80, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+			}
+
+		}
 	}
-
 }

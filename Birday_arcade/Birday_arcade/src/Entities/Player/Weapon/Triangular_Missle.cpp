@@ -9,7 +9,7 @@ Triangular_Missle::Triangular_Missle(Image &sprite_sheet, int x, int y, int vel,
 	set_y(y);
 	set_vel(vel);
 	set_direction(direction);
-
+	set_hit(false, 0);
 	cropping = al_create_bitmap(80, 80);
 	cropping2 = al_create_bitmap(40, 40);
 
@@ -27,10 +27,3 @@ int Triangular_Missle::damage()
 	return 8;
 }
 
-void Triangular_Missle::abilities(bool collide)
-{
-	if (collide)
-	{
-		set_kill(true);
-	}
-}

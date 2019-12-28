@@ -7,11 +7,13 @@ Diamondo::Diamondo(Image &sprite_sheet, int version, int x, int y, int vel, int 
 	if (version == 1)
 	{
 		set_bitmap(sprite_sheet.Enemy_image(DIAMONDO).first, sprite_sheet.Player_image().second);
+		set_health(4);
 	}
 
 	else
 	{
 		set_bitmap(sprite_sheet.Enemy_image(DIAMONDO2).first, sprite_sheet.Player_image().second);
+		set_health(8);
 	}
 
 	set_x(x);
@@ -19,7 +21,6 @@ Diamondo::Diamondo(Image &sprite_sheet, int version, int x, int y, int vel, int 
 	set_vel(vel);
 	set_direction(direction);
 	set_hit(false, NULL);
-	set_health(10);
 
 	seed = std::chrono::system_clock::now().time_since_epoch().count();
 	movement.seed(seed);

@@ -9,11 +9,11 @@ public:
 
 	int damage();
 
-	void abilities(bool collide);
-
 private:
-	int type, kill_count;
+	int type;
 	
+	std::default_random_engine movement;
+
 	ALLEGRO_BITMAP *cropping;
 	ALLEGRO_BITMAP *cropping2;
 };

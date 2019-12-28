@@ -27,10 +27,3 @@ int Rocket_lazer::damage()
 	return 2;
 }
 
-void Rocket_lazer::abilities(bool collide)
-{
-	if (collide)
-	{
-		set_kill(true);
-	}
-}

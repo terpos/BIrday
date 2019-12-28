@@ -36,11 +36,13 @@ public:
 	bool is_gliding();
 	
 	//gets the positive value of health
-	signed int get_health();
+	float get_health();
 
 	//controls the player when a key is hit
-	void control(Image spritesheet, ALLEGRO_EVENT e, Options &option, std::vector <P_Weapon*> &pweapon);
+	void control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &option, std::vector <P_Weapon*> &pweapon, bool unlock_weapon[11], int num_of_weapon);
 	
+	int get_num_of_ammo(int index);
+
 	//checks if the player is hit
 	std::pair <bool, int> is_hit();
 
@@ -59,7 +61,9 @@ public:
 	void set_direction(int direction);
 
 	//sets the positive value of health
-	void set_health(signed int health);
+	void set_health(float health);
+
+	void set_num_of_ammo(int number_of_ammo, int index);
 
 	//sets whether the player is hit or not
 	void set_hit(bool ishit, int status);
@@ -89,8 +93,8 @@ public:
 
 private:
 	//integer variables
-	int x, y, vel, direction, buttons[7], delay_movement, recover, option_weapon;
-	unsigned int health;
+	int x, y, vel, direction, buttons[7], delay_movement, recover, option_weapon, Num_of_Bullet[12];
+	float health;
 
 	//boolean variables and boolean variables array
 	bool draw, glide;

@@ -9,7 +9,6 @@ public:
 
 	int damage();
 
-	void abilities(bool collide);
 
 private:
 	int type;

@@ -67,14 +67,14 @@ public:
 	virtual void shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet);
 
 	//updates the enemies's info as well as the weapon's movement
-	virtual void update(std::vector <E_Weapon*> &eweapon, Image spritesheet);
+	virtual void update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pweapon, Image spritesheet);
 
 	//displays the enemies
-	virtual void render();
+	virtual void render(Image death);
 
 private:
 	//integer variables
-	int x, y, vel, direction, nochange, reload_time, version;
+	int x, y, vel, direction, nochange, reload_time, version, is_damage;
 	unsigned int health;
 
 	//positive whole number variables
@@ -83,6 +83,10 @@ private:
 	//boolean variables
 	bool draw;
 	
+	Animation animation;
+	Animation damage;
+	Animation dead;
+
 	//pair variables
 	std::pair <bool, int> hit;
 	std::pair <ALLEGRO_BITMAP*, int> image;

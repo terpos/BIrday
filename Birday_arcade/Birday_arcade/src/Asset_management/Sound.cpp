@@ -61,6 +61,8 @@ void Sound::Load_Sound()
 	for (int i = 0; i < sound_fx.size(); i++)
 	{
 		al_attach_sample_instance_to_mixer(sound_fx[i], al_get_default_mixer());
+		al_set_sample_instance_playmode(sound_fx[i], ALLEGRO_PLAYMODE_ONCE);
+		al_set_sample_instance_gain(sound_fx[i], .5f);
 	}
 }
 

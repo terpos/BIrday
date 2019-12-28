@@ -7,7 +7,9 @@ public:
 	Atom_Bomb(Image &sprite_sheet, int x, int y, int vel, int direction);
 	~Atom_Bomb();
 
-	void render();
+	void abilities();
+
+	void render(Image expl);
 
 private:
 	int type;

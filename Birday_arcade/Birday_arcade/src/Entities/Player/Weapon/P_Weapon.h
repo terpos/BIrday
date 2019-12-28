@@ -1,6 +1,7 @@
 #include "global.h"
 #include "Asset_management/Image.h"
 #include "Asset_management/Sound.h"
+#include "Asset_management/Animation.h"
 
 #pragma once
 class P_Weapon
@@ -18,9 +19,12 @@ public:
 	virtual int damage();
 
 	virtual bool is_dead();
+	virtual bool enemy_damaged();
 
 	//returns bitmap value
 	std::pair <ALLEGRO_BITMAP*, int> get_bitmap();
+
+	virtual std::pair <bool, int> is_hit();
 
 	//sets the x position, y position, speed, and direction of the player 
 	virtual void set_x(int x);
@@ -28,7 +32,11 @@ public:
 	virtual void set_vel(int vel);
 	virtual void set_direction(int direction);
 	virtual void set_kill(bool kill);
-	virtual void abilities(bool collide);
+	virtual void abilities();
+
+	virtual void set_enemy_damage(bool damage);
+
+	virtual void set_hit(bool hit, int hit_count);
 
 	virtual void change_direction();
 
@@ -39,14 +47,17 @@ public:
 	virtual void update();
 
 	//displays the weapon
-	virtual void render();
+	virtual void render(Image expl);
+
+
+	Animation animation, weapon_explosion, bomb_detonate;
 
 private:
 	//integer variables
-	int x, y, vel, direction, buttons[7], type;
+	int x, y, vel, direction, buttons[7], type, seed, hit_count, temp_vel;
 
 	//boolean variable
-	bool draw, kill;
+	bool draw, kill, hit, damage_enemy;
 
 	//bitmap instance variables
 	ALLEGRO_BITMAP *cropping;

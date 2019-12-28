@@ -47,7 +47,6 @@
     <ClCompile Include="src\Entities\Power_Up\B_2_Bomber_Strike_Chip.cpp" />
     <ClCompile Include="src\Entities\Power_Up\Copy_Chip.cpp" />
     <ClCompile Include="src\Entities\Power_Up\Gliding_Chip.cpp" />
-    <ClCompile Include="src\Entities\Power_Up\Healing_Spot.cpp" />
     <ClCompile Include="src\Entities\Power_Up\Health_Chip.cpp" />
     <ClCompile Include="src\Entities\Power_Up\Needle_Blast_Wind_Chip.cpp" />
     <ClCompile Include="src\Entities\Power_Up\Power_Up.cpp" />
@@ -55,6 +54,7 @@
     <ClCompile Include="src\Entities\Collision.cpp" />
     <ClCompile Include="src\Asset_management\Font.cpp" />
     <ClCompile Include="src\Screen_state\Game_Over.cpp" />
+    <ClCompile Include="src\Screen_state\Weapons_Unlocked_List.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Screen_state\Game.h" />
@@ -104,7 +104,6 @@
     <ClInclude Include="src\Entities\Power_Up\B_2_Bomber_Strike_Chip.h" />
     <ClInclude Include="src\Entities\Power_Up\Copy_Chip.h" />
     <ClInclude Include="src\Entities\Power_Up\Gliding_Chip.h" />
-    <ClInclude Include="src\Entities\Power_Up\Healing_Spot.h" />
     <ClInclude Include="src\Entities\Power_Up\Health_Chip.h" />
     <ClInclude Include="src\Entities\Power_Up\Needle_Blast_Wind_Chip.h" />
     <ClInclude Include="src\Entities\Power_Up\Power_Up.h" />
@@ -112,6 +111,7 @@
     <ClInclude Include="src\Entities\Collision.h" />
     <ClInclude Include="src\Asset_management\Font.h" />
     <ClInclude Include="src\Screen_state\Game_Over.h" />
+    <ClInclude Include="src\Screen_state\Weapons_Unlocked_List.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

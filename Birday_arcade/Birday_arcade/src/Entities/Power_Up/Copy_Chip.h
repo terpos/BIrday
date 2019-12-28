@@ -7,9 +7,11 @@ public:
 	Copy_Chip(Image image, int x, int y);
 	~Copy_Chip();
 
-private:
-	int x, y;
+	void power_up_abilities(Player* &player, std::vector <Enemy*> &enemy);
 
+private:
+	int x, y, seed;
+	std::default_random_engine power_up;
 	std::pair <ALLEGRO_BITMAP *, int> image;
 
 

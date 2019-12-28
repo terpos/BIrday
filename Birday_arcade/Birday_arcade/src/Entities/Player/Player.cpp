@@ -22,6 +22,25 @@ Player::Player(Image &sprite_sheet, int x, int y, int vel, int direction, int bu
 	this->delay_movement = 3;
 	set_delay_movemement(this->delay_movement);
 	this->option_weapon = 0;
+
+
+	Num_of_Bullet[ROCKET_LAZER] = 10;
+	Num_of_Bullet[STUNNER] = 10;
+	Num_of_Bullet[BOMBS] = 10;
+	Num_of_Bullet[ICE_BOMBS] = 5;
+	Num_of_Bullet[FIRE_BOMBS] = 5;
+	Num_of_Bullet[ATOMIC_BOMBS] = 2;
+	Num_of_Bullet[BI_NUKE] = 4;
+	Num_of_Bullet[TRI_NUKE] = 4;
+	Num_of_Bullet[TRIANGULAR_MISSILE] = 3;
+	Num_of_Bullet[ARROW] = 3;
+	Num_of_Bullet[SLICER] = 2;
+
+
+
+
+
+
 }
 
 
@@ -46,6 +65,11 @@ int Player::get_vel()
 	return this->vel;
 }
 
+
+int Player::get_num_of_ammo(int index)
+{
+	return this->Num_of_Bullet[index];
+}
 
 std::pair<bool, int> Player::is_hit()
 {
@@ -92,9 +116,14 @@ void Player::set_vel(int vel)
 	this->vel = vel;
 }
 
-void Player::set_health(signed int health)
+void Player::set_health(float health)
 {
 	this->health = health;
+}
+
+void Player::set_num_of_ammo(int number_of_ammo, int index)
+{
+	this->Num_of_Bullet[index] = number_of_ammo;
 }
 
 void Player::set_direction(int direction)
@@ -122,20 +151,20 @@ void Player::set_buttons(int buttons[7])
 	}
 }
 
-signed int Player::get_health()
+float Player::get_health()
 {
 	return this->health;
 }
 
-void Player::control(Image spritesheet, ALLEGRO_EVENT e, Options &option, std::vector <P_Weapon*> &pweapon)
+void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &option, std::vector <P_Weapon*> &pweapon, bool unlock_weapon[12], int num_of_weapon)
 {
+
 	//if you press a key, 
 	//if the key is directional, player moves
 	//if the key is space, player shoots
 	//if the key is a or s, player switch weapon
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
-		std::cout << e.keyboard.keycode << std::endl;
 		if (e.keyboard.keycode == option.get_control_options(0))
 		{
 			key[get_direction()] = false;
@@ -166,67 +195,129 @@ void Player::control(Image spritesheet, ALLEGRO_EVENT e, Options &option, std::v
 
 		if (e.keyboard.keycode == option.get_control_options(4))
 		{
-			switch (option_weapon)
+			switch (this->option_weapon)
 			{
 			case LAZER:
-				pweapon.push_back(new Lazer(spritesheet, get_x(), get_y(), 40, get_direction()));
+				
+				pweapon.push_back(new Lazer(spritesheet, get_x(), get_y(), 20, get_direction()));
+				al_set_sample_instance_position(sound.sound_effects(13), 0);
+				al_play_sample_instance(sound.sound_effects(13));
 				break;
+
 			case ROCKET_LAZER:
-				pweapon.push_back(new Rocket_lazer(spritesheet, get_x(), get_y(), 40, get_direction()));
+				if (get_num_of_ammo(ROCKET_LAZER) != 0 && unlock_weapon[ROCKET_LAZER])
+				{
+					pweapon.push_back(new Rocket_lazer(spritesheet, get_x(), get_y(), 20, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[ROCKET_LAZER] - 1, ROCKET_LAZER);
+				}
 				break;
+
 			case STUNNER:
-				pweapon.push_back(new Stunner(spritesheet, get_x(), get_y(), 40, get_direction()));
+				if (get_num_of_ammo(STUNNER) != 0 && unlock_weapon[STUNNER])
+				{
+					pweapon.push_back(new Stunner(spritesheet, get_x(), get_y(), 20, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[STUNNER] - 1, STUNNER);
+				}	
 				break;
+
 			case BOMBS:
-				pweapon.push_back(new Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+				if (get_num_of_ammo(BOMBS) != 0 && unlock_weapon[BOMBS])
+				{
+					pweapon.push_back(new Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[BOMBS] - 1, BOMBS);
+				}
 				break;
+
 			case ICE_BOMBS:
-				pweapon.push_back(new Ice_Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+				if (get_num_of_ammo(ICE_BOMBS) != 0 && unlock_weapon[ICE_BOMBS])
+				{
+					pweapon.push_back(new Ice_Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[ICE_BOMBS] - 1, ICE_BOMBS);
+				}
 				break;
+
 			case FIRE_BOMBS:
-				pweapon.push_back(new Fire_bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+				if (get_num_of_ammo(FIRE_BOMBS) != 0 && unlock_weapon[FIRE_BOMBS])
+				{
+					pweapon.push_back(new Fire_bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[FIRE_BOMBS] - 1, FIRE_BOMBS);
+				}
 				break;
+
 			case ATOMIC_BOMBS:
-				pweapon.push_back(new Atom_Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+				if (get_num_of_ammo(ATOMIC_BOMBS) != 0 && unlock_weapon[ATOMIC_BOMBS])
+				{
+					pweapon.push_back(new Atom_Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[ATOMIC_BOMBS] - 1, ATOMIC_BOMBS);
+				}
 				break;
+
 			case BI_NUKE:
-				pweapon.push_back(new BiNuke(spritesheet, get_x(), get_y(), 40, get_direction()));
+				if (get_num_of_ammo(BI_NUKE) != 0 && unlock_weapon[BI_NUKE])
+				{
+					pweapon.push_back(new BiNuke(spritesheet, get_x(), get_y(), 20, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[BI_NUKE] - 1, BI_NUKE);
+				}
 				break;
+
 			case TRI_NUKE:
-				pweapon.push_back(new TriNuke(spritesheet, get_x(), get_y(), 40, get_direction()));
+				if (get_num_of_ammo(TRI_NUKE) != 0 && unlock_weapon[TRI_NUKE])
+				{
+					pweapon.push_back(new TriNuke(spritesheet, get_x(), get_y(), 20, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[TRI_NUKE] - 1, TRI_NUKE);
+				}
 				break;
+
 			case TRIANGULAR_MISSILE:
-				pweapon.push_back(new Triangular_Missle(spritesheet, get_x(), get_y(), 40, get_direction()));
+				if (get_num_of_ammo(TRIANGULAR_MISSILE) != 0 && unlock_weapon[TRIANGULAR_MISSILE])
+				{
+					pweapon.push_back(new Triangular_Missle(spritesheet, get_x(), get_y(), 20, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[TRIANGULAR_MISSILE] - 1, TRIANGULAR_MISSILE);
+				}
 				break;
+
 			case SLICER:
-				pweapon.push_back(new Slicer(spritesheet, get_x(), get_y(), 40, get_direction()));
+				if (get_num_of_ammo(SLICER) != 0 && unlock_weapon[SLICER])
+				{
+					pweapon.push_back(new Slicer(spritesheet, get_x(), get_y(), 20, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[SLICER] - 1, SLICER);
+				}
 				break;
+
 			case ARROW:
-				pweapon.push_back(new Arrow(spritesheet, get_x(), get_y(), 40, get_direction()));
+				if (get_num_of_ammo(ARROW) != 0 && unlock_weapon[ARROW])
+				{
+					pweapon.push_back(new Arrow(spritesheet, get_x(), get_y(), 20, get_direction()));
+					set_num_of_ammo(Num_of_Bullet[ARROW] - 1, ARROW);
+					al_set_sample_instance_position(sound.sound_effects(0), 0);
+					al_play_sample_instance(sound.sound_effects(0));
+				
+				}
 				break;
 			}
 		}
 
 		if (e.keyboard.keycode == option.get_control_options(5))
 		{
-			option_weapon--;
+			this->option_weapon--;
 			if (option_weapon < 0)
 			{
-				option_weapon = 11;
+				option_weapon = num_of_weapon;
 			}
 		}
 
 		if (e.keyboard.keycode == option.get_control_options(6))
 		{
-			option_weapon++;
-			if (option_weapon > 11)
+			this->option_weapon++;
+			if (option_weapon > num_of_weapon)
 			{
 				option_weapon = 0;
 			}
 			
 		}
-
+		std::cout << "Weapon Num: " << option_weapon << std::endl;
 	}
+
 
 	//if you stop pressing the key
 	if (e.type == ALLEGRO_EVENT_KEY_UP)
@@ -262,7 +353,6 @@ void Player::damage_col_update()
 	{
 		set_hit(true, 1);
 		
-		std::cout << "Player's Health: " << get_health() << std::endl;
 		recover = 50;
 	
 		if (get_direction() == 0)
@@ -299,7 +389,6 @@ void Player::damage_col_tile_update()
 	if (get_health() > 0)
 	{
 		set_health(get_health() - 1);
-		std::cout << "Player's Health: " << get_health() << std::endl;
 	}
 
 
@@ -362,6 +451,16 @@ void Player::set_glide(bool glide)
 
 void Player::update(std::vector <P_Weapon*> &pweapon)
 {
+	
+	for (int i = 0; i < sizeof(Num_of_Bullet); i++)
+	{
+		if (Num_of_Bullet[i] < 0)
+		{
+			Num_of_Bullet[i] = 0;
+		}
+	}
+	
+	
 	if (recover != 0)
 	{
 		recover--;
