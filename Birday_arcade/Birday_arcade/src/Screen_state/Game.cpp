@@ -144,10 +144,10 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			level++;
 			std::cout << "LEVEL " << level << std::endl;
 			
-			enemy.push_back(new Tripus(image, 1, 0, 80, 5, 0));
-			enemy.push_back(new Magic_Mask(image, 1, 0, 80, 5, 0));
-			enemy.push_back(new Magic_Mask(image, 1, 0, 80, 5, 0));
-			enemy.push_back(new Tripus(image, 1, 0, 80, 5, 0));
+			enemy.push_back(new Diamondo(image, 1, 0, 80, 5, 0));
+			//enemy.push_back(new Magic_Mask(image, 1, 0, 80, 5, 0));
+			//enemy.push_back(new Magic_Mask(image, 1, 0, 80, 5, 0));
+			//enemy.push_back(new Tripus(image, 1, 0, 80, 5, 0));
 			levelup = false;
 			
 		}
@@ -238,11 +238,13 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 			collision.Window_Collision(display, e, enemy[i]);
 
-			enemy[i]->react(image, player, eweapon);
-			enemy[i]->update(eweapon, pweapon, image);
+			enemy[i]->react(image, sound, player, eweapon);
+			enemy[i]->update(eweapon, pweapon, image, sound);
 
 			if (collision.collision_detect(player->get_x(), player->get_y(), enemy[i]->get_x(), enemy[i]->get_y()))
 			{
+				
+
 				player->set_health(player->get_health() - enemy[i]->Damage());
 				player->damage_col_update();
 			}
@@ -277,9 +279,16 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 				{
 					if (collision.collision_detect(pweapon[j]->get_x(), pweapon[j]->get_y(), enemy[i]->get_x(), enemy[i]->get_y()))
 					{
+						if (enemy[i]->get_health() <= 0 && pweapon[j]->is_hit().first)
+						{
+							al_set_sample_instance_position(sound.sound_effects(8), 0);
+							al_play_sample_instance(sound.sound_effects(8));
+							pweapon[j]->set_hit(false, 0);
+							pweapon[j]->set_kill(true);
+						}
+
 						if (enemy[i]->get_health() > 0 && !pweapon[j]->is_hit().first)
 						{
-							
 							
 							pweapon[j]->abilities();
 							
@@ -296,15 +305,8 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 							}
 						}
 
-						if (enemy[i]->get_health() <= 0 && pweapon[j]->is_hit().first)
-						{
-							al_set_sample_instance_position(sound.sound_effects(1), 0);
-							al_play_sample_instance(sound.sound_effects(1));
-							pweapon[j]->set_hit(false, 0);
-							pweapon[j]->set_kill(true);
-						}
+						
 					}
-
 				}
 			}
 
@@ -419,7 +421,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			if (collision.collision_detect(player->get_x(), player->get_y(), powerup[i]->get_x(), powerup[i]->get_y()))
 			{
 				duration1 = 200;
-				powerup[i]->power_up_abilities(player, enemy);
+				powerup[i]->power_up_abilities(sound, player, enemy);
 				powerup.erase(powerup.begin() + i);
 			}
 		}
@@ -431,7 +433,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			if (collision.collision_detect(player->get_x(), player->get_y(), ammo[i]->get_x(), ammo[i]->get_y()))
 			{
 				duration2 = 250;
-				ammo[i]->ammo_reload(player);
+				ammo[i]->ammo_reload(sound, player);
 
 
 				ammo.erase(ammo.begin() + i);
@@ -645,21 +647,28 @@ void Game::render(Image image, Sound sound, Tile_map &m, Font font)
 		else if (level >= 5 && level <= 14)
 		{
 			al_play_sample_instance(sound.bg_music(2));
+			al_stop_sample_instance(sound.bg_music(1));
 		}
 
 		else if (level >= 15 && level <= 24)
 		{
 			al_play_sample_instance(sound.bg_music(3));
+			al_stop_sample_instance(sound.bg_music(2));
+
 		}
 
 		else if (level >= 25 && level <= 44)
 		{
 			al_play_sample_instance(sound.bg_music(4));
+			al_stop_sample_instance(sound.bg_music(3));
+
 		}
 
 		else
 		{
 			al_play_sample_instance(sound.bg_music(5));
+			al_stop_sample_instance(sound.bg_music(4));
+
 		}
 	}
 	
@@ -754,7 +763,7 @@ void Game::render(Image image, Sound sound, Tile_map &m, Font font)
 
 	for (int i = 0; i < pweapon.size(); i++)
 	{
-		pweapon[i]->render(image);
+		pweapon[i]->render(image, sound);
 	}
 
 	for (int i = 0; i < eweapon.size(); i++)

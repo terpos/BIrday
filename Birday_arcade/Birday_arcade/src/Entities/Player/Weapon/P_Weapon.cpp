@@ -230,7 +230,7 @@ void P_Weapon::update()
 	
 }
 
-void P_Weapon::render(Image expl)
+void P_Weapon::render(Image expl, Sound sound)
 {
 	if (is_hit().first)
 	{

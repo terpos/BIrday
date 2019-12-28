@@ -32,8 +32,14 @@ void Atom_Bomb::abilities()
 }
 
 
-void Atom_Bomb::render(Image expl)
+void Atom_Bomb::render(Image expl, Sound sound)
 {
+	if (weapon_explosion.get_frame() > 0)
+	{
+		al_set_sample_instance_position(sound.sound_effects(1), 0);
+		al_play_sample_instance(sound.sound_effects(1));
+	}
+
 	if (bomb_detonate.get_frame() < 200)
 	{
 		if (bomb_detonate.get_frame() <= 100)
@@ -65,6 +71,8 @@ void Atom_Bomb::render(Image expl)
 
 	else
 	{
+		
+
 		if (weapon_explosion.get_frame_position(11) >= 0 && weapon_explosion.get_frame_position(11) <= 5)
 		{
 			al_draw_bitmap_region(expl.Destruction_image(2).first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);

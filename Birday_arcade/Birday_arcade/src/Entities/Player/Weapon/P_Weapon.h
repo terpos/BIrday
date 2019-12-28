@@ -47,7 +47,7 @@ public:
 	virtual void update();
 
 	//displays the weapon
-	virtual void render(Image expl);
+	virtual void render(Image expl, Sound sound);
 
 
 	Animation animation, weapon_explosion, bomb_detonate;

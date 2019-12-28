@@ -124,7 +124,7 @@ void Enemy::damage_col_update()
 	}
 }
 
-void Enemy::react(Image &image, Player* & player, std::vector<E_Weapon*>& eweapon)
+void Enemy::react(Image &image, Sound sound, Player* & player, std::vector<E_Weapon*>& eweapon)
 {
 
 }
@@ -158,7 +158,7 @@ void Enemy::change_direction()
 	this->nochange = 50;
 }
 
-void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet)
+void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Sound sound, Image spritesheet)
 {
 	std::uniform_int_distribution<int > shoot(0, 11);
 
@@ -183,7 +183,7 @@ void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet)
 	}
 }
 
-void Enemy::update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pweapon, Image spritesheet)
+void Enemy::update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pweapon, Image spritesheet, Sound sound)
 {
 	if (damage.get_frame() >= 100)
 	{
@@ -231,9 +231,7 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pw
 
 		animation.increment_frame();
 
-		shoot(eweapon, spritesheet);
-
-
+		shoot(eweapon, sound, spritesheet);
 
 		if (get_direction() == 0)
 		{

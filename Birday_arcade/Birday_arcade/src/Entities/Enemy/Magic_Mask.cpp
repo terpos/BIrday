@@ -49,7 +49,7 @@ int Magic_Mask::Damage()
 	}
 }
 
-void Magic_Mask::shoot(std::vector<E_Weapon*>& eweapon, Image spritesheet)
+void Magic_Mask::shoot(std::vector<E_Weapon*>& eweapon, Sound sound, Image spritesheet)
 {
 	std::uniform_int_distribution<int > shoot(0, 21);
 
@@ -62,12 +62,16 @@ void Magic_Mask::shoot(std::vector<E_Weapon*>& eweapon, Image spritesheet)
 	{
 		if (shoot(shooting_probability) > 5 && shoot(shooting_probability) < 15)
 		{
+			al_set_sample_instance_position(sound.sound_effects(10), 0);
+			al_play_sample_instance(sound.sound_effects(10));
 			eweapon.push_back(new Fire(spritesheet, get_x(), get_y(), 20, get_direction()));
 			this->reload_time = 40;
 		}
 
 		else if (shoot(shooting_probability) > 15)
 		{
+			al_set_sample_instance_position(sound.sound_effects(22), 0);
+			al_play_sample_instance(sound.sound_effects(22));
 			eweapon.push_back(new Thunder(spritesheet, get_x(), get_y(), 20, get_direction()));
 			this->reload_time = 40;
 		}

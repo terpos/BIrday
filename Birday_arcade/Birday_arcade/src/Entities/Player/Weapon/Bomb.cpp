@@ -30,8 +30,13 @@ void Bomb::abilities()
 	}
 }
 
-void Bomb::render(Image expl)
+void Bomb::render(Image expl, Sound sound)
 {
+	if (weapon_explosion.get_frame() > 0)
+	{
+		al_set_sample_instance_position(sound.sound_effects(1), 0);
+		al_play_sample_instance(sound.sound_effects(1));
+	}
 	if (bomb_detonate.get_frame() < 200)
 	{
 		if (bomb_detonate.get_frame() <= 100)

@@ -11,7 +11,7 @@ public:
 
 	void abilities();
 
-	void render(Image expl);
+	void render(Image expl, Sound sound);
 private:
 	int type;
 

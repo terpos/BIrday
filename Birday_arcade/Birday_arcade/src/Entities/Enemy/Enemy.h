@@ -11,6 +11,8 @@
 #include "Weapon/Thunder.h"
 #include "Weapon/Venom_Spit.h"
 #include "Weapon/Ball_shot.h"
+#include "Weapon/Gunk.h"
+
 #include "Entities/Player/Player.h"
 
 #pragma once
@@ -60,14 +62,14 @@ public:
 	//updates the enemy's info when collided (player moves backward)
 	virtual void damage_col_update();
 	
-	virtual void react(Image &image, Player* & player, std::vector<E_Weapon*>& eweapon);
+	virtual void react(Image &image, Sound sound, Player* & player, std::vector<E_Weapon*>& eweapon);
 
 	virtual void change_direction();
 
-	virtual void shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet);
+	virtual void shoot(std::vector <E_Weapon*> &eweapon, Sound sound, Image spritesheet);
 
 	//updates the enemies's info as well as the weapon's movement
-	virtual void update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pweapon, Image spritesheet);
+	virtual void update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pweapon, Image spritesheet, Sound sound);
 
 	//displays the enemies
 	virtual void render(Image death);

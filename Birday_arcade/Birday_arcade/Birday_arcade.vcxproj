@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entities\Enemy\Weapon\Gunk.cpp" />
     <ClCompile Include="src\Screen_state\Game_Over.cpp" />
     <ClCompile Include="src\Asset_management\Font.cpp" />
     <ClCompile Include="src\Entities\Enemy\Weapon\Ball_shot.cpp" />
@@ -75,6 +76,7 @@
     <ClCompile Include="src\Screen_state\Weapons_Unlocked_List.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entities\Enemy\Weapon\Gunk.h" />
     <ClInclude Include="src\Screen_state\Game_Over.h" />
     <ClInclude Include="src\Asset_management\Font.h" />
     <ClInclude Include="src\Entities\Enemy\Weapon\Ball_shot.h" />
@@ -315,7 +317,7 @@
     <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
     <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
     <TargetName>Birday Arcade</TargetName>
-    <IncludePath>C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;$(IncludePath)</IncludePath>
+    <IncludePath>C:\Users\Kamal\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;$(IncludePath)</IncludePath>
     <Allegro_AddonImage>true</Allegro_AddonImage>
     <Allegro_AddonColor>true</Allegro_AddonColor>
     <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>

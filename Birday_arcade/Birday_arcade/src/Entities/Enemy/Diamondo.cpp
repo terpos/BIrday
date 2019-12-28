@@ -49,7 +49,7 @@ int Diamondo::Damage()
 	}
 }
 
-void Diamondo::shoot(std::vector<E_Weapon*>& eweapon, Image spritesheet)
+void Diamondo::shoot(std::vector<E_Weapon*>& eweapon, Sound sound, Image spritesheet)
 {
 	std::uniform_int_distribution<int > shoot(0, 11);
 
@@ -60,15 +60,19 @@ void Diamondo::shoot(std::vector<E_Weapon*>& eweapon, Image spritesheet)
 
 	else if (reload_time == 0)
 	{
-		if (shoot(shooting_probability) > 5)
+		if (shoot(shooting_probability) < 5)
 		{
+			al_set_sample_instance_position(sound.sound_effects(14), 0);
+			al_play_sample_instance(sound.sound_effects(14));
 			eweapon.push_back(new Diamond_Ice(spritesheet, get_x(), get_y(), 20, get_direction()));
 			this->reload_time = 20;
 		}
 
-		else if (shoot(shooting_probability) > 15)
+		else  if (shoot(shooting_probability) >= 5 && shoot(shooting_probability) <= 8)
 		{
-			eweapon.push_back(new Star_Bomb(spritesheet, get_x(), get_y(), 0, get_direction()));
+			al_set_sample_instance_position(sound.sound_effects(5), 0);
+			al_play_sample_instance(sound.sound_effects(5));
+			eweapon.push_back(new Star_Bomb(spritesheet, get_x(), get_y(), 20, get_direction()));
 			this->reload_time = 40;
 		}
 

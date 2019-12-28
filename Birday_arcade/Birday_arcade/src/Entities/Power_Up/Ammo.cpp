@@ -94,11 +94,11 @@ void Ammo::set_bitmap(ALLEGRO_BITMAP * image, int entity_num)
 	this->image.second = entity_num;
 }
 
-void Ammo::ammo_reload(Player* & player)
+void Ammo::ammo_reload(Sound sound, Player* & player)
 {
 	player->set_num_of_ammo(player->get_num_of_ammo(ammo_type) + 1, ammo_type);
 
-	std::cout << "Ammo aquired! " << std::endl;
+	al_play_sample_instance(sound.sound_effects(16));
 }
 
 void Ammo::render()

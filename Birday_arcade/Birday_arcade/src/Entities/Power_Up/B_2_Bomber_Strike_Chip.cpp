@@ -14,7 +14,9 @@ B_2_Bomber_Strike_Chip::~B_2_Bomber_Strike_Chip()
 {
 }
 
-void B_2_Bomber_Strike_Chip::power_up_abilities(Player* & player, std::vector<Enemy*>& enemy)
+void B_2_Bomber_Strike_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy)
 {
+	al_play_sample_instance(sound.sound_effects(2));
+
 	enemy.clear();
 }

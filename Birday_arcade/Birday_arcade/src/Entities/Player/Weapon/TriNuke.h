@@ -9,7 +9,7 @@ public:
 
 	int damage();
 	
-	void render(Image expl);
+	void render(Image expl, Sound sound);
 
 
 private:

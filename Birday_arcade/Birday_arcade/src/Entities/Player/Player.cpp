@@ -35,12 +35,6 @@ Player::Player(Image &sprite_sheet, int x, int y, int vel, int direction, int bu
 	Num_of_Bullet[TRIANGULAR_MISSILE] = 3;
 	Num_of_Bullet[ARROW] = 3;
 	Num_of_Bullet[SLICER] = 2;
-
-
-
-
-
-
 }
 
 
@@ -64,7 +58,6 @@ int Player::get_vel()
 {
 	return this->vel;
 }
-
 
 int Player::get_num_of_ammo(int index)
 {
@@ -209,6 +202,8 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new Rocket_lazer(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[ROCKET_LAZER] - 1, ROCKET_LAZER);
+					al_set_sample_instance_position(sound.sound_effects(13), 0);
+					al_play_sample_instance(sound.sound_effects(13));
 				}
 				break;
 
@@ -217,6 +212,8 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new Stunner(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[STUNNER] - 1, STUNNER);
+					al_set_sample_instance_position(sound.sound_effects(13), 0);
+					al_play_sample_instance(sound.sound_effects(13));
 				}	
 				break;
 
@@ -257,6 +254,8 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new BiNuke(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[BI_NUKE] - 1, BI_NUKE);
+					al_set_sample_instance_position(sound.sound_effects(15), 0);
+					al_play_sample_instance(sound.sound_effects(15));
 				}
 				break;
 
@@ -265,6 +264,8 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new TriNuke(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[TRI_NUKE] - 1, TRI_NUKE);
+					al_set_sample_instance_position(sound.sound_effects(15), 0);
+					al_play_sample_instance(sound.sound_effects(15));
 				}
 				break;
 
@@ -273,6 +274,8 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new Triangular_Missle(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[TRIANGULAR_MISSILE] - 1, TRIANGULAR_MISSILE);
+					al_set_sample_instance_position(sound.sound_effects(15), 0);
+					al_play_sample_instance(sound.sound_effects(15));
 				}
 				break;
 
@@ -281,6 +284,9 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new Slicer(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[SLICER] - 1, SLICER);
+					al_set_sample_instance_position(sound.sound_effects(18), 0);
+					al_play_sample_instance(sound.sound_effects(18));
+
 				}
 				break;
 
@@ -501,9 +507,6 @@ void Player::update(std::vector <P_Weapon*> &pweapon)
 	{
 		set_delay_movemement(get_delay_movement() - 1);
 	}
-
-	
-
 }
 
 void Player::render()

@@ -1,15 +1,2 @@
-﻿  Game.cpp
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(234): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(274): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(329): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(356): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(404): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(416): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(428): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(442): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(745): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(750): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(755): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(760): warning C4018: '<': signed/unsigned mismatch
-c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(767): warning C4018: '<': signed/unsigned mismatch
-  Birday_arcade.vcxproj -> C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Debug\Birday Arcade.exe
+﻿  Diamondo.cpp
+  Birday_arcade.vcxproj -> C:\Users\Kamal\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Debug\Birday Arcade.exe

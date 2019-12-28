@@ -14,8 +14,10 @@ Stop_Time_Chip::~Stop_Time_Chip()
 {
 }
 
-void Stop_Time_Chip::power_up_abilities(Player* & player, std::vector<Enemy*>& enemy)
+void Stop_Time_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy)
 {
+	al_play_sample_instance(sound.sound_effects(20));
+
 	for (int i = 0; i < enemy.size(); i++)
 	{
 		enemy[i]->set_vel(0);

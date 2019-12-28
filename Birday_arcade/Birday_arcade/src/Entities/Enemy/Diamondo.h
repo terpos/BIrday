@@ -8,7 +8,7 @@ public:
 	~Diamondo();
 
 	int Damage();
-	void shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet);
+	void shoot(std::vector <E_Weapon*> &eweapon, Sound sound, Image spritesheet);
 
 
 private:

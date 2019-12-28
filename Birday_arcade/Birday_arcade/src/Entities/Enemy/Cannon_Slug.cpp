@@ -51,7 +51,7 @@ int Cannon_Slug::Damage()
 	
 }
 
-void Cannon_Slug::react(Image & image, Player* & player, std::vector<E_Weapon*>& eweapon)
+void Cannon_Slug::react(Image & image, Sound sound, Player* & player, std::vector<E_Weapon*>& eweapon)
 {
 	if (get_vel() > 0)
 	{
@@ -93,7 +93,7 @@ void Cannon_Slug::react(Image & image, Player* & player, std::vector<E_Weapon*>&
 
 }
 
-void Cannon_Slug::shoot(std::vector<E_Weapon*>& eweapon, Image spritesheet)
+void Cannon_Slug::shoot(std::vector<E_Weapon*>& eweapon, Sound sound, Image spritesheet)
 {
 	std::uniform_int_distribution<int > shoot(0, 11);
 
@@ -106,6 +106,8 @@ void Cannon_Slug::shoot(std::vector<E_Weapon*>& eweapon, Image spritesheet)
 	{
 		if (shoot(shooting_probability) > 5)
 		{
+			al_set_sample_instance_position(sound.sound_effects(2), 0);
+			al_play_sample_instance(sound.sound_effects(2));
 			eweapon.push_back(new Missile(spritesheet, get_x(), get_y(), 20, get_direction()));
 			this->reload_time = 40;
 		}
