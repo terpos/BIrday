@@ -43,10 +43,13 @@ public:
 	//returns the destruction depending on destruction number
 	std::pair <ALLEGRO_BITMAP*, int> Destruction_image(int destruction_num);
 
+	//returns the status depending on the status number
+	std::pair <ALLEGRO_BITMAP*, int> status_image(int status_num);
+
 private:
 	//vector pair variables
 	std::vector < std::pair <ALLEGRO_BITMAP*, int> > tile_piece, enemies, player, P_weapon, 
-		E_weapon, PowerUp, Player_Weapon_Ammo, Background, Destruction, Banner;
+		E_weapon, PowerUp, Player_Weapon_Ammo, Background, Destruction, Banner, status;
 	
 };
 

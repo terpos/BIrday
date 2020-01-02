@@ -8,7 +8,7 @@ public:
 	~Needle_Blast_Wind_Chip();
 
 
-	void power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy);
+	void power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy, Options option);
 private:
 	int x, y;
 

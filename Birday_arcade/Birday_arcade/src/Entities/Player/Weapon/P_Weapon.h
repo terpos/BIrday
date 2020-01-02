@@ -17,9 +17,11 @@ public:
 	virtual int get_vel();
 	virtual int get_direction();
 	virtual int damage();
+	virtual int enemy_status();
 
 	virtual bool is_dead();
 	virtual bool enemy_damaged();
+	
 
 	//returns bitmap value
 	std::pair <ALLEGRO_BITMAP*, int> get_bitmap();
@@ -33,8 +35,8 @@ public:
 	virtual void set_direction(int direction);
 	virtual void set_kill(bool kill);
 	virtual void abilities();
-
 	virtual void set_enemy_damage(bool damage);
+	virtual void set_enemy_status(int status);
 
 	virtual void set_hit(bool hit, int hit_count);
 
@@ -47,14 +49,14 @@ public:
 	virtual void update();
 
 	//displays the weapon
-	virtual void render(Image expl, Sound sound);
+	virtual void render(Image expl, Sound sound, bool play_sound);
 
 
 	Animation animation, weapon_explosion, bomb_detonate;
 
 private:
 	//integer variables
-	int x, y, vel, direction, buttons[7], type, seed, hit_count, temp_vel;
+	int x, y, vel, direction, buttons[7], type, seed, hit_count, temp_vel, status_enemy;
 
 	//boolean variable
 	bool draw, kill, hit, damage_enemy;

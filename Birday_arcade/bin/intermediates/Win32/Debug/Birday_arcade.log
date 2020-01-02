@@ -1,2 +1,5 @@
-﻿  Diamondo.cpp
+﻿  Pause.cpp
+  Weapons_Unlocked_List.cpp
+c:\users\kamal\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\weapons_unlocked_list.cpp(54): warning C4018: '<': signed/unsigned mismatch
+  Generating Code...
   Birday_arcade.vcxproj -> C:\Users\Kamal\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Debug\Birday Arcade.exe

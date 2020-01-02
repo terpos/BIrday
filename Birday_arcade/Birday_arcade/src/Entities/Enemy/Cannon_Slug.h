@@ -9,8 +9,8 @@ public:
 
 	int Damage();
 
-	void react(Image &image, Sound sound, Player* &player, std::vector <E_Weapon*> &eweapon);
-	void shoot(std::vector <E_Weapon*> &eweapon, Sound sound, Image spritesheet);
+	void react(Image &image, Sound sound, Player* &player, std::vector <E_Weapon*> &eweapon, Options option);
+	void shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet);
 
 private:
 	int x, y, vel, direction, initial_vel;

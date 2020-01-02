@@ -14,10 +14,12 @@ Gliding_Chip::~Gliding_Chip()
 {
 }
 
-void Gliding_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy)
+void Gliding_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy, Options option)
 {
-
-	al_play_sample_instance(sound.sound_effects(9));
+	if (option.get_sound_options())
+	{
+		al_play_sample_instance(sound.sound_effects(9));
+	}
 
 	player->set_vel(10);
 	player->set_glide(true);

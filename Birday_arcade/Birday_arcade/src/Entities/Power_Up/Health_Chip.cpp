@@ -14,9 +14,12 @@ Health_Chip::~Health_Chip()
 {
 }
 
-void Health_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy)
+void Health_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy, Options option)
 {
-	al_play_sample_instance(sound.sound_effects(12));
+	if (option.get_sound_options())
+	{
+		al_play_sample_instance(sound.sound_effects(12));
+	}
 
 	player->set_health(player->get_health() + 25);
 }

@@ -12,15 +12,20 @@ Enemy::Enemy(Image &sprite_sheet, int version, int x, int y, int vel, int direct
 	set_hit(false, NULL);
 	set_health(5);
 
+	tempvel = vel;
 	seed = std::chrono::system_clock::now().time_since_epoch().count();
 	movement.seed(seed);
 	shooting_probability.seed(seed);
 	
+	burn_duration = 0;
+	freeze_duration = 0;
+	stop_duration = 0;
 	is_damage = 0;
 	nochange = 25;
 	reload_time = 25;
 	cropping = al_create_bitmap(80, 80);
 	dead.set_frame(0);
+	damage.set_frame(0);
 }
 
 
@@ -62,6 +67,11 @@ signed int Enemy::get_health()
 int Enemy::Damage()
 {
 	return 1;
+}
+
+bool Enemy::is_dead()
+{
+	return this->enemy_dead;
 }
 
 std::pair<bool, int> Enemy::is_hit()
@@ -110,6 +120,11 @@ void Enemy::set_hit(bool ishit, int status)
 	this->hit.second = status;
 }
 
+void Enemy::set_kill(bool kill)
+{
+	this->enemy_dead = kill;
+}
+
 void Enemy::set_bitmap(ALLEGRO_BITMAP * image, int entity_num)
 {
 	this->image.first = image;
@@ -124,7 +139,7 @@ void Enemy::damage_col_update()
 	}
 }
 
-void Enemy::react(Image &image, Sound sound, Player* & player, std::vector<E_Weapon*>& eweapon)
+void Enemy::react(Image &image, Sound sound, Player* & player, std::vector<E_Weapon*>& eweapon, Options option)
 {
 
 }
@@ -158,7 +173,7 @@ void Enemy::change_direction()
 	this->nochange = 50;
 }
 
-void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Sound sound, Image spritesheet)
+void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet)
 {
 	std::uniform_int_distribution<int > shoot(0, 11);
 
@@ -171,7 +186,6 @@ void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Sound sound, Image spriteshe
 	{
 		if (shoot(shooting_probability) > 5)
 		{
-			//eweapon.push_back(new Missile(spritesheet, get_x(), get_y(), 20, get_direction()));
 			this->reload_time = 20;
 		}
 
@@ -183,30 +197,39 @@ void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Sound sound, Image spriteshe
 	}
 }
 
-void Enemy::update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pweapon, Image spritesheet, Sound sound)
+void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector <P_Weapon*> &pweapon, Image spritesheet, Sound sound)
 {
-	if (damage.get_frame() >= 100)
-	{
-		set_hit(false, 0);
-		damage.reset_frame();
-	}
-
-	if (is_hit().first)
-	{
-		damage.increment_frame();
-	}
-
+	
 	if (get_health() <= 0)
 	{
 		set_vel(0);
 		dead.increment_frame();
 	}
 
-	if (dead.get_frame() >= 20)
+	if (is_hit().first && is_hit().second == 2)
 	{
-		set_hit(false, 1);
+		set_vel(0);
+		freeze_duration++;
+		stop_duration = 300;
 	}
-	
+
+	if (is_hit().first && is_hit().second == 3)
+	{
+		set_vel(0);
+		burn_duration++;
+		stop_duration = 300;
+	}
+	if (damage.get_frame() >= 100)
+	{
+		set_hit(false, 0);
+		damage.reset_frame();
+	}
+
+	if (is_hit().first && is_hit().second == 1)
+	{
+		damage.increment_frame();
+	}
+
 	std::uniform_int_distribution<int > d(0, 3);
 	if (get_vel() > 0)
 	{
@@ -231,7 +254,7 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pw
 
 		animation.increment_frame();
 
-		shoot(eweapon, sound, spritesheet);
+		shoot(eweapon, option, sound, spritesheet);
 
 		if (get_direction() == 0)
 		{
@@ -251,6 +274,36 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pw
 		if (get_direction() == 3)
 		{
 			set_y(get_y() - get_vel());
+		}
+
+		
+	}
+
+	else if (get_vel() == 0)
+	{
+		if (dead.get_frame() >= 20)
+		{
+			set_hit(false, 1);
+			set_kill(true);
+		}
+
+		if (burn_duration == 600 || freeze_duration == 600)
+		{
+			burn_duration = 0;
+			freeze_duration = 0;
+			set_vel(tempvel);
+			set_hit(false, 0);
+		}
+
+		if (is_hit().second == 0 || is_hit().second == 1)
+		{
+			stop_duration++;
+			std::cout << "DURATION: " << stop_duration << std::endl;
+		}
+
+		if (stop_duration >= 300)
+		{
+			set_vel(tempvel);
 		}
 	}
 }
@@ -272,7 +325,7 @@ void Enemy::render(Image death)
 
 	else
 	{
-		if (is_hit().first)
+		if (is_hit().first && is_hit().second == 1)
 		{
 			if (damage.get_frame_position(11) >= 0 && damage.get_frame_position(11) <= 5)
 			{
@@ -321,6 +374,25 @@ void Enemy::render(Image death)
 				al_draw_bitmap_region(get_bitmap().first, 80, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 			}
 
+		}
+
+		if (is_hit().first && is_hit().second == 2)
+		{
+			al_draw_bitmap_region(death.status_image(0).first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+
+		}
+
+		if (is_hit().first && is_hit().second == 3)
+		{
+			if (burn_duration % 11 >= 0 && burn_duration % 11 <= 5)
+			{
+				al_draw_bitmap_region(death.status_image(1).first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+			}
+
+			else
+			{
+				al_draw_bitmap_region(death.status_image(1).first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+			}
 		}
 	}
 }

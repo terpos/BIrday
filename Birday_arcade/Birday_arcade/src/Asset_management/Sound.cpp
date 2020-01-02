@@ -77,7 +77,11 @@ ALLEGRO_SAMPLE_INSTANCE* Sound::bg_music(int bgmusic)
 
 ALLEGRO_SAMPLE_INSTANCE* Sound::sound_effects(int soundeffects)
 {
+	
 	return this->sound_fx[soundeffects];
+	
+
+	return 0;
 }
 
 void Sound::Deallocate_sound()

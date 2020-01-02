@@ -31,7 +31,7 @@ int main()
 	al_init_primitives_addon();
 
 	//sets the new display flags
-	al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+	//al_set_new_display_flags(ALLEGRO_FULLSCREEN);
 
 	//initializes and creates display
 	ALLEGRO_DISPLAY *display = al_create_display(1360, 768);
@@ -89,7 +89,7 @@ int main()
 		switch (screennum)
 		{
 		case MENU_SCREEN:
-			menu.update(display, q, image, sound, ev, screennum, done);
+			menu.update(display, q, image, sound, option, ev, screennum, done);
 			break;
 		case GAME_SCREEN:
 			game.update(display, q, m, weapon_unlock, option, image, sound, ev, screennum, done);
@@ -98,19 +98,19 @@ int main()
 			option.update(display, q, image, ev, screennum, done);
 			break;
 		case GAME_MATERIAL_SCREEN:
-			game_materials.update(display, q, image, ev, screennum, done);
+			game_materials.update(display, q, image, option, ev, screennum, done);
 			break;
 		case QUIT_SCREEN:
-			quit.update(display, q, image, ev, screennum, done);
+			quit.update(display, q, image, option, ev, screennum, done);
 			break;
 		case PAUSE_SCREEN:
-			pause.update(display, q, image, ev, screennum, done);
+			pause.update(display, q, image, option, ev, screennum, done);
 			break;
 		case GAME_OVER_SCREEN:
-			game_over.update(display, q, image, sound, ev, screennum, done);
+			game_over.update(display, q, image, sound, option, ev, screennum, done);
 			break;
 		case WEAPONS_UNLOCKED_SCREEN:
-			weapon_unlock.update(display, q, image, ev, screennum, done);
+			weapon_unlock.update(display, q, image, option, ev, screennum, done);
 			break;
 
 		}
@@ -127,7 +127,7 @@ int main()
 				menu.render(image, sound, font);
 				break;
 			case GAME_SCREEN:
-				game.render(image, sound, m, font);
+				game.render(weapon_unlock, option, image, sound, m, font);
 				break;
 			case OPTION_SCREEN:
 				option.render(image, font);
@@ -142,7 +142,7 @@ int main()
 				pause.render(image, font);
 				break;
 			case GAME_OVER_SCREEN:
-				game_over.render(image, sound, font);
+				game_over.render(image, sound, font, option);
 				break;
 			case WEAPONS_UNLOCKED_SCREEN:
 				weapon_unlock.render(image, font);

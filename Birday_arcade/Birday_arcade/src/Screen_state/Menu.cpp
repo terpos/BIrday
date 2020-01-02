@@ -13,7 +13,7 @@ Menu::~Menu()
 {
 }
 
-void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, Sound sound, ALLEGRO_EVENT &e, int &screennum, bool &done)
+void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, Sound sound, Options &option, ALLEGRO_EVENT &e, int &screennum, bool &done)
 {
 	//waits until key is pressed (can be neglected since timer is on)
 	al_wait_for_event(q, &e);
@@ -23,6 +23,7 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 	{
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
+			option.set_last_screen(MENU_SCREEN);
 			screennum = QUIT_SCREEN;
 		}
 
@@ -46,7 +47,18 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_ENTER)
 		{
-			screennum = options;
+			if (options == OPTION_SCREEN)
+			{
+				option.set_last_screen(MENU_SCREEN);
+				screennum = options;
+			}
+
+			else
+			{
+				option.set_last_screen(MENU_SCREEN);
+				screennum = options;
+			}
+			
 			al_stop_sample_instance(sound.bg_music(6));
 		}
 

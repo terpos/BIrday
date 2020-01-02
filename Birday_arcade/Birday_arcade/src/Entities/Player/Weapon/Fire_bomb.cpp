@@ -26,17 +26,21 @@ void Fire_bomb::abilities()
 {
 	if (weapon_explosion.get_frame() > 0)
 	{
+		set_enemy_status(3);
 		set_hit(true, is_hit().second);
 		set_enemy_damage(true);
 	}
 }
 
-void Fire_bomb::render(Image expl, Sound sound)
+void Fire_bomb::render(Image expl, Sound sound, bool play_sound)
 {
 	if (weapon_explosion.get_frame() > 0)
 	{
-		al_set_sample_instance_position(sound.sound_effects(1), 0);
-		al_play_sample_instance(sound.sound_effects(1));
+		if (play_sound)
+		{
+			al_set_sample_instance_position(sound.sound_effects(1), 0);
+			al_play_sample_instance(sound.sound_effects(1));
+		}
 	}
 	if (bomb_detonate.get_frame() < 200)
 	{

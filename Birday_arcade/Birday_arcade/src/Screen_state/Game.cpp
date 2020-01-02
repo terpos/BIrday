@@ -41,6 +41,7 @@ Game::Game()
 	duration2 = 250;
 	num_of_weapon = 0;
 	level = 1;
+	score = 0;
 
 	healing[0].set_frame(0);
 	healing[1].set_frame(0);
@@ -73,7 +74,8 @@ void Game::load(Image image)
 
 }
 
-void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m, Weapons_Unlocked_List &weapons_unlocked, Options option, Image image, Sound sound, ALLEGRO_EVENT &e, int & screennum, bool &done)
+void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m, Weapons_Unlocked_List &weapons_unlocked, 
+	Options &option, Image image, Sound sound, ALLEGRO_EVENT &e, int & screennum, bool &done)
 {
 	//waits until key is pressed 
 	al_wait_for_event(q, &e);
@@ -89,6 +91,8 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			al_stop_sample_instance(sound.bg_music(3));
 			al_stop_sample_instance(sound.bg_music(4));
 			al_stop_sample_instance(sound.bg_music(5));
+
+			option.set_last_screen(GAME_SCREEN);
 			screennum = QUIT_SCREEN;
 		}
 
@@ -113,7 +117,16 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		std::uniform_int_distribution <int> pwrup(0, 5);
 		std::uniform_int_distribution <int> ammos(0, num_of_weapon);
 
-		//std::cout << "Player's Health: " << player->get_health() << std::endl;
+
+		if (notification_duration > 0)
+		{
+			notification_duration--;
+		}
+
+		if (notification_duration < 0)
+		{
+			notification_duration = 0;
+		}
 
 		//levels up
 
@@ -233,20 +246,14 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		//updates enemies' info
 		for (int i = 0; i < enemy.size(); i++)
 		{
-
-			
-
 			collision.Window_Collision(display, e, enemy[i]);
 
-			enemy[i]->react(image, sound, player, eweapon);
-			enemy[i]->update(eweapon, pweapon, image, sound);
+			enemy[i]->react(image, sound, player, eweapon, option);
+			enemy[i]->update(eweapon, option, pweapon, image, sound);
 
-			if (collision.collision_detect(player->get_x(), player->get_y(), enemy[i]->get_x(), enemy[i]->get_y()))
+			if (collision.collision_detect(player->get_x(), player->get_y(), enemy[i]->get_x(), enemy[i]->get_y()) && player->is_hit().second == 0)
 			{
-				
-
-				player->set_health(player->get_health() - enemy[i]->Damage());
-				player->damage_col_update();
+				player->set_hit(true, 1);
 			}
 
 			//enemy & tile collision 
@@ -281,21 +288,21 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 					{
 						if (enemy[i]->get_health() <= 0 && pweapon[j]->is_hit().first)
 						{
-							al_set_sample_instance_position(sound.sound_effects(8), 0);
-							al_play_sample_instance(sound.sound_effects(8));
-							pweapon[j]->set_hit(false, 0);
+							if (option.get_sound_options())
+							{
+								al_play_sample_instance(sound.sound_effects(8));
+							}
+							pweapon[j]->set_hit(true, pweapon[j]->is_hit().second);
 							pweapon[j]->set_kill(true);
 						}
 
 						if (enemy[i]->get_health() > 0 && !pweapon[j]->is_hit().first)
 						{
-							
 							pweapon[j]->abilities();
-							
 
 							if (pweapon[j]->enemy_damaged())
 							{
-								enemy[i]->set_hit(true, 0);
+								enemy[i]->set_hit(true, pweapon[j]->enemy_status());
 								enemy[i]->set_health(enemy[i]->get_health() - pweapon[j]->damage());
 							}
 
@@ -310,17 +317,18 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 				}
 			}
 
-			
-
-			if (enemy[i]->is_hit().second == 1)
+			if (enemy[i]->is_dead())
 			{
-				
+				score = score + 100;
 				num_of_kills++;
 				enemy.erase(enemy.begin() + i);
 			}
 
-
-			
+			if (player->is_hit().first && player->is_hit().second)
+			{
+				player->set_health(player->get_health() - enemy[i]->Damage());
+				player->set_hit(false, player->is_hit().second);
+			}
 		}
 
 		//collision for tiles (player and enemy weapon)
@@ -407,12 +415,14 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		{
 			eweapon[i]->update();
 
-			if (collision.collision_detect(eweapon[i]->get_x(), eweapon[i]->get_y(), player->get_x(), player->get_y()))
+			if (collision.collision_detect(eweapon[i]->get_x(), eweapon[i]->get_y(), player->get_x(), player->get_y()) && player->is_hit().second == 0)
 			{
-				player->set_health(player->get_health() - eweapon[i]->damage());
+				player->set_hit(true, 1);
 				eweapon.erase(eweapon.begin() + i);
 			}
 		}
+
+	
 
 		//update power up's info
 		for (int i = 0; i < powerup.size(); i++)
@@ -421,7 +431,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			if (collision.collision_detect(player->get_x(), player->get_y(), powerup[i]->get_x(), powerup[i]->get_y()))
 			{
 				duration1 = 200;
-				powerup[i]->power_up_abilities(sound, player, enemy);
+				powerup[i]->power_up_abilities(sound, player, enemy, option);
 				powerup.erase(powerup.begin() + i);
 			}
 		}
@@ -433,7 +443,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			if (collision.collision_detect(player->get_x(), player->get_y(), ammo[i]->get_x(), ammo[i]->get_y()))
 			{
 				duration2 = 250;
-				ammo[i]->ammo_reload(sound, player);
+				ammo[i]->ammo_reload(sound, player, option);
 
 
 				ammo.erase(ammo.begin() + i);
@@ -534,7 +544,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			duration2--;
 		}
 
-	
+		std::cout << player->is_hit().first << ", " << player->is_hit().second << std::endl;
 
 		if (num_of_kills == 1 && !unlock_weapon[ROCKET_LAZER])
 		{
@@ -542,6 +552,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			this->num_of_weapon++;
 
 			weapons_unlocked.add_word_to_list("ROCKET LAZER");
+			notification_duration = 200;
 
 		}
 		if (num_of_kills == 2 && !unlock_weapon[STUNNER])
@@ -550,7 +561,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			this->num_of_weapon++;
 
 			weapons_unlocked.add_word_to_list("STUNNER");
-
+			notification_duration = 200;
 
 		}
 		if (num_of_kills == 3 && !unlock_weapon[BOMBS])
@@ -559,7 +570,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			this->num_of_weapon++;
 
 			weapons_unlocked.add_word_to_list("BOMBS");
-
+			notification_duration = 200;
 
 		}
 		if (num_of_kills == 4 && !unlock_weapon[ICE_BOMBS])
@@ -568,7 +579,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			this->num_of_weapon++;
 
 			weapons_unlocked.add_word_to_list("ICE BOMBS");
-
+			notification_duration = 200;
 		}
 		if (num_of_kills == 5 && !unlock_weapon[FIRE_BOMBS])
 		{
@@ -576,7 +587,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			num_of_weapon++;
 
 			weapons_unlocked.add_word_to_list("FIRE BOMBS");
-
+			notification_duration = 200;
 
 		}
 		if (num_of_kills == 6 && !unlock_weapon[ATOMIC_BOMBS])
@@ -585,7 +596,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			this->num_of_weapon++;
 
 			weapons_unlocked.add_word_to_list("ATOMIC BOMBS");
-
+			notification_duration = 200;
 
 		}
 		if (num_of_kills == 7 && !unlock_weapon[BI_NUKE])
@@ -595,7 +606,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 
 			weapons_unlocked.add_word_to_list("BI NUKE");
-
+			notification_duration = 200;
 		}
 		if (num_of_kills == 8 && !unlock_weapon[TRI_NUKE])
 		{
@@ -603,7 +614,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			this->num_of_weapon++;
 
 			weapons_unlocked.add_word_to_list("TRI NUKE");
-
+			notification_duration = 200;
 
 		}
 		if (num_of_kills == 9 && !unlock_weapon[TRIANGULAR_MISSILE])
@@ -612,7 +623,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			this->num_of_weapon++;
 
 			weapons_unlocked.add_word_to_list("TRIANGULAR MISSILE");
-
+			notification_duration = 200;
 
 		}
 		if (num_of_kills == 10 && !unlock_weapon[ARROW])
@@ -621,7 +632,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			this->num_of_weapon++;
 
 			weapons_unlocked.add_word_to_list("ARROW");
-
+			notification_duration = 200;
 		}
 		if (num_of_kills == 11 && !unlock_weapon[SLICER])
 		{
@@ -629,46 +640,50 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			this->num_of_weapon++;
 
 			weapons_unlocked.add_word_to_list("SLICER");
-
+			notification_duration = 200;
 		}
 
 	}
 }
 
-void Game::render(Image image, Sound sound, Tile_map &m, Font font)
+void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image image, Sound sound, Tile_map &m, Font font)
 {
+
 	if (player->get_health() > 0)
 	{
-		if (level >= 1 && level <= 4)
+		if (option.get_sound_options())
 		{
-			al_play_sample_instance(sound.bg_music(1));
-		}
+			if (level >= 1 && level <= 4)
+			{
+				al_play_sample_instance(sound.bg_music(1));
+			}
 
-		else if (level >= 5 && level <= 14)
-		{
-			al_play_sample_instance(sound.bg_music(2));
-			al_stop_sample_instance(sound.bg_music(1));
-		}
+			else if (level >= 5 && level <= 14)
+			{
+				al_play_sample_instance(sound.bg_music(2));
+				al_stop_sample_instance(sound.bg_music(1));
+			}
 
-		else if (level >= 15 && level <= 24)
-		{
-			al_play_sample_instance(sound.bg_music(3));
-			al_stop_sample_instance(sound.bg_music(2));
+			else if (level >= 15 && level <= 24)
+			{
+				al_play_sample_instance(sound.bg_music(3));
+				al_stop_sample_instance(sound.bg_music(2));
 
-		}
+			}
 
-		else if (level >= 25 && level <= 44)
-		{
-			al_play_sample_instance(sound.bg_music(4));
-			al_stop_sample_instance(sound.bg_music(3));
+			else if (level >= 25 && level <= 44)
+			{
+				al_play_sample_instance(sound.bg_music(4));
+				al_stop_sample_instance(sound.bg_music(3));
 
-		}
+			}
 
-		else
-		{
-			al_play_sample_instance(sound.bg_music(5));
-			al_stop_sample_instance(sound.bg_music(4));
+			else
+			{
+				al_play_sample_instance(sound.bg_music(5));
+				al_stop_sample_instance(sound.bg_music(4));
 
+			}
 		}
 	}
 	
@@ -687,17 +702,68 @@ void Game::render(Image image, Sound sound, Tile_map &m, Font font)
 		{
 			if (m.get_tile_number(j, i) == 1)
 			{
-				al_draw_bitmap(image.Tiles(1).first, j*al_get_bitmap_width(image.Tiles(1).first), i*al_get_bitmap_height(image.Tiles(1).first), NULL);
+				switch (option.get_tile_options())
+				{
+				case 1:
+					al_draw_bitmap(image.Tiles(BLUE_SQUARE).first, j*al_get_bitmap_width(image.Tiles(BLUE_SQUARE).first), i*al_get_bitmap_height(image.Tiles(BLUE_SQUARE).first), NULL);
+					break;
+				case 2:
+					al_draw_bitmap(image.Tiles(BLUE_CIRCLE).first, j*al_get_bitmap_width(image.Tiles(BLUE_CIRCLE).first), i*al_get_bitmap_height(image.Tiles(BLUE_CIRCLE).first), NULL);
+					break;
+				case 3:
+					al_draw_bitmap(image.Tiles(PALM_TREE).first, j*al_get_bitmap_width(image.Tiles(PALM_TREE).first), i*al_get_bitmap_height(image.Tiles(PALM_TREE).first), NULL);
+					break;
+				case 4:
+					al_draw_bitmap(image.Tiles(BRICK_WALL).first, j*al_get_bitmap_width(image.Tiles(BRICK_WALL).first), i*al_get_bitmap_height(image.Tiles(BRICK_WALL).first), NULL);
+					break;
+				case 5:
+					al_draw_bitmap(image.Tiles(FENCE).first, j*al_get_bitmap_width(image.Tiles(FENCE).first), i*al_get_bitmap_height(image.Tiles(FENCE).first), NULL);
+					break;
+				}
 			}
 
 			else if (m.get_tile_number(j, i) == 0)
 			{
-				al_draw_bitmap(image.Tiles(6).first, j*al_get_bitmap_width(image.Tiles(6).first), i*al_get_bitmap_height(image.Tiles(6).first), NULL);
+				switch (option.get_tile_options())
+				{
+				case 1:
+					al_draw_bitmap(image.Tiles(GRAY_SQUARE).first, j*al_get_bitmap_width(image.Tiles(GRAY_SQUARE).first), i*al_get_bitmap_height(image.Tiles(GRAY_SQUARE).first), NULL);
+					break;
+				case 2:
+					al_draw_bitmap(image.Tiles(WHITE_CIRCLE).first, j*al_get_bitmap_width(image.Tiles(WHITE_CIRCLE).first), i*al_get_bitmap_height(image.Tiles(WHITE_CIRCLE).first), NULL);
+					break;
+				case 3:
+					al_draw_bitmap(image.Tiles(SAND).first, j*al_get_bitmap_width(image.Tiles(SAND).first), i*al_get_bitmap_height(image.Tiles(SAND).first), NULL);
+					break;
+				case 4:
+					al_draw_bitmap(image.Tiles(GRAY_SQUARE).first, j*al_get_bitmap_width(image.Tiles(GRAY_SQUARE).first), i*al_get_bitmap_height(image.Tiles(GRAY_SQUARE).first), NULL);
+					break;
+				case 5:
+					al_draw_bitmap(image.Tiles(GRASS).first, j*al_get_bitmap_width(image.Tiles(GRASS).first), i*al_get_bitmap_height(image.Tiles(GRASS).first), NULL);
+					break;
+				}
 			}
 
 			else if (m.get_tile_number(j, i) == 2)
 			{
-				al_draw_bitmap(image.Tiles(10).first, j*al_get_bitmap_width(image.Tiles(10).first), i*al_get_bitmap_height(image.Tiles(10).first), NULL);
+				switch (option.get_tile_options())
+				{
+				case 1:
+					al_draw_bitmap(image.Tiles(PURPLE_SQUARE).first, j*al_get_bitmap_width(image.Tiles(PURPLE_SQUARE).first), i*al_get_bitmap_height(image.Tiles(PURPLE_SQUARE).first), NULL);
+					break;
+				case 2:
+					al_draw_bitmap(image.Tiles(PURPLE_CIRCLE).first, j*al_get_bitmap_width(image.Tiles(PURPLE_CIRCLE).first), i*al_get_bitmap_height(image.Tiles(PURPLE_CIRCLE).first), NULL);
+					break;
+				case 3:
+					al_draw_bitmap(image.Tiles(ROCK).first, j*al_get_bitmap_width(image.Tiles(ROCK).first), i*al_get_bitmap_height(image.Tiles(ROCK).first), NULL);
+					break;
+				case 4:
+					al_draw_bitmap(image.Tiles(PILLAR).first, j*al_get_bitmap_width(image.Tiles(PILLAR).first), i*al_get_bitmap_height(image.Tiles(PILLAR).first), NULL);
+					break;
+				case 5:
+					al_draw_bitmap(image.Tiles(FLOWER).first, j*al_get_bitmap_width(image.Tiles(FLOWER).first), i*al_get_bitmap_height(image.Tiles(FLOWER).first), NULL);
+					break;
+				}
 			}
 		}
 	}
@@ -763,7 +829,7 @@ void Game::render(Image image, Sound sound, Tile_map &m, Font font)
 
 	for (int i = 0; i < pweapon.size(); i++)
 	{
-		pweapon[i]->render(image, sound);
+		pweapon[i]->render(image, sound, option.get_sound_options());
 	}
 
 	for (int i = 0; i < eweapon.size(); i++)
@@ -777,5 +843,40 @@ void Game::render(Image image, Sound sound, Tile_map &m, Font font)
 	{
 		enemy[i]->render(image);
 	}
-}
 
+	al_draw_filled_rectangle(0, 720, 1360, 768, al_map_rgb(100, 1, 10));
+
+	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 10, 732, NULL, "SCORE:");
+
+	al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 10 + al_get_text_width(font.get_font(3), "SCORE:"), 732, NULL, "%i", score);
+
+	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 200, 732, NULL, "HEALTH:");
+
+	al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 200 + al_get_text_width(font.get_font(3), "HEALTH:"), 732, NULL, "%i", player->get_health());
+
+	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 1200, 732, NULL, "LEVEL ");
+
+	al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 1200 + al_get_text_width(font.get_font(3), "LEVEL "), 732, NULL, "%d", level);
+
+	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 600, 732, NULL, "WEAPON:");
+
+	if (player->get_option_weapon() == 0)
+	{
+		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 600 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, "LAZER");
+	}
+
+	else
+	{
+		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 600 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, weapons_unlocked.get_list(player->get_option_weapon() - 1).c_str());
+		al_draw_textf(font.get_font(3), al_map_rgb(200, 200, 255), 600 + al_get_text_width(font.get_font(3), weapons_unlocked.get_list(player->get_option_weapon() - 1).append("WEAPON:  ").c_str()), 732, NULL, "%d", player->get_num_of_ammo(player->get_option_weapon()));
+	}
+
+	if (num_of_weapon > 0 && notification_duration != 0)
+	{
+		al_draw_textf(font.get_font(3), al_map_rgb(255, 175, 0), 850, 732, NULL, weapons_unlocked.get_list(num_of_weapon - 1).c_str());
+ 		al_draw_textf(font.get_font(3), al_map_rgb(255, 175, 0), 850 + al_get_text_width(font.get_font(3), weapons_unlocked.get_list(num_of_weapon - 1).c_str()), 732, NULL, " UNLOCKED");
+	}
+	
+
+
+}

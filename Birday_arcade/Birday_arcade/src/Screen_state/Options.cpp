@@ -19,6 +19,7 @@ Options::Options()
 	control_option[4] = ALLEGRO_KEY_SPACE;
 	control_option[5] = ALLEGRO_KEY_A;
 	control_option[6] = ALLEGRO_KEY_S;
+	set_sound_options(true);
 }
 
 
@@ -39,11 +40,39 @@ void Options::set_control_options(int buttons[7])
 	}
 }
 
+bool Options::get_sound_options()
+{
+	return this->sound_options;
+}
+
+void Options::set_sound_options(bool sound)
+{
+	this->sound_options = sound;
+}
+
+int Options::get_last_screen()
+{
+	return this->screennum;
+}
+
+void Options::set_last_screen(int screennum)
+{
+	this->screennum = screennum;
+}
+
+int Options::get_tile_options()
+{
+	return this->tile_options;
+}
+
+void Options::set_tile_options(int tile_options)
+{
+	this->tile_options = tile_options;
+}
+
 void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, ALLEGRO_EVENT & e, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
-
-
 
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
@@ -51,42 +80,43 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 		{
 		case 4:
 			control_option[0] = e.keyboard.keycode;
-			options++;
+			options = 5;
 			break;
 		case 5:
 			control_option[1] = e.keyboard.keycode;
-			options++;
+			options = 6;
 			break;
 		case 6:
 			control_option[2] = e.keyboard.keycode;
-			options++;
+			options = 7;
 			break;
 		case 7:
 			control_option[3] = e.keyboard.keycode;
-			options++;
+			options = 8;
 			break;
 		case 8:
 			control_option[4] = e.keyboard.keycode;
-			options++;
+			options = 9;
 			break;
 		case 9:
 			control_option[5] = e.keyboard.keycode;
-			options++;
+			options = 10;
 			break;
 		case 10:
 			control_option[6] = e.keyboard.keycode;
-			options++;
+			options = 11;
 			break;
 		}
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
+			set_last_screen(OPTION_SCREEN);
 			screennum = QUIT_SCREEN;
 		}
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_UP)
 		{
-			if (options == 11 || options < 4)
+			if (options < 4 || options > 10)
 			{
 				options--;
 				if (options < 1)
@@ -94,13 +124,11 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 					options = 11;
 				}
 			}
-
-			
 		}
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN)
 		{
-			if (options == 11 || options < 4)
+			if (options < 4 || options > 10)
 			{
 				options++;
 				if (options > 11)
@@ -108,6 +136,9 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 					options = 1;
 				}
 			}
+
+			std::cout << options << std::endl;
+
 		}
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_LEFT)
@@ -116,7 +147,17 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 			{
 			case 1:
 				//al_draw_text(font.get_font(0), Sel, 500, 330, NULL, "SOUND:");
-				sound_options--;
+				if (sound_options)
+				{
+					set_sound_options(false);
+					std::cout << "FALSE" << std::endl;
+				}
+
+				else
+				{
+					set_sound_options(true);
+					std::cout << "TRUE" << std::endl;
+				}
 				break;
 			case 2:
 				//al_draw_text(font.get_font(0), Sel, 500, 360, NULL, "TILE STYLE:");
@@ -129,10 +170,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 		
 			}
 
-			if (sound_options < 1)
-			{
-				sound_options = 2;
-			}
+			
 
 			if (difficulty_option < 1)
 			{
@@ -150,12 +188,22 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 			switch (options)
 			{
 			case 1:
-				//al_draw_text(font.get_font(0), Sel, 500, 330, NULL, "SOUND:");
-				sound_options++;
+				if (sound_options)
+				{
+					set_sound_options(false);
+					std::cout << "FALSE" << std::endl;
+				}
+
+				else
+				{
+					set_sound_options(true);
+					std::cout << "TRUE" << std::endl;
+				}
 				break;
 			case 2:
 				//al_draw_text(font.get_font(0), Sel, 500, 360, NULL, "TILE STYLE:");
 				tile_options++;
+				set_tile_options(tile_options);
 				break;
 			case 3:
 				//al_draw_text(font.get_font(0), Sel, 500, 390, NULL, "DIFFICULTY:");
@@ -184,7 +232,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 		{
 			if (options == 11)
 			{
-				screennum = MENU_SCREEN;
+				screennum = get_last_screen();
 			}
 
 		}
@@ -193,7 +241,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 		{
 			if (options == 11 || options < 4)
 			{
-				screennum = MENU_SCREEN;
+				screennum = get_last_screen();
 			}
 		}
 	}
@@ -219,12 +267,12 @@ void Options::render(Image image, Font font)
 	al_draw_text(font.get_font(0), notSel, 500, 630, NULL, "PREV WEAPON:");
 	al_draw_text(font.get_font(0), notSel, 500, 660, NULL, "NEXT WEAPON:");
 
-	if (sound_options == 1)
+	if (sound_options)
 	{
 		al_draw_text(font.get_font(0), SelOption, 625, 330, NULL, "ON");
 	}
 
-	else if (sound_options == 2)
+	else 
 	{
 		al_draw_text(font.get_font(0), SelOption, 625, 330, NULL, "OFF");
 	}

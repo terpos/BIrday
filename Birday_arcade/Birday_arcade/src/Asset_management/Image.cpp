@@ -114,7 +114,9 @@ void Image::Load_Images()
 	this->Destruction.push_back(std::make_pair(al_load_bitmap("c:/Users/Kamal/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Explosion_From_Weapon.png"), DESTRUCTION));
 	this->Destruction.push_back(std::make_pair(al_load_bitmap("c:/Users/Kamal/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Explosion_From_Bombs.png"), DESTRUCTION));
 
-
+	//Status
+	this->status.push_back(std::make_pair(al_load_bitmap("c:/Users/Kamal/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Freeze.png"), STATUS));
+	this->status.push_back(std::make_pair(al_load_bitmap("c:/Users/Kamal/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Burn.png"), STATUS));
 
 }
 
@@ -125,7 +127,6 @@ void Image::Image_error_check()
 
 void Image::Deallocate_image(Tile_map &tile_map_file)
 {
-	
 	al_destroy_bitmap(Player_image().first);
 
 	for (int i = 0; i < enemies.size(); i++)
@@ -197,4 +198,9 @@ std::pair<ALLEGRO_BITMAP*, int> Image::Background_image(int background_num)
 std::pair<ALLEGRO_BITMAP*, int> Image::Destruction_image(int destruction_num)
 {
 	return std::pair<ALLEGRO_BITMAP*, int>(this->Destruction[destruction_num].first, this->Destruction[destruction_num].second);
+}
+
+std::pair<ALLEGRO_BITMAP*, int> Image::status_image(int status_num)
+{
+	return std::pair<ALLEGRO_BITMAP*, int>(this->status[status_num].first, this->status[status_num].second);
 }

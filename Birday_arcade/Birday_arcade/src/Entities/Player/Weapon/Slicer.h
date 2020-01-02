@@ -11,7 +11,7 @@ public:
 
 	void abilities();
 
-	void render(Image expl, Sound sound);
+	void render(Image expl, Sound sound, bool play_sound);
 private:
 	int type;
 

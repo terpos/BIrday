@@ -14,9 +14,12 @@ Needle_Blast_Wind_Chip::~Needle_Blast_Wind_Chip()
 {
 }
 
-void Needle_Blast_Wind_Chip::power_up_abilities(Sound sound, Player* &player, std::vector<Enemy*>& enemy)
+void Needle_Blast_Wind_Chip::power_up_abilities(Sound sound, Player* &player, std::vector<Enemy*>& enemy, Options option)
 {
-	al_play_sample_instance(sound.sound_effects(21));
+	if (option.get_sound_options())
+	{
+		al_play_sample_instance(sound.sound_effects(21));
+	}
 
 	for (int i = 0; i < enemy.size(); i++)
 	{
