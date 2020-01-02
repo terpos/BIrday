@@ -13,16 +13,17 @@ Player::Player(Image &sprite_sheet, int x, int y, int vel, int direction, int bu
 	set_health(100);
 	set_buttons(buttons);
 	cropping = al_create_bitmap(80, 80);
+
 	key[0] = false;
 	key[1] = false;
 	key[2] = false;
 	key[3] = false;
+	
 	this->glide = false;
 	set_glide(this->glide);
 	this->delay_movement = 3;
 	set_delay_movemement(this->delay_movement);
 	this->option_weapon = 0;
-
 
 	Num_of_Bullet[ROCKET_LAZER] = 10;
 	Num_of_Bullet[STUNNER] = 10;
@@ -36,11 +37,9 @@ Player::Player(Image &sprite_sheet, int x, int y, int vel, int direction, int bu
 	Num_of_Bullet[ARROW] = 3;
 	Num_of_Bullet[SLICER] = 2;
 
+	Poisoned_duration = 0;
 
-
-
-
-
+	Damage.set_frame(0);
 }
 
 
@@ -64,7 +63,6 @@ int Player::get_vel()
 {
 	return this->vel;
 }
-
 
 int Player::get_num_of_ammo(int index)
 {
@@ -99,6 +97,11 @@ int Player::get_buttons(int index)
 int Player::get_delay_movement()
 {
 	return this->delay_movement;
+}
+
+int Player::get_option_weapon()
+{
+	return this->option_weapon;
 }
 
 void Player::set_x(int x)
@@ -151,7 +154,7 @@ void Player::set_buttons(int buttons[7])
 	}
 }
 
-float Player::get_health()
+int Player::get_health()
 {
 	return this->health;
 }
@@ -200,8 +203,11 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 			case LAZER:
 				
 				pweapon.push_back(new Lazer(spritesheet, get_x(), get_y(), 20, get_direction()));
-				al_set_sample_instance_position(sound.sound_effects(13), 0);
-				al_play_sample_instance(sound.sound_effects(13));
+				if (option.get_sound_options())
+				{
+					al_set_sample_instance_position(sound.sound_effects(13), 0);
+					al_play_sample_instance(sound.sound_effects(13));
+				}
 				break;
 
 			case ROCKET_LAZER:
@@ -209,6 +215,11 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new Rocket_lazer(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[ROCKET_LAZER] - 1, ROCKET_LAZER);
+					if (option.get_sound_options())
+					{
+						al_set_sample_instance_position(sound.sound_effects(13), 0);
+						al_play_sample_instance(sound.sound_effects(13));
+					}
 				}
 				break;
 
@@ -217,7 +228,12 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new Stunner(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[STUNNER] - 1, STUNNER);
-				}	
+					if (option.get_sound_options())
+					{
+						al_set_sample_instance_position(sound.sound_effects(13), 0);
+						al_play_sample_instance(sound.sound_effects(13));
+					}
+				}
 				break;
 
 			case BOMBS:
@@ -257,6 +273,11 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new BiNuke(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[BI_NUKE] - 1, BI_NUKE);
+					if (option.get_sound_options())
+					{
+						al_set_sample_instance_position(sound.sound_effects(15), 0);
+						al_play_sample_instance(sound.sound_effects(15));
+					}
 				}
 				break;
 
@@ -265,6 +286,11 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new TriNuke(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[TRI_NUKE] - 1, TRI_NUKE);
+					if (option.get_sound_options())
+					{
+						al_set_sample_instance_position(sound.sound_effects(15), 0);
+						al_play_sample_instance(sound.sound_effects(15));
+					}
 				}
 				break;
 
@@ -273,6 +299,11 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new Triangular_Missle(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[TRIANGULAR_MISSILE] - 1, TRIANGULAR_MISSILE);
+					if (option.get_sound_options())
+					{
+						al_set_sample_instance_position(sound.sound_effects(15), 0);
+						al_play_sample_instance(sound.sound_effects(15));
+					}
 				}
 				break;
 
@@ -281,6 +312,11 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new Slicer(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[SLICER] - 1, SLICER);
+					if (option.get_sound_options())
+					{
+						al_set_sample_instance_position(sound.sound_effects(18), 0);
+						al_play_sample_instance(sound.sound_effects(18));
+					}
 				}
 				break;
 
@@ -289,9 +325,11 @@ void Player::control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &o
 				{
 					pweapon.push_back(new Arrow(spritesheet, get_x(), get_y(), 20, get_direction()));
 					set_num_of_ammo(Num_of_Bullet[ARROW] - 1, ARROW);
-					al_set_sample_instance_position(sound.sound_effects(0), 0);
-					al_play_sample_instance(sound.sound_effects(0));
-				
+					if (option.get_sound_options())
+					{
+						al_set_sample_instance_position(sound.sound_effects(0), 0);
+						al_play_sample_instance(sound.sound_effects(0));
+					}
 				}
 				break;
 			}
@@ -353,7 +391,7 @@ void Player::damage_col_update()
 	{
 		set_hit(true, 1);
 		
-		recover = 50;
+		//recover = 50;
 	
 		if (get_direction() == 0)
 		{
@@ -460,16 +498,6 @@ void Player::update(std::vector <P_Weapon*> &pweapon)
 		}
 	}
 	
-	
-	if (recover != 0)
-	{
-		recover--;
-	}
-
-	else if (recover == 0)
-	{
-		set_hit(false, 0);
-	}
 
 	if (get_delay_movement() == 0 && !is_gliding())
 	{
@@ -502,11 +530,51 @@ void Player::update(std::vector <P_Weapon*> &pweapon)
 		set_delay_movemement(get_delay_movement() - 1);
 	}
 
-	
+	if (is_hit().second == 1)
+	{
+		Damage.increment_frame();
+	}
 
+	if (Damage.get_frame() >= 100)
+	{
+		Damage.set_frame(0);
+		set_hit(false, 0);
+	}
+
+	if (is_hit().second == 2)
+	{
+		Poisoned_duration++;
+	}
+
+	if (Poisoned_duration == 50)
+	{
+		Poisoned_duration = 0;
+		set_hit(false, 0);
+	}
 }
 
 void Player::render()
 {
-	al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+	if (is_hit().second == 1)
+	{
+		if (Damage.get_frame_position(11) >= 0 && Damage.get_frame_position(11) <= 5)
+		{
+			al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+		}
+
+		else
+		{
+			al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+		}
+	}
+
+	if (is_hit().second == 2)
+	{
+		al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 160, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+	}
+
+	else if (is_hit().second == 0)
+	{
+		al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+	}
 }

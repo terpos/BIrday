@@ -56,6 +56,11 @@ int P_Weapon::damage()
 	return 1;
 }
 
+int P_Weapon::enemy_status()
+{
+	return this->status_enemy;
+}
+
 bool P_Weapon::is_dead()
 {
 	return this->kill;
@@ -103,6 +108,7 @@ void P_Weapon::set_kill(bool kill)
 
 void P_Weapon::abilities()
 {
+	set_enemy_status(1);
 	set_hit(true, is_hit().second);
 	set_enemy_damage(true);
 }
@@ -110,6 +116,11 @@ void P_Weapon::abilities()
 void P_Weapon::set_enemy_damage(bool damage)
 {
 	this->damage_enemy = damage;
+}
+
+void P_Weapon::set_enemy_status(int status)
+{
+	this->status_enemy = status;
 }
 
 void P_Weapon::set_hit(bool hit, int hit_count)
@@ -230,7 +241,7 @@ void P_Weapon::update()
 	
 }
 
-void P_Weapon::render(Image expl)
+void P_Weapon::render(Image expl, Sound sound, bool play_sound)
 {
 	if (is_hit().first)
 	{

@@ -9,7 +9,7 @@ public:
 
 	void abilities();
 
-	void render(Image expl);
+	void render(Image expl, Sound sound, bool play_sound);
 private:
 	
 	int type;

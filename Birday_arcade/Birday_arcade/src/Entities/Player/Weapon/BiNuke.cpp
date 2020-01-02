@@ -27,7 +27,7 @@ int BiNuke::damage()
 }
 
 
-void BiNuke::render(Image expl)
+void BiNuke::render(Image expl, Sound sound, bool play_sound)
 {
 	if (is_hit().first)
 	{

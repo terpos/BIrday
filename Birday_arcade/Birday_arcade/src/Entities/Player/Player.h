@@ -36,7 +36,7 @@ public:
 	bool is_gliding();
 	
 	//gets the positive value of health
-	float get_health();
+	int get_health();
 
 	//controls the player when a key is hit
 	void control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &option, std::vector <P_Weapon*> &pweapon, bool unlock_weapon[11], int num_of_weapon);
@@ -53,6 +53,7 @@ public:
 	int get_buttons(int index);
 
 	int get_delay_movement();
+	int get_option_weapon();
 
 	//sets the x position, y position, speed, and direction of the player 
 	void set_x(int x);
@@ -93,7 +94,7 @@ public:
 
 private:
 	//integer variables
-	int x, y, vel, direction, buttons[7], delay_movement, recover, option_weapon, Num_of_Bullet[12];
+	int x, y, vel, direction, buttons[7], option_weapon, delay_movement, Poisoned_duration, Num_of_Bullet[12];
 	float health;
 
 	//boolean variables and boolean variables array
@@ -103,6 +104,9 @@ private:
 	//pair variables
 	std::pair <bool, int> hit;
 	std::pair <ALLEGRO_BITMAP*, int> image;
+
+	Animation Damage;
+
 
 	//bitmap instance variable
 	ALLEGRO_BITMAP* cropping;	

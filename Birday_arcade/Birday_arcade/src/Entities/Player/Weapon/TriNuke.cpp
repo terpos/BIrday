@@ -30,7 +30,7 @@ int TriNuke::damage()
 
 
 
-void TriNuke::render(Image expl)
+void TriNuke::render(Image expl, Sound sound, bool play_sound)
 {
 	if (is_hit().first)
 	{

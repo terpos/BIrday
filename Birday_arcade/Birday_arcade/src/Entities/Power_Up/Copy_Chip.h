@@ -7,7 +7,7 @@ public:
 	Copy_Chip(Image image, int x, int y);
 	~Copy_Chip();
 
-	void power_up_abilities(Player* &player, std::vector <Enemy*> &enemy);
+	void power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy, Options option);
 
 private:
 	int x, y, seed;

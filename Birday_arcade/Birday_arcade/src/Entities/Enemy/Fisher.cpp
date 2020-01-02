@@ -49,10 +49,15 @@ int Fisher::Damage()
 	}
 }
 
-void Fisher::react(Image &image, Player* & player, std::vector<E_Weapon*>& eweapon)
+void Fisher::react(Image &image, Sound sound, Player* & player, std::vector<E_Weapon*>& eweapon, Options option)
 {
 	if ((player->get_x() < get_x() + 240 && player->get_x() + 240 > get_x() && player->get_y() < get_y() + 240 && player->get_y() + 240 > get_y()) && get_vel() > 0)
 	{
+		if (option.get_sound_options())
+		{
+			al_play_sample_instance(sound.sound_effects(19));
+		}
+
 		if (player->get_direction() == 2 && get_direction() == 1)
 		{
 			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
@@ -80,7 +85,7 @@ void Fisher::react(Image &image, Player* & player, std::vector<E_Weapon*>& eweap
 	}
 }
 
-void Fisher::shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet)
+void Fisher::shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet)
 {
 	std::uniform_int_distribution<int > shoot(0, 11);
 
@@ -93,6 +98,11 @@ void Fisher::shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet)
 	{
 		if (shoot(shooting_probability) > 5)
 		{
+			if (option.get_sound_options())
+			{
+				al_set_sample_instance_position(sound.sound_effects(4), 0);
+				al_play_sample_instance(sound.sound_effects(4));
+			}
 			eweapon.push_back(new Bubble_Blast(spritesheet, get_x(), get_y(), 20, get_direction()));
 			this->reload_time = 20;
 		}

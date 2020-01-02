@@ -14,7 +14,7 @@ Pause::~Pause()
 {
 }
 
-void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, ALLEGRO_EVENT & e, int & screennum, bool & done)
+void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Options &option, ALLEGRO_EVENT & e, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
 
@@ -22,6 +22,7 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 	{
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
+			option.set_last_screen(PAUSE_SCREEN);
 			screennum = QUIT_SCREEN;
 		}
 
@@ -50,8 +51,14 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 				screennum = WEAPONS_UNLOCKED_SCREEN;
 			}
 
+			else if (options == 3)
+			{
+				option.set_last_screen(PAUSE_SCREEN);
+				screennum = options;
+			}
 			else
 			{
+				option.set_last_screen(PAUSE_SCREEN);
 				screennum = options;
 			}
 		}

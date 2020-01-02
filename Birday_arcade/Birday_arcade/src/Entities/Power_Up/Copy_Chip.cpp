@@ -17,7 +17,7 @@ Copy_Chip::~Copy_Chip()
 {
 }
 
-void Copy_Chip::power_up_abilities(Player *& player, std::vector<Enemy*>& enemy)
+void Copy_Chip::power_up_abilities(Sound sound, Player *& player, std::vector<Enemy*>& enemy, Options option)
 {
 	std::uniform_int_distribution <int> kind_of_powerup(0, 4);
 
@@ -25,16 +25,31 @@ void Copy_Chip::power_up_abilities(Player *& player, std::vector<Enemy*>& enemy)
 	{
 
 	case GLIDING_CHIP:
+		if (option.get_sound_options())
+		{
+			al_play_sample_instance(sound.sound_effects(9));
+		}
+
 		player->set_vel(10);
 		player->set_glide(true);
 		player->set_delay_movemement(200);
 		break;
 
 	case HEALTH_CHIP:
+		if (option.get_sound_options())
+		{
+			al_play_sample_instance(sound.sound_effects(12));
+		}
+
 		player->set_health(player->get_health() + 25);
 		break;
 
 	case NEEDLE_WIND_BLAST_CHIP:
+		if (option.get_sound_options())
+		{
+			al_play_sample_instance(sound.sound_effects(21));
+		}
+
 		for (int i = 0; i < enemy.size(); i++)
 		{
 			if (enemy[i]->get_x() < player->get_x())
@@ -45,6 +60,11 @@ void Copy_Chip::power_up_abilities(Player *& player, std::vector<Enemy*>& enemy)
 		break;
 
 	case STOP_CHIP:
+		if (option.get_sound_options())
+		{
+			al_play_sample_instance(sound.sound_effects(20));
+		}
+
 		for (int i = 0; i < enemy.size(); i++)
 		{
 			enemy[i]->set_vel(0);
@@ -52,6 +72,11 @@ void Copy_Chip::power_up_abilities(Player *& player, std::vector<Enemy*>& enemy)
 		break;
 
 	case B_2_BOMBER_STRIKE_CHIP:
+		if (option.get_sound_options())
+		{
+			al_play_sample_instance(sound.sound_effects(2));
+		}
+
 		enemy.clear();
 		break;
 	

@@ -9,12 +9,11 @@ Quit::Quit()
 	options = 1;
 }
 
-
 Quit::~Quit()
 {
 }
 
-void Quit::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, ALLEGRO_EVENT & e, int & screennum, bool & done)
+void Quit::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Options option, ALLEGRO_EVENT & e, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
 
@@ -51,7 +50,7 @@ void Quit::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image imag
 				done = true;
 				break;
 			case 2:
-				screennum = MENU_SCREEN;
+				screennum = option.get_last_screen();
 				break;
 			}
 		}

@@ -7,7 +7,7 @@ public:
 	Gliding_Chip(Image image, int x, int y);
 	~Gliding_Chip();
 
-	void power_up_abilities(Player* &player, std::vector <Enemy*> &enemy);
+	void power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy, Options option);
 
 private:
 	int x, y;

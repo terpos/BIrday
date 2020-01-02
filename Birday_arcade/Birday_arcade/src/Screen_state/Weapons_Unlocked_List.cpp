@@ -19,7 +19,7 @@ std::string Weapons_Unlocked_List::get_list(int index)
 	return listing[index];
 }
 
-void Weapons_Unlocked_List::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, ALLEGRO_EVENT & e, int & screennum, bool & done)
+void Weapons_Unlocked_List::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Options &option, ALLEGRO_EVENT & e, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
 
@@ -32,6 +32,8 @@ void Weapons_Unlocked_List::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEU
 
 		else if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
+			option.set_last_screen(WEAPONS_UNLOCKED_SCREEN);
+
 			screennum = QUIT_SCREEN;
 		}
 	}

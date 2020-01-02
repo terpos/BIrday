@@ -12,7 +12,7 @@ Game_Materials::~Game_Materials()
 {
 }
 
-void Game_Materials::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, ALLEGRO_EVENT & e, int & screennum, bool & done)
+void Game_Materials::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Options &option, ALLEGRO_EVENT & e, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
 
@@ -20,6 +20,7 @@ void Game_Materials::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, 
 	{
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
+			option.set_last_screen(GAME_MATERIAL_SCREEN);
 			screennum = QUIT_SCREEN;
 		}
 

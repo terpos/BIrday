@@ -11,6 +11,8 @@
 #include "Weapon/Thunder.h"
 #include "Weapon/Venom_Spit.h"
 #include "Weapon/Ball_shot.h"
+#include "Weapon/Gunk.h"
+
 #include "Entities/Player/Player.h"
 
 #pragma once
@@ -34,6 +36,8 @@ public:
 
 	virtual int Damage();
 
+	virtual bool is_dead();
+
 	//checks if the player is hit
 	virtual std::pair <bool, int> is_hit();
 
@@ -54,34 +58,36 @@ public:
 	//sets whether the player is hit or not
 	virtual void set_hit(bool ishit, int status);
 
+	virtual void set_kill(bool kill);
+
 	//sets the bitmap information
 	virtual void set_bitmap(ALLEGRO_BITMAP* image, int entity_num);
 
 	//updates the enemy's info when collided (player moves backward)
 	virtual void damage_col_update();
 	
-	virtual void react(Image &image, Player* & player, std::vector<E_Weapon*>& eweapon);
+	virtual void react(Image &image, Sound sound, Player* & player, std::vector<E_Weapon*>& eweapon, Options option);
 
 	virtual void change_direction();
 
-	virtual void shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet);
+	virtual void shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet);
 
 	//updates the enemies's info as well as the weapon's movement
-	virtual void update(std::vector <E_Weapon*> &eweapon, std::vector <P_Weapon*> &pweapon, Image spritesheet);
+	virtual void update(std::vector <E_Weapon*> &eweapon, Options option, std::vector <P_Weapon*> &pweapon, Image spritesheet, Sound sound);
 
 	//displays the enemies
 	virtual void render(Image death);
 
 private:
 	//integer variables
-	int x, y, vel, direction, nochange, reload_time, version, is_damage;
+	int x, y, vel, direction, nochange, reload_time, version, is_damage, freeze_duration, burn_duration, tempvel, stop_duration;
 	unsigned int health;
 
 	//positive whole number variables
 	unsigned seed;
 
 	//boolean variables
-	bool draw;
+	bool draw, enemy_dead;
 	
 	Animation animation;
 	Animation damage;

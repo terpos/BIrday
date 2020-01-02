@@ -9,7 +9,7 @@ public:
 
 	int Damage();
 
-	void shoot(std::vector <E_Weapon*> &eweapon, Image spritesheet);
+	void shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet);
 
 private:
 	int x, y, vel, direction;

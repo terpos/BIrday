@@ -44,7 +44,7 @@ void Slicer::abilities()
 	}
 }
 
-void Slicer::render(Image expl)
+void Slicer::render(Image expl, Sound sound, bool play_sound)
 {
 	if (is_hit().first)
 	{

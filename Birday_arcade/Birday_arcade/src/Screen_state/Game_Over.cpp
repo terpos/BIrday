@@ -12,9 +12,10 @@ Game_Over::~Game_Over()
 
 }
 
-void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Sound sound, ALLEGRO_EVENT & e, int & screennum, bool & done)
+void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Sound sound, Options &option, ALLEGRO_EVENT & e, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
+	
 
 	if (al_get_sample_instance_position(sound.bg_music(0)) < 150000)
 	{
@@ -65,6 +66,7 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 				screennum = MENU_SCREEN;
 				break;
 			case 3:
+				option.set_last_screen(GAME_OVER_SCREEN);
 				screennum = QUIT_SCREEN;
 				break;
 			}
@@ -73,19 +75,21 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 	
 }
 
-void Game_Over::render(Image image, Sound sound, Font font)
+void Game_Over::render(Image image, Sound sound, Font font, Options option)
 {
 	//system("cls");
-	
-	if (play)
+	if (option.get_sound_options())
 	{
-		al_play_sample_instance(sound.bg_music(0));
-	}
+		if (play)
+		{
+			al_play_sample_instance(sound.bg_music(0));
+		}
 
-	else
-	{
-		al_set_sample_instance_position(sound.bg_music(0), 150000);
-		al_play_sample_instance(sound.bg_music(0));
+		else
+		{
+			al_set_sample_instance_position(sound.bg_music(0), 150000);
+			al_play_sample_instance(sound.bg_music(0));
+		}
 	}
 
 	al_draw_bitmap(image.Background_image(1).first, 0, 0, NULL);

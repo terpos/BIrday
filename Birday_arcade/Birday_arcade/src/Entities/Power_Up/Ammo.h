@@ -19,7 +19,7 @@ public:
 	void set_bitmap(ALLEGRO_BITMAP *image, int entity_num);
 
 	//functionality of the power up
-	void ammo_reload(Player* &player);
+	void ammo_reload(Sound sound, Player* &player, Options option);
 
 	//displays the powerup
 	void render();

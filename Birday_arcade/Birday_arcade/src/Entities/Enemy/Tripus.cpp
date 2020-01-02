@@ -52,7 +52,7 @@ int Tripus::Damage()
 
 }
 
-void Tripus::shoot(std::vector<E_Weapon*>& eweapon, Image spritesheet)
+void Tripus::shoot(std::vector<E_Weapon*>& eweapon, Options option, Sound sound, Image spritesheet)
 {
 	std::uniform_int_distribution<int > shoot(0, 21);
 
@@ -65,13 +65,24 @@ void Tripus::shoot(std::vector<E_Weapon*>& eweapon, Image spritesheet)
 	{
 		if (shoot(shooting_probability) > 5 && shoot(shooting_probability) < 15)
 		{
+			if (option.get_sound_options())
+			{
+				al_set_sample_instance_position(sound.sound_effects(3), 0);
+				al_play_sample_instance(sound.sound_effects(3));
+			}
 			eweapon.push_back(new Ball_shot(spritesheet, get_x(), get_y(), 20, get_direction()));
 			this->reload_time = 40;
+
 		}
 
 		else if (shoot(shooting_probability) > 15)
 		{
-			//eweapon.push_back(new Grapple(spritesheet, get_x(), get_y(), 0, get_direction()));
+			if (option.get_sound_options())
+			{
+				al_set_sample_instance_position(sound.sound_effects(11), 0);
+				al_play_sample_instance(sound.sound_effects(11));
+			}
+			eweapon.push_back(new Gunk(spritesheet, get_x(), get_y(), 20, get_direction()));
 			this->reload_time = 40;
 		}
 

@@ -26,14 +26,23 @@ void Ice_Bomb::abilities()
 {
 	if (weapon_explosion.get_frame() > 0)
 	{
+		set_enemy_status(2);
 		set_hit(true, is_hit().second);
 		set_enemy_damage(true);
 	}
 }
 
 
-void Ice_Bomb::render(Image expl)
+void Ice_Bomb::render(Image expl, Sound sound, bool play_sound)
 {
+	if (weapon_explosion.get_frame() > 0)
+	{
+		if (play_sound)
+		{
+			al_set_sample_instance_position(sound.sound_effects(1), 0);
+			al_play_sample_instance(sound.sound_effects(1));
+		}
+	}
 	if (bomb_detonate.get_frame() < 200)
 	{
 		if (bomb_detonate.get_frame() <= 100)

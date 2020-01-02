@@ -55,6 +55,7 @@
     <ClCompile Include="src\Asset_management\Font.cpp" />
     <ClCompile Include="src\Screen_state\Game_Over.cpp" />
     <ClCompile Include="src\Screen_state\Weapons_Unlocked_List.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Gunk.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Screen_state\Game.h" />
@@ -112,6 +113,7 @@
     <ClInclude Include="src\Asset_management\Font.h" />
     <ClInclude Include="src\Screen_state\Game_Over.h" />
     <ClInclude Include="src\Screen_state\Weapons_Unlocked_List.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Gunk.h" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
