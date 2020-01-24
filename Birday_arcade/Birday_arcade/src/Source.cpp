@@ -12,6 +12,7 @@ using namespace std;
 int main()
 {
 	int screennum = 0;
+	int count_down_to_close = 600;
 
 	//boolean variable
 	bool draw = false;
@@ -32,10 +33,12 @@ int main()
 
 	//sets the new display flags
 	//al_set_new_display_flags(ALLEGRO_FULLSCREEN);
-
+	
+	ALLEGRO_BITMAP * icon = al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/birday_icon.png");
 	//initializes and creates display
 	ALLEGRO_DISPLAY *display = al_create_display(1360, 768);
 
+	al_set_display_icon(display, icon);
 	Tile_map m;
 
 	//sets the screen to no frame
@@ -66,10 +69,13 @@ int main()
 	//timer variable
 	ALLEGRO_TIMER *timer = al_create_timer(1 / fps);
 
-	m.load("c:/Users/Kamal/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Tile_map.txt");
+	m.load("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Tile_map.txt");
 	image.Load_Images();
 	font.load();
 	sound.Load_Sound();
+
+	image.Image_error_check();
+	font.Font_error_check();
 
 	game.load(image);
 	
@@ -92,6 +98,7 @@ int main()
 			menu.update(display, q, image, sound, option, ev, screennum, done);
 			break;
 		case GAME_SCREEN:
+			game.init(option);
 			game.update(display, q, m, weapon_unlock, option, image, sound, ev, screennum, done);
 			break;
 		case OPTION_SCREEN:
@@ -104,7 +111,7 @@ int main()
 			quit.update(display, q, image, option, ev, screennum, done);
 			break;
 		case PAUSE_SCREEN:
-			pause.update(display, q, image, option, ev, screennum, done);
+			pause.update(display, q, image, option, game, ev, screennum, done);
 			break;
 		case GAME_OVER_SCREEN:
 			game_over.update(display, q, image, sound, option, ev, screennum, done);
@@ -127,7 +134,7 @@ int main()
 				menu.render(image, sound, font);
 				break;
 			case GAME_SCREEN:
-				game.render(weapon_unlock, option, image, sound, m, font);
+				game.render(weapon_unlock, option, image, sound, m, font);	
 				break;
 			case OPTION_SCREEN:
 				option.render(image, font);
@@ -149,33 +156,31 @@ int main()
 				break;
 			}
 			
-
 			draw = false;
 		}
 
 		al_flip_display();
 	}
-	
-	
-	image.Deallocate_image(m);
-	font.deallocate();
-	sound.Deallocate_sound();
 
-	//stops the timer
-	al_stop_timer(timer);
+	//destroys display, timer and event memory
+	al_destroy_display(display);
+
+	al_destroy_timer(timer);
+	al_destroy_event_queue(q);
+	
+	font.deallocate();
+	image.Deallocate_image(m);
+	sound.Deallocate_sound();
+	al_destroy_bitmap(icon);
 
 	//uninstall audio and keyboard
 	al_uninstall_audio();
 	al_uninstall_keyboard();
 
-	//destroys display, timer and event memory
-	al_destroy_display(display);
-	al_destroy_timer(timer);
-	al_destroy_event_queue(q);
-	
-	std::cout << "Press [Enter] To Continue" << std::endl;
 
-	std::cin.get();
+	al_uninstall_system();
+	//std::cout << "Press [Enter] To Continue" << std::endl;
+
 
 
 	return 0;

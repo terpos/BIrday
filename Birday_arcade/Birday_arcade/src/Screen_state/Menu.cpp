@@ -98,3 +98,11 @@ void Menu::render(Image image, Sound sound, Font font)
 		break;
 	}
 }
+
+void Menu::error_notify(Font font, int x)
+{
+	if (x == 101)
+	{
+		al_draw_text(font.get_font(0), al_map_rgb(0, 200, 100), 500, 720, NULL, "Player Image not found!");
+	}
+}

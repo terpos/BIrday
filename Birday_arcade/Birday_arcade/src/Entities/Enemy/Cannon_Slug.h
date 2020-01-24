@@ -8,6 +8,7 @@ public:
 	~Cannon_Slug();
 
 	int Damage();
+	int get_score();
 
 	void react(Image &image, Sound sound, Player* &player, std::vector <E_Weapon*> &eweapon, Options option);
 	void shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet);

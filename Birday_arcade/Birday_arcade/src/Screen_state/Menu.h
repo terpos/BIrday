@@ -14,6 +14,8 @@ public:
 	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, Sound sound, Options &option, ALLEGRO_EVENT &e, int &screennum, bool &done);
 	void render(Image image, Sound sound, Font font);
 
+	void error_notify(Font font, int x);
+
 private:
 	Image image;
 

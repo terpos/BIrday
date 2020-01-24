@@ -22,13 +22,18 @@ public:
 	int get_tile_options();
 	void set_tile_options(int tile_options);
 
+	int get_difficulty_options();
+	void Set_difficulty_options(int difficulty_option);
+
+	int get_level_for_difficulty();
+
 	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, ALLEGRO_EVENT &e, int &screennum, bool &done);
 	void render(Image image, Font font);
 
 private:
 	Image image;
-	int options, tile_options, difficulty_option, control_option[7], screennum;
-	bool sound_options;
+	int options, tile_options, difficulty_option, control_option[7], screennum, num_of_key_pressed;
+	bool sound_options, press_any_key;
 
 	ALLEGRO_COLOR Sel;
 	ALLEGRO_COLOR SelOption;

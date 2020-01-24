@@ -8,10 +8,13 @@ Options::Options()
 	SelOption = al_map_rgb(0, 0, 255);
 	notSel = al_map_rgb(0, 255, 0);
 	notSelOption = al_map_rgb(5, 50, 50);
+	
 	options = 1;
 	sound_options = 1;
 	tile_options = 1;
 	difficulty_option = 1;
+	num_of_key_pressed = 0;
+	
 	control_option[0] = ALLEGRO_KEY_DOWN;
 	control_option[1] = ALLEGRO_KEY_UP;
 	control_option[2] = ALLEGRO_KEY_RIGHT;
@@ -19,6 +22,8 @@ Options::Options()
 	control_option[4] = ALLEGRO_KEY_SPACE;
 	control_option[5] = ALLEGRO_KEY_A;
 	control_option[6] = ALLEGRO_KEY_S;
+	
+	press_any_key = false;
 	set_sound_options(true);
 }
 
@@ -70,74 +75,76 @@ void Options::set_tile_options(int tile_options)
 	this->tile_options = tile_options;
 }
 
+int Options::get_difficulty_options()
+{
+	return this->difficulty_option;
+}
+
+void Options::Set_difficulty_options(int difficulty_option)
+{
+	this->difficulty_option = difficulty_option;
+}
+
+int Options::get_level_for_difficulty()
+{
+	if (get_difficulty_options() == 1)
+		return 0;
+	else if (get_difficulty_options() == 2)
+		return 15;
+	else if (get_difficulty_options() == 3)
+		return 40;
+	return 0;
+}
+
 void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, ALLEGRO_EVENT & e, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
 
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
-		switch (options)
+		
+		if (options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9 || options == 10)
 		{
-		case 4:
-			control_option[0] = e.keyboard.keycode;
-			options = 5;
-			break;
-		case 5:
-			control_option[1] = e.keyboard.keycode;
-			options = 6;
-			break;
-		case 6:
-			control_option[2] = e.keyboard.keycode;
-			options = 7;
-			break;
-		case 7:
-			control_option[3] = e.keyboard.keycode;
-			options = 8;
-			break;
-		case 8:
-			control_option[4] = e.keyboard.keycode;
-			options = 9;
-			break;
-		case 9:
-			control_option[5] = e.keyboard.keycode;
-			options = 10;
-			break;
-		case 10:
-			control_option[6] = e.keyboard.keycode;
-			options = 11;
-			break;
+			if (press_any_key)
+			{
+				num_of_key_pressed = 2;
+			}
 		}
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
-			set_last_screen(OPTION_SCREEN);
-			screennum = QUIT_SCREEN;
-		}
-
-		if (e.keyboard.keycode == ALLEGRO_KEY_UP)
-		{
-			if (options < 4 || options > 10)
+			if (press_any_key)
 			{
-				options--;
-				if (options < 1)
-				{
-					options = 11;
-				}
-			}
-		}
-
-		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN)
-		{
-			if (options < 4 || options > 10)
-			{
-				options++;
-				if (options > 11)
-				{
-					options = 1;
-				}
+				press_any_key = false;
 			}
 
-			std::cout << options << std::endl;
+			else
+			{
+				set_last_screen(OPTION_SCREEN);
+				screennum = QUIT_SCREEN;
+			}
+			
+		}
+
+		if (e.keyboard.keycode == ALLEGRO_KEY_UP && !press_any_key)
+		{
+
+			options--;
+			if (options < 1)
+			{
+				options = 11;
+			}
+
+		}
+
+		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN && !press_any_key)
+		{
+
+			options++;
+			if (options > 11)
+			{
+				options = 1;
+			}
 
 		}
 
@@ -191,23 +198,20 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 				if (sound_options)
 				{
 					set_sound_options(false);
-					std::cout << "FALSE" << std::endl;
 				}
 
 				else
 				{
 					set_sound_options(true);
-					std::cout << "TRUE" << std::endl;
 				}
 				break;
 			case 2:
-				//al_draw_text(font.get_font(0), Sel, 500, 360, NULL, "TILE STYLE:");
 				tile_options++;
 				set_tile_options(tile_options);
 				break;
 			case 3:
-				//al_draw_text(font.get_font(0), Sel, 500, 390, NULL, "DIFFICULTY:");
 				difficulty_option++;
+				Set_difficulty_options(difficulty_option);
 				break;
 			
 			}
@@ -235,6 +239,15 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 				screennum = get_last_screen();
 			}
 
+			if (options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9 || options == 10)
+			{
+				press_any_key = true;
+				num_of_key_pressed = 1;
+				e.type = ALLEGRO_EVENT_KEY_UP;
+			}
+
+			
+
 		}
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_SPACE)
@@ -243,6 +256,43 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 			{
 				screennum = get_last_screen();
 			}
+		}
+	}
+
+
+	if (press_any_key && num_of_key_pressed == 2)
+	{
+	std::cout << "key Pressed" << std::endl;
+		switch (options)
+		{
+		case 4:
+			control_option[0] = e.keyboard.keycode;
+			press_any_key = false;
+			break;
+		case 5:
+			control_option[1] = e.keyboard.keycode;
+			press_any_key = false;
+			break;
+		case 6:
+			control_option[2] = e.keyboard.keycode;
+			press_any_key = false;
+			break;
+		case 7:
+			control_option[3] = e.keyboard.keycode;
+			press_any_key = false;
+			break;
+		case 8:
+			control_option[4] = e.keyboard.keycode;
+			press_any_key = false;
+			break;
+		case 9:
+			control_option[5] = e.keyboard.keycode;
+			press_any_key = false;
+			break;
+		case 10:
+			control_option[6] = e.keyboard.keycode;
+			press_any_key = false;
+			break;
 		}
 	}
 }
@@ -340,31 +390,52 @@ void Options::render(Image image, Font font)
 		break;
 	case 4:
 		al_draw_text(font.get_font(0), Sel, 500, 480, NULL, "MOVE DOWN:");
-		al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 480, NULL, "(Press Any Key)");
+		if (press_any_key)
+		{
+			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 480, NULL, "(Press Any Key)");
+		}
 		break;
 	case 5:
 		al_draw_text(font.get_font(0), Sel, 500, 510, NULL, "MOVE UP:");
-		al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 510, NULL, "(Press Any Key)");
+		if (press_any_key)
+		{
+			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 510, NULL, "(Press Any Key)");
+		}
 		break;
 	case 6:
 		al_draw_text(font.get_font(0), Sel, 500, 540, NULL, "MOVE RIGHT:");
-		al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 540, NULL, "(Press Any Key)");
+		if (press_any_key)
+		{
+			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 540, NULL, "(Press Any Key)");
+		}
 		break;
 	case 7:
 		al_draw_text(font.get_font(0), Sel, 500, 570, NULL, "MOVE LEFT:");
-		al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 570, NULL, "(Press Any Key)");
+		if (press_any_key)
+		{
+			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 570, NULL, "(Press Any Key)");
+		}
 		break;
 	case 8:
 		al_draw_text(font.get_font(0), Sel, 500, 600, NULL, "SHOOT:");
-		al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 600, NULL, "(Press Any Key)");
+		if (press_any_key)
+		{
+			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 600, NULL, "(Press Any Key)");
+		}
 		break;
 	case 9:
 		al_draw_text(font.get_font(0), Sel, 500, 630, NULL, "PREV WEAPON:");
-		al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 630, NULL, "(Press Any Key)");
+		if (press_any_key)
+		{
+			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 630, NULL, "(Press Any Key)");
+		}
 		break;
 	case 10:
 		al_draw_text(font.get_font(0), Sel, 500, 660, NULL, "NEXT WEAPON:");
-		al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 660, NULL, "(Press Any Key)");
+		if (press_any_key)
+		{
+			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 660, NULL, "(Press Any Key)");
+		}
 		break;
 	case 11:
 		al_draw_text(font.get_font(0), Sel, 500, 720, NULL, "BACK TO MAIN MENU (SPACEBAR)");

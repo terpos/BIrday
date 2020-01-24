@@ -32,7 +32,8 @@ public:
 	int get_y();
 	int get_vel();
 	int get_direction();
-
+	
+	bool is_healing();
 	bool is_gliding();
 	
 	//gets the positive value of health
@@ -60,6 +61,8 @@ public:
 	void set_y(int y);
 	void set_vel(int vel);
 	void set_direction(int direction);
+
+	void set_healing(bool healing);
 
 	//sets the positive value of health
 	void set_health(float health);
@@ -98,14 +101,14 @@ private:
 	float health;
 
 	//boolean variables and boolean variables array
-	bool draw, glide;
+	bool draw, glide, healing;
 	bool key[4];
 
 	//pair variables
 	std::pair <bool, int> hit;
 	std::pair <ALLEGRO_BITMAP*, int> image;
 
-	Animation Damage;
+	Animation Damage, heal;
 
 
 	//bitmap instance variable

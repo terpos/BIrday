@@ -49,7 +49,9 @@ public:
 private:
 	//vector pair variables
 	std::vector < std::pair <ALLEGRO_BITMAP*, int> > tile_piece, enemies, player, P_weapon, 
-		E_weapon, PowerUp, Player_Weapon_Ammo, Background, Destruction, Banner, status;
+		E_weapon, PowerUp, Player_Weapon_Ammo, Background, Destruction, status; 
+
+	
 	
 };
 

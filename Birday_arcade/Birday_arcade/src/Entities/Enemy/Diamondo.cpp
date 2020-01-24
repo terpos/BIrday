@@ -6,16 +6,17 @@ Diamondo::Diamondo(Image &sprite_sheet, int version, int x, int y, int vel, int 
 {
 	if (version == 1)
 	{
-		set_bitmap(sprite_sheet.Enemy_image(DIAMONDO).first, sprite_sheet.Player_image().second);
+		set_bitmap(sprite_sheet.Enemy_image(DIAMONDO).first, sprite_sheet.Enemy_image(DIAMONDO).second);
 		set_health(4);
 	}
 
 	else
 	{
-		set_bitmap(sprite_sheet.Enemy_image(DIAMONDO2).first, sprite_sheet.Player_image().second);
+		set_bitmap(sprite_sheet.Enemy_image(DIAMONDO2).first, sprite_sheet.Enemy_image(DIAMONDO2).second);
 		set_health(8);
 	}
 
+	set_version(version);
 	set_x(x);
 	set_y(y);
 	set_vel(vel);
@@ -46,6 +47,19 @@ int Diamondo::Damage()
 	else
 	{
 		return 8;
+	}
+}
+
+int Diamondo::get_score()
+{
+	if (get_version() == 1)
+	{
+		return 160;
+	}
+
+	else
+	{
+		return 320;
 	}
 }
 

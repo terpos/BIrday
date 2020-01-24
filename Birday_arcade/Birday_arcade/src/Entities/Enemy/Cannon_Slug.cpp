@@ -4,24 +4,30 @@
 
 Cannon_Slug::Cannon_Slug(Image &sprite_sheet, int version, int x, int y, int vel, int direction): Enemy(sprite_sheet, version, x, y, vel, direction)
 {
-	if (version == 1)
-	{
-		set_bitmap(sprite_sheet.Enemy_image(CANNON_SLUG).first, sprite_sheet.Player_image().second);
-		set_health(5);
-	}
-
-	else
-	{
-		set_bitmap(sprite_sheet.Enemy_image(CANNON_SLUG2).first, sprite_sheet.Player_image().second);
-		set_health(10);
-	}
-
 	set_x(x);
 	set_y(y);
 	set_vel(vel);
 	set_direction(direction);
 	set_hit(false, NULL);
 
+	if (version == 1)
+	{
+		set_bitmap(sprite_sheet.Enemy_image(CANNON_SLUG).first, sprite_sheet.Enemy_image(CANNON_SLUG).second);
+		//image.first = sprite_sheet.Enemy_image(CANNON_SLUG).first;
+		//image.second = sprite_sheet.Enemy_image(CANNON_SLUG).second;
+		this->health = 5;
+	}
+
+	else
+	{
+		set_bitmap(sprite_sheet.Enemy_image(CANNON_SLUG2).first, sprite_sheet.Enemy_image(CANNON_SLUG2).second);
+		//this->image.first = sprite_sheet.Enemy_image(CANNON_SLUG2).first;
+		//this->image.second = sprite_sheet.Enemy_image(CANNON_SLUG2).second;
+		this->health = 10;
+	}
+
+	
+	set_version(version);
 	seed = std::chrono::system_clock::now().time_since_epoch().count();
 	movement.seed(seed);
 	shooting_probability.seed(seed);
@@ -49,6 +55,19 @@ int Cannon_Slug::Damage()
 		return 12;
 	}
 	
+}
+
+int Cannon_Slug::get_score()
+{
+	if (get_version() == 1)
+	{
+		return 300;
+	}
+
+	else
+	{
+		return 600;
+	}
 }
 
 void Cannon_Slug::react(Image & image, Sound sound, Player* & player, std::vector<E_Weapon*>& eweapon, Options option)

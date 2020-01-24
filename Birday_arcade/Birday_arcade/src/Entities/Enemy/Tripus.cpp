@@ -6,13 +6,13 @@ Tripus::Tripus(Image &sprite_sheet, int version, int x, int y, int vel, int dire
 {
 	if (version == 1)
 	{
-		set_bitmap(sprite_sheet.Enemy_image(TRIPUS).first, sprite_sheet.Player_image().second);
+		set_bitmap(sprite_sheet.Enemy_image(TRIPUS).first, sprite_sheet.Enemy_image(TRIPUS).second);
 		set_health(1);
 	}
 
 	else
 	{
-		set_bitmap(sprite_sheet.Enemy_image(TRIPUS2).first, sprite_sheet.Player_image().second);
+		set_bitmap(sprite_sheet.Enemy_image(TRIPUS2).first, sprite_sheet.Enemy_image(TRIPUS2).second);
 		set_health(3);
 	}
 
@@ -50,6 +50,19 @@ int Tripus::Damage()
 		return 3;
 	}
 
+}
+
+int Tripus::get_score()
+{
+	if (get_version() == 1)
+	{
+		return 100;
+	}
+
+	else
+	{
+		return 200;
+	}
 }
 
 void Tripus::shoot(std::vector<E_Weapon*>& eweapon, Options option, Sound sound, Image spritesheet)

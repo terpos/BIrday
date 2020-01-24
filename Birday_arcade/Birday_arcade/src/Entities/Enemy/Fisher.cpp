@@ -6,13 +6,13 @@ Fisher::Fisher(Image &sprite_sheet, int version, int x, int y, int vel, int dire
 {
 	if (version == 1)
 	{
-		set_bitmap(sprite_sheet.Enemy_image(FISHER).first, sprite_sheet.Player_image().second);
+		set_bitmap(sprite_sheet.Enemy_image(FISHER).first, sprite_sheet.Enemy_image(FISHER).second);
 		set_health(1);
 	}
 
 	else
 	{
-		set_bitmap(sprite_sheet.Enemy_image(FISHER2).first, sprite_sheet.Player_image().second);
+		set_bitmap(sprite_sheet.Enemy_image(FISHER2).first, sprite_sheet.Enemy_image(FISHER2).second);
 		set_health(3);
 	}
 
@@ -46,6 +46,19 @@ int Fisher::Damage()
 	else
 	{
 		return 3;
+	}
+}
+
+int Fisher::get_score()
+{
+	if (get_version() == 1)
+	{
+		return 400;
+	}
+
+	else
+	{
+		return 800;
 	}
 }
 

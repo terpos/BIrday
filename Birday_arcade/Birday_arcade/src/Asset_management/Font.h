@@ -8,6 +8,7 @@ public:
 	~Font();
 
 	void load();
+	void Font_error_check();
 
 	ALLEGRO_FONT *get_font(int textnum);
 

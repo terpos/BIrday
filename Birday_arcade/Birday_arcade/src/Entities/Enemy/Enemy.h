@@ -34,6 +34,8 @@ public:
 	//gets the positive value of health
 	virtual signed int get_health();
 
+	virtual int get_score() = 0;
+
 	virtual int Damage();
 
 	virtual bool is_dead();
@@ -49,6 +51,7 @@ public:
 	virtual void set_y(int y);
 	virtual void set_vel(int vel);
 	virtual void set_direction(int direction);
+	virtual void set_move_duration(int duration);
 
 	virtual void set_version(int version);
 
@@ -100,6 +103,7 @@ private:
 	//random engine instance variables
 	std::default_random_engine movement;
 	std::default_random_engine shooting_probability;
+	std::default_random_engine random_duration;
 
 	//bitmap instance variables
 	ALLEGRO_BITMAP* cropping;

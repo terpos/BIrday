@@ -8,14 +8,17 @@ public:
 	~Ball();
 
 	int Damage();
+	int get_score();
 
 private:
 	int x, y, vel, direction;
 	unsigned int health;
 	unsigned seed;
 
+
 	int nochange;
 	int reload_time;
+
 
 	bool draw;
 	std::pair <bool, int> hit;

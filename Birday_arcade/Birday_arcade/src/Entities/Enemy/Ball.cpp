@@ -16,6 +16,7 @@ Ball::Ball(Image &sprite_sheet, int version, int x, int y, int vel, int directio
 		set_health(16);
 	}
 
+	set_version(version);
 	set_x(x);
 	set_y(y);
 	set_vel(vel);
@@ -46,5 +47,18 @@ int Ball::Damage()
 	else
 	{
 		return 36;
+	}
+}
+
+int Ball::get_score()
+{
+	if (get_version() == 1)
+	{
+		return 1000;
+	}
+	
+	else
+	{
+		return 2000;
 	}
 }

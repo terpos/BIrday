@@ -39,17 +39,29 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 			options--;
 			if (options < 1)
 			{
-				options = 3;
+				options = 2;
 			}
 		}
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN)
 		{
 			options++;
-			if (options > 3)
+			if (options > 2)
 			{
 				options = 1;
 			}
+		}
+
+		switch (e.keyboard.keycode)
+		{
+		case ALLEGRO_KEY_1:
+			screennum = GAME_SCREEN;
+			break;
+
+		case ALLEGRO_KEY_2:
+			screennum = MENU_SCREEN;
+			break;
+
 		}
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_ENTER)
@@ -65,10 +77,7 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 			case 2:
 				screennum = MENU_SCREEN;
 				break;
-			case 3:
-				option.set_last_screen(GAME_OVER_SCREEN);
-				screennum = QUIT_SCREEN;
-				break;
+			
 			}
 		}
 	}
@@ -98,7 +107,6 @@ void Game_Over::render(Image image, Sound sound, Font font, Options option)
 
 	al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "PLAY AGAIN (1)");
 	al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "MAIN MENU (2)");
-	al_draw_text(font.get_font(0), notSel, 500, 390, NULL, "QUIT (3)");
 	
 
 
@@ -109,9 +117,6 @@ void Game_Over::render(Image image, Sound sound, Font font, Options option)
 		break;
 	case 2:
 		al_draw_text(font.get_font(0), Sel, 500, 360, NULL, "MAIN MENU (2)");
-		break;
-	case 3:
-		al_draw_text(font.get_font(0), Sel, 500, 390, NULL, "QUIT (3)");
 		break;
 	
 	}

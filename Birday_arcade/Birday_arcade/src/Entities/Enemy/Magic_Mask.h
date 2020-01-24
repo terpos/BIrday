@@ -8,6 +8,7 @@ public:
 	~Magic_Mask();
 
 	int Damage();
+	int get_score();
 
 	void shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet);
 

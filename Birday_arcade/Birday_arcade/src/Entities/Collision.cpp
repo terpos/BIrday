@@ -43,6 +43,7 @@ void Collision::Window_Collision(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT & e, En
 	
 	if (enemy->get_x() < 0 || enemy->get_y() < 0 || enemy->get_x() + 80 > al_get_display_width(display) || enemy->get_y() + 80 > 720)
 	{
+		enemy->set_move_duration(0);
 		enemy->change_direction();
 	}
 }

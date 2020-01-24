@@ -6,16 +6,17 @@ Magic_Mask::Magic_Mask(Image &sprite_sheet, int version, int x, int y, int vel, 
 {
 	if (version == 1)
 	{
-		set_bitmap(sprite_sheet.Enemy_image(MAGIC_MASK).first, sprite_sheet.Player_image().second);
+		set_bitmap(sprite_sheet.Enemy_image(MAGIC_MASK).first, sprite_sheet.Enemy_image(MAGIC_MASK).second);
 		set_health(2);
 	}
 
 	else
 	{
-		set_bitmap(sprite_sheet.Enemy_image(MAGIC_MASK2).first, sprite_sheet.Player_image().second);
+		set_bitmap(sprite_sheet.Enemy_image(MAGIC_MASK2).first, sprite_sheet.Enemy_image(MAGIC_MASK2).second);
 		set_health(4);
 	}
 
+	set_version(version);
 	set_x(x);
 	set_y(y);
 	set_vel(vel);
@@ -46,6 +47,19 @@ int Magic_Mask::Damage()
 	else
 	{
 		return 4;
+	}
+}
+
+int Magic_Mask::get_score()
+{
+	if (get_version() == 1)
+	{
+		return 200;
+	}
+
+	else
+	{
+		return 400;
 	}
 }
 

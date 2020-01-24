@@ -13,6 +13,7 @@ Player::Player(Image &sprite_sheet, int x, int y, int vel, int direction, int bu
 	set_health(100);
 	set_buttons(buttons);
 	cropping = al_create_bitmap(80, 80);
+	set_healing(false);
 
 	key[0] = false;
 	key[1] = false;
@@ -40,6 +41,7 @@ Player::Player(Image &sprite_sheet, int x, int y, int vel, int direction, int bu
 	Poisoned_duration = 0;
 
 	Damage.set_frame(0);
+	heal.set_frame(0);
 }
 
 
@@ -82,6 +84,11 @@ std::pair<ALLEGRO_BITMAP*, int> Player::get_bitmap()
 int Player::get_direction()
 {
 	return this->direction;
+}
+
+bool Player::is_healing()
+{
+	return this->healing;
 }
 
 bool Player::is_gliding()
@@ -132,6 +139,11 @@ void Player::set_num_of_ammo(int number_of_ammo, int index)
 void Player::set_direction(int direction)
 {
 	this->direction = direction;
+}
+
+void Player::set_healing(bool healing)
+{
+	this->healing = healing;
 }
 
 void Player::set_hit(bool ishit, int status)
@@ -490,6 +502,20 @@ void Player::set_glide(bool glide)
 void Player::update(std::vector <P_Weapon*> &pweapon)
 {
 	
+	if (is_healing())
+	{
+		heal.increment_frame();
+
+	}
+
+	else
+	{
+		if (heal.get_frame() > 0)
+		{
+			heal.set_frame(0);
+		}
+	}
+
 	for (int i = 0; i < sizeof(Num_of_Bullet); i++)
 	{
 		if (Num_of_Bullet[i] < 0)
@@ -535,7 +561,7 @@ void Player::update(std::vector <P_Weapon*> &pweapon)
 		Damage.increment_frame();
 	}
 
-	if (Damage.get_frame() >= 100)
+	if (Damage.get_frame() >= 50)
 	{
 		Damage.set_frame(0);
 		set_hit(false, 0);
@@ -568,7 +594,7 @@ void Player::render()
 		}
 	}
 
-	if (is_hit().second == 2)
+	else if (is_hit().second == 2)
 	{
 		al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 160, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 	}
@@ -576,5 +602,23 @@ void Player::render()
 	else if (is_hit().second == 0)
 	{
 		al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+	}
+
+	if (is_healing())
+	{
+		if (heal.get_frame_position(7) >= 0 && heal.get_frame_position(7) < 2)
+		{
+			al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+		}
+
+		else if (heal.get_frame_position(7) >= 2 && heal.get_frame_position(7) < 4)
+		{
+			al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 240, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+		}
+
+		else
+		{
+			al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 320, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+		}
 	}
 }

@@ -14,12 +14,13 @@ Pause::~Pause()
 {
 }
 
-void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Options &option, ALLEGRO_EVENT & e, int & screennum, bool & done)
+void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Options &option, Game &game, ALLEGRO_EVENT & e, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
 
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
+
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
 			option.set_last_screen(PAUSE_SCREEN);
@@ -44,6 +45,29 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 			}
 		}
 
+
+		switch (e.keyboard.keycode)
+		{
+		case ALLEGRO_KEY_1:
+			option.set_last_screen(PAUSE_SCREEN);
+			screennum = options;
+			break;
+
+		case ALLEGRO_KEY_2:
+			screennum = WEAPONS_UNLOCKED_SCREEN;
+			break;
+
+		case ALLEGRO_KEY_3:
+			option.set_last_screen(PAUSE_SCREEN);
+			screennum = OPTION_SCREEN;
+			break;
+
+		case ALLEGRO_KEY_4:
+			game.reset();
+			screennum = MENU_SCREEN;
+			break;
+		}
+
 		if (e.keyboard.keycode == ALLEGRO_KEY_ENTER)
 		{
 			if (options == 2)
@@ -56,6 +80,13 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 				option.set_last_screen(PAUSE_SCREEN);
 				screennum = options;
 			}
+
+			else if (options == 4)
+			{
+				game.reset();
+				screennum = MENU_SCREEN;
+			}
+
 			else
 			{
 				option.set_last_screen(PAUSE_SCREEN);
@@ -74,7 +105,7 @@ void Pause::render(Image image, Font font)
 	al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "CONTINUE (1)");
 	al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "WEAPON UNLOCKED (2)");
 	al_draw_text(font.get_font(0), notSel, 500, 390, NULL, "OPTION (3)");
-	al_draw_text(font.get_font(0), notSel, 500, 420, NULL, "QUIT (ESC)");
+	al_draw_text(font.get_font(0), notSel, 500, 420, NULL, "MAIN MENU (4)");
 
 	switch (options)
 	{
@@ -88,7 +119,7 @@ void Pause::render(Image image, Font font)
 		al_draw_text(font.get_font(0), Sel, 500, 390, NULL, "OPTION (3)");
 		break;
 	case QUIT_SCREEN:
-		al_draw_text(font.get_font(0), Sel, 500, 420, NULL, "QUIT (ESC)");
+		al_draw_text(font.get_font(0), Sel, 500, 420, NULL, "MAIN MENU (4)");
 		break;
 	}
 }

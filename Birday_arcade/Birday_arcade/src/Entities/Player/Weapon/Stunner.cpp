@@ -31,6 +31,7 @@ int Stunner::damage()
 
 void Stunner::abilities()
 {
+	set_enemy_status(4);
 	set_hit(true, is_hit().second);
 	set_enemy_damage(true);
 }

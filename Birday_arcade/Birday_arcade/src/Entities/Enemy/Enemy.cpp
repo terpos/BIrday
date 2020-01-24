@@ -16,6 +16,7 @@ Enemy::Enemy(Image &sprite_sheet, int version, int x, int y, int vel, int direct
 	seed = std::chrono::system_clock::now().time_since_epoch().count();
 	movement.seed(seed);
 	shooting_probability.seed(seed);
+	random_duration.seed(seed);
 	
 	burn_duration = 0;
 	freeze_duration = 0;
@@ -109,6 +110,11 @@ void Enemy::set_direction(int direction)
 	this->direction = direction;
 }
 
+void Enemy::set_move_duration(int duration)
+{
+	this->nochange = duration;
+}
+
 void Enemy::set_version(int version)
 {
 	this->version = version;
@@ -151,26 +157,40 @@ void Enemy::change_direction()
 		set_x(get_x() - get_vel());
 	}
 
-	if (get_direction() == 1)
+	else if (get_direction() == 1)
 	{
 		set_x(get_x() + get_vel());
 	}
 
-	if (get_direction() == 2)
+	else if (get_direction() == 2)
 	{
 		set_y(get_y() - get_vel());
 	}
 
-	if (get_direction() == 3)
+	else if (get_direction() == 3)
 	{
 		set_y(get_y() + get_vel());
 	}
 
-	std::uniform_int_distribution<int > d(0, 3);
+	if (this->nochange <= 0)
+	{
+		std::uniform_int_distribution<int > d(0, 3);
 
-	set_direction(d(movement));
+		if (get_direction() == 0 || get_direction() == 1)
+		{
+			set_direction((d(movement) % 2) + 2);
+			set_move_duration(80*5);
+		}
 
-	this->nochange = 50;
+		else if (get_direction() == 2 || get_direction() == 3)
+		{
+			set_direction(d(movement) % 2);
+			set_move_duration(80 * 5);
+		}
+
+		
+	}
+	//this->nochange = 50;
 }
 
 void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet)
@@ -219,6 +239,7 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 		burn_duration++;
 		stop_duration = 300;
 	}
+
 	if (damage.get_frame() >= 100)
 	{
 		set_hit(false, 0);
@@ -227,23 +248,32 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 
 	if (is_hit().first && is_hit().second == 1)
 	{
+		std::cout << damage.get_frame() << std::endl;
 		damage.increment_frame();
 	}
 
-	std::uniform_int_distribution<int > d(0, 3);
+	if (is_hit().first && is_hit().second == 4)
+	{
+		damage.increment_frame();
+		set_vel(0);
+		stop_duration++;
+	}
+
+	std::uniform_int_distribution<int> d(0, 3);
+	std::uniform_int_distribution<int> duration(1, 7);
 	if (get_vel() > 0)
 	{
 
 		if (nochange > 0)
 		{
-			this->nochange--;
+			this->nochange-=get_vel();
 		}
 
-		else if (nochange == 0)
+		else if (nochange <= 0)
 		{
 			set_direction(d(movement));
 
-			this->nochange = 50;
+			this->nochange = 80 * duration(random_duration);
 
 		}
 
@@ -298,12 +328,12 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 		if (is_hit().second == 0 || is_hit().second == 1)
 		{
 			stop_duration++;
-			std::cout << "DURATION: " << stop_duration << std::endl;
 		}
 
 		if (stop_duration >= 300)
 		{
 			set_vel(tempvel);
+			stop_duration = 0;
 		}
 	}
 }
@@ -325,7 +355,7 @@ void Enemy::render(Image death)
 
 	else
 	{
-		if (is_hit().first && is_hit().second == 1)
+		if (is_hit().first && (is_hit().second == 1  || is_hit().second == 4))
 		{
 			if (damage.get_frame_position(11) >= 0 && damage.get_frame_position(11) <= 5)
 			{

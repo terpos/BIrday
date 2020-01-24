@@ -1,0 +1,3 @@
+@ECHO OFF
+ECHO Cannot Load Font
+PAUSE

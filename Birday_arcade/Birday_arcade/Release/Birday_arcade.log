@@ -1,0 +1,21 @@
+﻿  Game.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1495): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1507): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1544): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1603): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1630): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1678): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1692): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1704): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1718): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2088): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2093): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2098): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2103): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2116): warning C4018: '<': signed/unsigned mismatch
+  Generating code
+  2 of 1429 functions ( 0.1%) were compiled, the rest were copied from previous compilation.
+    0 functions were new in current compilation
+    0 functions had inline decision re-evaluated but remain unchanged
+  Finished generating code
+  Birday_arcade.vcxproj -> C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\Release\Birday_arcade.exe
