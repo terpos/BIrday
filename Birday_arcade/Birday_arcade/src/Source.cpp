@@ -38,6 +38,7 @@ int main()
 	//initializes and creates display
 	ALLEGRO_DISPLAY *display = al_create_display(1360, 768);
 
+	malloc(sizeof(display));
 	al_set_display_icon(display, icon);
 	Tile_map m;
 
@@ -46,6 +47,8 @@ int main()
 
 	//double variable
 	double fps = 60.0;
+	double fps2 = 60.0;
+
 	Image image;
 	Font font;
 	Sound sound;
@@ -69,6 +72,7 @@ int main()
 	//timer variable
 	ALLEGRO_TIMER *timer = al_create_timer(1 / fps);
 
+
 	m.load("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Tile_map.txt");
 	image.Load_Images();
 	font.load();
@@ -84,6 +88,7 @@ int main()
 	al_register_event_source(q, al_get_keyboard_event_source());
 	al_register_event_source(q, al_get_display_event_source(display));
 	al_register_event_source(q, al_get_timer_event_source(timer));
+
 
 	//starts the timer
 	al_start_timer(timer);
@@ -178,7 +183,6 @@ int main()
 	al_uninstall_keyboard();
 
 
-	al_uninstall_system();
 	//std::cout << "Press [Enter] To Continue" << std::endl;
 
 

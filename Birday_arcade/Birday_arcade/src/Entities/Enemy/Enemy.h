@@ -73,6 +73,8 @@ public:
 
 	virtual void change_direction();
 
+	void opposite_direction();
+
 	virtual void shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet);
 
 	//updates the enemies's info as well as the weapon's movement
@@ -80,6 +82,7 @@ public:
 
 	//displays the enemies
 	virtual void render(Image death);
+
 
 private:
 	//integer variables

@@ -6,6 +6,7 @@ Font::Font()
 
 Font::~Font()
 {
+	text.clear();
 }
 
 void Font::load()
@@ -14,6 +15,13 @@ void Font::load()
 	text.push_back(al_load_font("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix_bold.ttf", 72, NULL));
 	text.push_back(al_load_font("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix_bold.ttf", 12, NULL));
 	text.push_back(al_load_font("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix_bold.ttf", 16, NULL));
+
+	std::cout << "FONT: " << text.size() << std::endl;
+
+	for (int i = 0; i < text.size(); i++)
+	{
+		malloc(sizeof(text[i]));
+	}
 
 }
 

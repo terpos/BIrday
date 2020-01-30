@@ -35,6 +35,7 @@ void Tile_map::load(std::string file_name)
 			}
 		}
 	}
+	tile_file.close();
 
 }
 

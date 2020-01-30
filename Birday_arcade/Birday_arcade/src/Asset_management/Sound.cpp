@@ -9,6 +9,9 @@ Sound::Sound()
 
 Sound::~Sound()
 {
+	bg.clear();
+	sound_fx.clear();
+	sample.clear();
 }
 
 void Sound::Load_Sound()
@@ -49,14 +52,18 @@ void Sound::Load_Sound()
 
 	Sound_error_check();
 
+	std::cout << "SAMPLE: " << sample.size() << std::endl;
+
 	for (int i = 0; i < 7; i++)
 	{
+		malloc(sizeof(sample[i]));
 		bg.push_back(al_create_sample_instance(sample[i]));
 		al_attach_sample_instance_to_mixer(bg[i], al_get_default_mixer());
 	}
 
 	for (int i = 7; i < sample.size(); i++)
 	{
+		malloc(sizeof(sample[i]));
 		sound_fx.push_back(al_create_sample_instance(sample[i]));
 		
 	}

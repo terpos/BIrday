@@ -38,6 +38,7 @@ Game::Game()
 	ammo_popup.seed(seed);
 	enemy_spawn.seed(seed);
 	yposition.seed(seed);
+	xposition.seed(seed);
 
 	num_of_kills = 0;
 	duration1 = 200;
@@ -55,14 +56,19 @@ Game::Game()
 
 Game::~Game()
 {
-	//destroys image and sound memory
+	pweapon.clear();
+	enemy.clear();
 	
+	eweapon.clear();
+	powerup.clear();
+	ammo.clear();
+
 	std::cout << "Memory Deallocated" << std::endl;
 }
 
 void Game::init(Options option)
 {
-	if (level_duration == 0 && initial)
+	if (initial)
 	{
 		this->level = option.get_level_for_difficulty();
 		initial = false;
@@ -78,46 +84,46 @@ void Game::load(Image image)
 
 }
 
-void Game::enemies_spawn(int random_num, std::uniform_int_distribution <int> randomy)
+void Game::enemies_spawn(Image image, int random_num, std::uniform_int_distribution <int> randomx, std::uniform_int_distribution <int> randomy)
 {
 	switch (random_num)
 	{
 	case TRIPUS:
-		enemy.push_back(new Tripus(image, 1, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Tripus(image, 1, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;
 	case MAGIC_MASK:
-		enemy.push_back(new Magic_Mask(image, 1, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Magic_Mask(image, 1, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;
 	case DIAMONDO:
-		enemy.push_back(new Diamondo(image, 1, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Diamondo(image, 1, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;
 	case CANNON_SLUG:
-		enemy.push_back(new Cannon_Slug(image, 1, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Cannon_Slug(image, 1, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;
 	case FISHER:
-		enemy.push_back(new Fisher(image, 1, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Fisher(image, 1, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;
 	case BALL:
-		enemy.push_back(new Ball(image, 1, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Ball(image, 1, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;
 
 	case TRIPUS2:														
-		enemy.push_back(new Tripus(image, 2, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Tripus(image, 2, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;															
 	case MAGIC_MASK2:													
-		enemy.push_back(new Magic_Mask(image, 2, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Magic_Mask(image, 2, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;															
 	case DIAMONDO2:														
-		enemy.push_back(new Diamondo(image, 2, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Diamondo(image, 2, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;															
 	case CANNON_SLUG2:													
-		enemy.push_back(new Cannon_Slug(image, 2, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Cannon_Slug(image, 2, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;															
 	case FISHER2:														
-		enemy.push_back(new Fisher(image, 2, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Fisher(image, 2, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;
 	case BALL2:
-		enemy.push_back(new Ball(image, 2, 0, randomy(yposition), 5, 0));
+		enemy.push_back(new Ball(image, 2, (randomx(xposition) * 160), (randomy(yposition) * 160) + 80, 5, 0));
 		break;
 	}
 }
@@ -186,1186 +192,1185 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		}
 	}
 	
+	std::uniform_int_distribution <int> pwrup(0, 5);
+	std::uniform_int_distribution <int> ammos(0, num_of_weapon);
+	std::uniform_int_distribution <int> enemiesspawn(0, 11);
+	std::uniform_int_distribution <int> ypos(0, 3);
+	std::uniform_int_distribution <int> xpos(0, 8);
+
+	if (levelup && level_duration == 0)
+	{
+
+		if (level == 1)
+		{
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+
+
+		}
+
+		else if (level == 2)
+		{
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 3)
+		{
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 4)
+		{
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 5)
+		{
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 6)
+		{
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 7)
+		{
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 8)
+		{
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 9)
+		{
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 10)
+		{
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 11)
+		{
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 12)
+		{
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 13)
+		{
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 14)
+		{
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 15)
+		{
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 16)
+		{
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 17)
+		{
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 18)
+		{
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 19)
+		{
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 20)
+		{
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 1, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 21)
+		{
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+		}
+
+		else if (level == 22)
+		{
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 23)
+		{
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 24)
+		{
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 25)
+		{
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 26)
+		{
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 27)
+		{
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 28)
+		{
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Tripus(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 5, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 29)
+		{
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 30)
+		{
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 31)
+		{
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 32)
+		{
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 33)
+		{
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 34)
+		{
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 35)
+		{
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+		}
+
+		else if (level == 36)
+		{
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 37)
+		{
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Magic_Mask(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 38)
+		{
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 39)
+		{
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level == 40)
+		{
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Diamondo(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Cannon_Slug(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Fisher(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 10, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+			enemy.push_back(new Ball(image, 2, (xpos(xposition) * 160), (ypos(yposition) * 160) + 80, 8, 0));
+		}
+
+		else if (level > 40)
+		{
+			for (int i = 0; i < 16; i++)
+			{
+				enemies_spawn(image, enemiesspawn(enemy_spawn), xpos, ypos);
+			}
+		}
+
+		levelup = false;
+
+	}
 
 	//updates stuff
 	if (e.type == ALLEGRO_EVENT_TIMER && x1 == 0 && x2 == 1360)
 	{
-		std::uniform_int_distribution <int> pwrup(0, 5);
-		std::uniform_int_distribution <int> ammos(0, num_of_weapon);
-		std::uniform_int_distribution <int> enemiesspawn(0, 11);
-		std::uniform_int_distribution <int> ypos(1 * 80, 7 * 80);
 		
-
-		if (levelup && level_duration == 0)
-		{
-
-			if (level == 1)
-			{
-				enemy.push_back(new Tripus(image, 1, 0, 80, 5, 0));
-				enemy.push_back(new Tripus(image, 1, 0, 240, 5, 0));
-			
-				
-			}
-
-			else if (level == 2)
-			{
-				    enemy.push_back(new Tripus(image, 1, 0, ypos(yposition), 5, 0));
-				    enemy.push_back(new Tripus(image, 1, 0, ypos(yposition), 5, 0));
-				    enemy.push_back(new Tripus(image, 1, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level == 3)
-			{
-				enemy.push_back(new Tripus    (image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0,   ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0,   ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0,   ypos(yposition), 10, 0));
-			}
-
-			else if (level == 4)
-			{
-				enemy.push_back(new Tripus(image, 1, 0,     ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus(image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus(image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus(image, 1, 0,     ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus(image, 1, 0,     ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus(image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus(image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus(image, 1, 0,     ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,   ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,   ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,   ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,   ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1,0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1,0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 5)
-			{
-				enemy.push_back(new Tripus (image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus (image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus (image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 6)
-			{
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0,   ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-			}
-
-			else if (level == 7)
-			{
-				enemy.push_back(new Tripus    (image, 1, 0,   ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0,   ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-			}
-
-			else if (level == 8)
-			{
-				enemy.push_back(new Tripus    (image, 1, 0, ypos(yposition) , 5, 0));
-				enemy.push_back(new Tripus    (image, 1, 0,   ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0,   ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 1, 0,     ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0,  ypos(yposition), 10, 0));
-			}
-
-			else if (level == 9)
-			{
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 10)
-			{
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			        enemy.push_back(new Fisher(image, 1, 0, ypos(yposition), 10, 0));
-			        enemy.push_back(new Fisher(image, 1, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 11)
-			{
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 12)
-			{
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 13)
-			{
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 14)
-			{
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 15)
-			{
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			        enemy.push_back(new Fisher(image, 1, 0, ypos(yposition), 10, 0));
-				    enemy.push_back(new Fisher(image, 1, 0, ypos(yposition), 10, 0));
-				    enemy.push_back(new Fisher(image, 1, 0, ypos(yposition), 10, 0));
-				    enemy.push_back(new Fisher(image, 1, 0, ypos(yposition), 10, 0));
-				    enemy.push_back(new Fisher(image, 1, 0, ypos(yposition), 10, 0));
-				    enemy.push_back(new Fisher(image, 1, 0, ypos(yposition), 10, 0));
-				    enemy.push_back(new Fisher(image, 1, 0, ypos(yposition), 10, 0));
-				    enemy.push_back(new Fisher(image, 1, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 16)
-			{
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Ball      (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball      (image, 1, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level == 17)
-			{
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo  (image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-			   enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher    (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Ball      (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball      (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball      (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball      (image, 1, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level == 18)
-			{
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level == 19)
-			{
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level == 20)
-			{
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo   (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher     (image, 1, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball       (image, 1, 0, ypos(yposition), 8, 0));
-			}
-
-			
-
-			if (level == 21)
-			{
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-			}
-
-			else if (level == 22)
-			{
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level == 23)
-			{
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 24)
-			{
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 25)
-			{
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 26)
-			{
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 27)
-			{
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 28)
-			{
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Tripus(image, 2, 0, ypos(yposition), 5, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 29)
-			{
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 30)
-			{
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 31)
-			{
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-			}									  
-
-			else if (level == 32)
-			{
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 33)
-			{
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 34)
-			{
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 35)
-			{
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-			}
-
-			else if (level == 36)
-			{
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level == 37)
-			{
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Magic_Mask(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level == 38)
-			{
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level == 39)
-			{
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level == 40)
-			{
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Diamondo(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Cannon_Slug(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Fisher(image, 2, 0, ypos(yposition), 10, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-				enemy.push_back(new Ball(image, 2, 0, ypos(yposition), 8, 0));
-			}
-
-			else if (level > 40)
-			{
-				for (int i = 0; i < 16; i++)
-				{
-					enemies_spawn(enemiesspawn(enemy_spawn), ypos);
-				}
-			}
-
-			levelup = false;
-
-		}
 
 		if (notification_duration > 0)
 		{
@@ -1494,105 +1499,100 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		//updates enemies' info
 		for (int i = 0; i < enemy.size(); i++)
 		{
-			collision.Window_Collision(display, e, enemy[i]);
+			if (i < enemy.size())
+			{
 
+				collision.Window_Collision(display, e, enemy[i]);
+
+				enemy[i]->react(image, sound, player, eweapon, option);
+
+
+				if (collision.collision_detect(player->get_x(), player->get_y(), enemy[i]->get_x(), enemy[i]->get_y()) && player->is_hit().second == 0)
+				{
+					player->set_hit(true, 1);
+				}
+
+
+				if (player->is_hit().first && player->is_hit().second)
+				{
+					player->set_health(player->get_health() - enemy[i]->Damage());
+					player->set_hit(false, player->is_hit().second);
+				}
+
+
+				enemy[i]->update(eweapon, option, pweapon, image, sound);
+
+				//enemy & tile collision 
 			
 
-			if (collision.collision_detect(player->get_x(), player->get_y(), enemy[i]->get_x(), enemy[i]->get_y()) && player->is_hit().second == 0)
-			{
-				player->set_hit(true, 1);
-			}
-
-			//enemy & tile collision 
-			for (int j = 0; j < enemy.size(); j++)
-			{
-				if (i != j)
+				for (int tile_y = 0; tile_y < m.get_length(); tile_y++)
 				{
-					if (collision.collision_detect(enemy[i]->get_x(), enemy[i]->get_y(), enemy[j]->get_x(), enemy[j]->get_y()))
+					for (int tile_x = 0; tile_x < m.get_width(); tile_x++)
 					{
-						enemy[i]->set_move_duration(0);
-						enemy[i]->change_direction();
-					}
-				}
-			}
-
-			for (int tile_y = 0; tile_y < m.get_length(); tile_y++)
-			{
-				for (int tile_x = 0; tile_x < m.get_width(); tile_x++)
-				{
-					//std::cout << m.get_tile_number(j);
-					if (m.get_tile_number(tile_x, tile_y) == 1)
-					{
-						if (collision.collision_detect(enemy[i]->get_x(), enemy[i]->get_y(), tile_x*al_get_bitmap_width(image.Tiles(6).first), tile_y*al_get_bitmap_width(image.Tiles(6).first)))
+						//std::cout << m.get_tile_number(j);
+						if (m.get_tile_number(tile_x, tile_y) == 1)
 						{
-							enemy[i]->set_move_duration(0);
-							enemy[i]->change_direction();
-						}
-					}
-
-					if (m.get_tile_number(tile_x, tile_y) == 2)
-					{
-						if (collision.collision_detect(enemy[i]->get_x(), enemy[i]->get_y(), tile_x*al_get_bitmap_width(image.Tiles(6).first), tile_y*al_get_bitmap_width(image.Tiles(6).first)))
-						{
-							enemy[i]->set_move_duration(0);
-							enemy[i]->change_direction();
-						}
-					}
-				}
-			}
-
-			for (int j = 0; j < pweapon.size(); j++)
-			{
-				if (enemy.size() > 0)
-				{
-					if (collision.collision_detect(pweapon[j]->get_x(), pweapon[j]->get_y(), enemy[i]->get_x(), enemy[i]->get_y()))
-					{
-						if (enemy[i]->get_health() <= 0 && pweapon[j]->is_hit().first)
-						{
-							if (option.get_sound_options())
+							if (collision.collision_detect(enemy[i]->get_x(), enemy[i]->get_y(), tile_x*al_get_bitmap_width(image.Tiles(6).first), tile_y*al_get_bitmap_width(image.Tiles(6).first)))
 							{
-								al_play_sample_instance(sound.sound_effects(8));
-							}
-							pweapon[j]->set_hit(true, pweapon[j]->is_hit().second);
-						}
-
-						else if (enemy[i]->get_health() > 0 && !pweapon[j]->is_hit().first)
-						{
-							pweapon[j]->abilities();
-
-							if (pweapon[j]->enemy_damaged())
-							{
-								enemy[i]->set_hit(true, pweapon[j]->enemy_status());
-								enemy[i]->set_health(enemy[i]->get_health() - pweapon[j]->damage());
-							}
-
-							if (pweapon[j]->is_dead())
-							{
-								pweapon.erase(pweapon.begin() + j);
+								enemy[i]->set_move_duration(0);
+								enemy[i]->change_direction();
 							}
 						}
 
-						
+						if (m.get_tile_number(tile_x, tile_y) == 2)
+						{
+							if (collision.collision_detect(enemy[i]->get_x(), enemy[i]->get_y(), tile_x*al_get_bitmap_width(image.Tiles(6).first), tile_y*al_get_bitmap_width(image.Tiles(6).first)))
+							{
+								enemy[i]->set_move_duration(0);
+								enemy[i]->change_direction();
+							}
+						}
 					}
 				}
+
+				for (int j = 0; j < pweapon.size(); j++)
+				{
+					if (enemy.size() > 0)
+					{
+						if (collision.collision_detect(pweapon[j]->get_x(), pweapon[j]->get_y(), enemy[i]->get_x(), enemy[i]->get_y()))
+						{
+							if (enemy[i]->get_health() <= 0 && pweapon[j]->is_hit().first)
+							{
+								if (option.get_sound_options())
+								{
+									al_play_sample_instance(sound.sound_effects(8));
+								}
+								pweapon[j]->set_hit(true, pweapon[j]->is_hit().second);
+							}
+
+							else if (enemy[i]->get_health() > 0 && !pweapon[j]->is_hit().first)
+							{
+								pweapon[j]->abilities();
+
+								if (pweapon[j]->enemy_damaged())
+								{
+									enemy[i]->set_hit(true, pweapon[j]->enemy_status());
+									enemy[i]->set_health(enemy[i]->get_health() - pweapon[j]->damage());
+								}
+
+								if (pweapon[j]->is_dead())
+								{
+									pweapon.erase(pweapon.begin() + j);
+								}
+							}
+
+
+						}
+					}
+				}
+
+				if (enemy[i]->is_dead())
+				{
+					score = score + enemy[i]->get_score();
+					num_of_kills++;
+					enemy.erase(enemy.begin() + i);
+				}
 			}
-
-			if (enemy[i]->is_dead())
-			{
-				score = score + enemy[i]->get_score();
-				num_of_kills++;
-				enemy.erase(enemy.begin() + i);
-			}
-
-			if (player->is_hit().first && player->is_hit().second)
-			{
-				player->set_health(player->get_health() - enemy[i]->Damage());
-				player->set_hit(false, player->is_hit().second);
-			}
-
-
-			enemy[i]->react(image, sound, player, eweapon, option);
-			enemy[i]->update(eweapon, option, pweapon, image, sound);
 		}
 
 		//collision for tiles (player and enemy weapon)
@@ -2140,17 +2140,17 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 
 	al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 1200 + al_get_text_width(font.get_font(3), "LEVEL "), 732, NULL, "%i", level);
 
-	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 600, 732, NULL, "WEAPON:");
+	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 400, 732, NULL, "WEAPON:");
 
 	if (player->get_option_weapon() == 0)
 	{
-		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 600 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, "LAZER");
+		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 400 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, "LAZER");
 	}
 
 	else
 	{
-		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 600 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, weapons_unlocked.get_list(player->get_option_weapon() - 1).c_str());
-		al_draw_textf(font.get_font(3), al_map_rgb(200, 200, 255), 600 + al_get_text_width(font.get_font(3), weapons_unlocked.get_list(player->get_option_weapon() - 1).append("WEAPON:  ").c_str()), 732, NULL, "%d", player->get_num_of_ammo(player->get_option_weapon()));
+		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 400 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, weapons_unlocked.get_list(player->get_option_weapon() - 1).c_str());
+		al_draw_textf(font.get_font(3), al_map_rgb(200, 200, 255), 400 + al_get_text_width(font.get_font(3), weapons_unlocked.get_list(player->get_option_weapon() - 1).append("WEAPON:  ").c_str()), 732, NULL, "%d", player->get_num_of_ammo(player->get_option_weapon()));
 	}
 
 	if (num_of_weapon > 0 && notification_duration != 0)
@@ -2168,7 +2168,7 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 void Game::reset()
 {
 	enemy.clear();
-	level = option.get_level_for_difficulty();
+	level = 0;
 	player->damage_col_tile_update();
 	player->set_health(100);
 	player->set_x(8);

@@ -193,6 +193,35 @@ void Enemy::change_direction()
 	//this->nochange = 50;
 }
 
+void Enemy::opposite_direction()
+{
+
+	if (get_direction() == 0)
+	{
+		set_direction(1);
+		set_move_duration(80 * 5);
+	}
+
+	else if (get_direction() == 1)
+	{
+		set_direction(0);
+		set_move_duration(80 * 5);
+	}
+
+	else if (get_direction() == 2)
+	{
+		set_direction(3);
+		set_move_duration(80 * 5);
+	}
+
+	else if (get_direction() == 3)
+	{
+		set_direction(2);
+		set_move_duration(80 * 5);
+	}
+
+}
+
 void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet)
 {
 	std::uniform_int_distribution<int > shoot(0, 11);

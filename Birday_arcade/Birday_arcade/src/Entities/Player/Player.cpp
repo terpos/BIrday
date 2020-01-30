@@ -544,11 +544,14 @@ void Player::update(std::vector <P_Weapon*> &pweapon)
 
 	if (get_delay_movement() == 0 && is_gliding())
 	{
-		set_x(get_x() % 80 + (80 - get_x() % 80));
-		set_y(get_y() % 80 + (80 - get_y() % 80));
+
+
+		set_x(get_x() - get_x() % 80);
+		set_y(get_y() - get_y() % 80);
 		set_vel(80);
 		set_glide(false);
 		set_delay_movemement(3);
+
 	}
 
 	else

@@ -31,9 +31,11 @@ public:
 
 	void init(Options option);
 	void load(Image image);
-	void enemies_spawn(int random_num, std::uniform_int_distribution <int> randomy);
+	void enemies_spawn(Image image, int random_num, std::uniform_int_distribution <int> randomx, std::uniform_int_distribution <int> randomy);
 	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m, Weapons_Unlocked_List &weapons_unlocked, Options &option, Image image, Sound sound, ALLEGRO_EVENT &e, int & screennum, bool &done);
 	void render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image image, Sound sound, Tile_map &m, Font font);
+
+	
 
 	void reset();
 
@@ -47,13 +49,9 @@ private:
 
 	//object variables
 	Player *player;
-
-	std::default_random_engine power_up_popup, ammo_popup, enemy_spawn, yposition;
-
-	Image image;
-	Sound sound;
 	Collision collision;
-	Options option;
+
+	std::default_random_engine power_up_popup, ammo_popup, enemy_spawn, yposition, xposition;
 
 	Animation healing[2];
 

@@ -9,6 +9,16 @@ Image::Image()
 
 Image::~Image()
 {
+	player.clear();
+	P_weapon.clear();
+	E_weapon.clear();
+	enemies.clear();
+	PowerUp.clear();
+	Player_Weapon_Ammo.clear();
+	tile_piece.clear();
+	Background.clear();
+	status.clear();
+	Destruction.clear();
 }
 
 void Image::Load_Images()
@@ -68,7 +78,7 @@ void Image::Load_Images()
 	this->PowerUp.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Copy_Chip.png"), POWERUP));
 
 	//Ammo
-	this->Player_Weapon_Ammo.push_back(std::make_pair(al_create_bitmap(0,0), AMMO));
+	this->Player_Weapon_Ammo.push_back(std::make_pair(nullptr, AMMO));
 	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Rocket_Lazer_Ammo.png"), AMMO));
 	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Stunner_Ammo.png"), AMMO));
 	this->Player_Weapon_Ammo.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Power_Ups/Ammo/Bomb_Ammo.png"), AMMO));
@@ -118,6 +128,68 @@ void Image::Load_Images()
 	//Status
 	this->status.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Freeze.png"), STATUS));
 	this->status.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Burn.png"), STATUS));
+
+	std::cout << "PLAYER SIZE: " << player.size() << std::endl;
+	std::cout << "PWEAPON SIZE: " << P_weapon.size() << std::endl;
+	std::cout << "ENEMY SIZE: " << enemies.size() << std::endl;
+	std::cout << "EWEAPON SIZE: " << E_weapon.size() << std::endl;
+	std::cout << "POWERUP SIZE: " << PowerUp.size() << std::endl;
+	std::cout << "TILE SIZE: " << tile_piece.size() << std::endl;
+	std::cout << "AMMO SIZE: " << Player_Weapon_Ammo.size() << std::endl;
+	std::cout << "BACKGROUND SIZE: " << Background.size() << std::endl;
+	std::cout << "DESTRUCTION SIZE: " << Destruction.size() << std::endl;
+	std::cout << "STATUS SIZE: " << status.size() << std::endl;
+
+
+	for (int i = 0; i < player.size(); i++)
+	{
+		malloc(sizeof(player[i]));
+	}
+
+	for (int i = 0; i < P_weapon.size(); i++)
+	{
+		malloc(sizeof(P_weapon[i]));
+	}
+
+	for (int i = 0; i < E_weapon.size(); i++)
+	{
+		malloc(sizeof(E_weapon[i]));
+	}
+
+	for (int i = 0; i < enemies.size(); i++)
+	{
+		malloc(sizeof(enemies[i]));
+	}
+
+	for (int i = 0; i < Background.size(); i++)
+	{
+		malloc(sizeof(Background[i]));
+	}
+
+	for (int i = 0; i < tile_piece.size(); i++)
+	{
+		malloc(sizeof(tile_piece[i]));
+	}
+
+	for (int i = 0; i < PowerUp.size(); i++)
+	{
+		malloc(sizeof(PowerUp[i]));
+	}
+
+	for (int i = 0; i < status.size(); i++)
+	{
+		malloc(sizeof(status[i]));
+	}
+
+	for (int i = 0; i < Player_Weapon_Ammo.size(); i++)
+	{
+		malloc(sizeof(Player_Weapon_Ammo[i]));
+	}
+
+	for (int i = 0; i < Destruction.size(); i++)
+	{
+		malloc(sizeof(Destruction[i]));
+	}
 
 }
 
@@ -274,15 +346,7 @@ void Image::Deallocate_image(Tile_map &tile_map_file)
 		al_destroy_bitmap(status[i].first);
 	}
 
-	enemies.clear();
-	P_weapon.clear();
-	E_weapon.clear();
-	PowerUp.clear();
-	Player_Weapon_Ammo.clear();
-	tile_piece.clear();
-	Background.clear();
-	Destruction.clear();
-	status.clear();
+	
 
 }
 
