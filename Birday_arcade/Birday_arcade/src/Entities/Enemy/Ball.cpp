@@ -6,13 +6,13 @@ Ball::Ball(Image &sprite_sheet, int version, int x, int y, int vel, int directio
 {
 	if (version == 1) 
 	{
-		set_bitmap(sprite_sheet.Enemy_image(BALL).first, sprite_sheet.Player_image().second);
+		set_id(BALL);
 		set_health(8);
 	}
 
 	else
 	{
-		set_bitmap(sprite_sheet.Enemy_image(BALL2).first, sprite_sheet.Player_image().second);
+		set_id(BALL2);
 		set_health(16);
 	}
 
@@ -29,7 +29,6 @@ Ball::Ball(Image &sprite_sheet, int version, int x, int y, int vel, int directio
 
 	nochange = 25;
 	reload_time = 40;
-	cropping = al_create_bitmap(80, 80);
 }
 
 

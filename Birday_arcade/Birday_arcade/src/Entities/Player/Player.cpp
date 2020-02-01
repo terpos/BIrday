@@ -4,7 +4,8 @@
 
 Player::Player(Image &sprite_sheet, int x, int y, int vel, int direction, int buttons[7])
 {
-	set_bitmap(sprite_sheet.Player_image().first, sprite_sheet.Player_image().second);
+	
+	set_image(sprite_sheet);
 	set_x(x);
 	set_y(y);
 	set_vel(vel);
@@ -47,7 +48,7 @@ Player::Player(Image &sprite_sheet, int x, int y, int vel, int direction, int bu
 
 Player::~Player()
 {
-	//pweapon.clear();
+	al_destroy_bitmap(cropping);
 	std::cout << "PLAYER WEAPON CLEARED" << std::endl;
 }
 
@@ -66,6 +67,7 @@ int Player::get_vel()
 	return this->vel;
 }
 
+
 int Player::get_num_of_ammo(int index)
 {
 	return this->Num_of_Bullet[index];
@@ -76,9 +78,9 @@ std::pair<bool, int> Player::is_hit()
 	return std::make_pair(this->hit.first, this->hit.second);
 }
 
-std::pair<ALLEGRO_BITMAP*, int> Player::get_bitmap()
+Image Player::get_image()
 {
-	return std::pair<ALLEGRO_BITMAP*, int>(this->image.first, this->image.second);
+	return this->image;
 }
 
 int Player::get_direction()
@@ -152,10 +154,9 @@ void Player::set_hit(bool ishit, int status)
 	this->hit.second = status;
 }
 
-void Player::set_bitmap(ALLEGRO_BITMAP* image, int entity_num)
+void Player::set_image(Image image)
 {
-	this->image.first = image;
-	this->image.second = entity_num;
+	this->image = image;
 }
 
 void Player::set_buttons(int buttons[7])
@@ -588,40 +589,40 @@ void Player::render()
 	{
 		if (Damage.get_frame_position(11) >= 0 && Damage.get_frame_position(11) <= 5)
 		{
-			al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+			al_draw_bitmap_region(this->get_image().Player_image().first, get_direction()*al_get_bitmap_width(cropping), 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 		}
 
 		else
 		{
-			al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+			al_draw_bitmap_region(this->get_image().Player_image().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 		}
 	}
 
 	else if (is_hit().second == 2)
 	{
-		al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 160, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+		al_draw_bitmap_region(this->get_image().Player_image().first, get_direction()*al_get_bitmap_width(cropping), 160, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 	}
 
 	else if (is_hit().second == 0)
 	{
-		al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+		al_draw_bitmap_region(this->get_image().Player_image().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 	}
 
 	if (is_healing())
 	{
 		if (heal.get_frame_position(7) >= 0 && heal.get_frame_position(7) < 2)
 		{
-			al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+			al_draw_bitmap_region(this->get_image().Player_image().first, get_direction()*al_get_bitmap_width(cropping), 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 		}
 
 		else if (heal.get_frame_position(7) >= 2 && heal.get_frame_position(7) < 4)
 		{
-			al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 240, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+			al_draw_bitmap_region(this->get_image().Player_image().first, get_direction()*al_get_bitmap_width(cropping), 240, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 		}
 
 		else
 		{
-			al_draw_bitmap_region(get_bitmap().first, get_direction()*al_get_bitmap_width(cropping), 320, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+			al_draw_bitmap_region(this->get_image().Player_image().first, get_direction()*al_get_bitmap_width(cropping), 320, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 		}
 	}
 }

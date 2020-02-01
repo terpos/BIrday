@@ -26,7 +26,7 @@ Game::Game()
 	unlock_weapon[ARROW] = false;
 	unlock_weapon[SLICER] = false;
 
-	levelup = true;
+	levelup = false;
 	initial = true;
 	
 	healing_loading[0] = 0;
@@ -73,6 +73,7 @@ void Game::init(Options option)
 		this->level = option.get_level_for_difficulty();
 		initial = false;
 		x1 = x2 = 680;
+		levelup = false;
 	}
 	
 }
@@ -180,7 +181,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 		if (level_duration > 1)
 		{
-			std::cout << level_duration << std::endl;
 			level_duration--;
 
 		}
@@ -1487,8 +1487,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			}
 		}
 
-		//clears the trails images has left over
-		al_clear_to_color(al_map_rgb(0, 0, 0));
+		
 
 		//updates player's info
 		player->update(pweapon);
@@ -1911,6 +1910,8 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image image, Sound sound, Tile_map &m, Font font)
 {
+	//clears the trails images has left over
+	al_clear_to_color(al_map_rgb(0, 0, 0));
 
 	if (player->get_health() > 0 && x1 == 0 && x2 == 1360)
 	{

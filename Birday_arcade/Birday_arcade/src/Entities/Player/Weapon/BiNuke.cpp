@@ -2,7 +2,7 @@
 
 BiNuke::BiNuke(Image & sprite_sheet, int x, int y, int vel, int direction) :P_Weapon(sprite_sheet, x, y, vel, direction)
 {
-	set_bitmap(sprite_sheet.Player_Weapon_image(BI_NUKE).first, sprite_sheet.Player_image().second);
+	set_id(BI_NUKE);
 	set_x(x);
 	set_y(y);
 	set_vel(vel);
@@ -10,8 +10,6 @@ BiNuke::BiNuke(Image & sprite_sheet, int x, int y, int vel, int direction) :P_We
 
 	set_hit(false, 1);
 
-	cropping = al_create_bitmap(80, 80);
-	cropping2 = al_create_bitmap(40, 40);
 
 	this->type = 0;
 
@@ -50,16 +48,16 @@ void BiNuke::render(Image expl, Sound sound, bool play_sound)
 			switch (get_direction())
 			{
 			case 0:
-				al_draw_bitmap_region(get_bitmap().first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 1:
-				al_draw_bitmap_region(get_bitmap().first, 160, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 160, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 2:
-				al_draw_bitmap_region(get_bitmap().first, 240, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 240, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 3:
-				al_draw_bitmap_region(get_bitmap().first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			}
 		}
@@ -69,16 +67,16 @@ void BiNuke::render(Image expl, Sound sound, bool play_sound)
 			switch (get_direction())
 			{
 			case 0:
-				al_draw_bitmap_region(get_bitmap().first, 0, 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 0, 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 1:
-				al_draw_bitmap_region(get_bitmap().first, 160, 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 160, 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 2:
-				al_draw_bitmap_region(get_bitmap().first, 240, 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 240, 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 3:
-				al_draw_bitmap_region(get_bitmap().first, 80, 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 80, 80, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			}
 		}

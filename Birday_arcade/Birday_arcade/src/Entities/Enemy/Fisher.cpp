@@ -6,13 +6,13 @@ Fisher::Fisher(Image &sprite_sheet, int version, int x, int y, int vel, int dire
 {
 	if (version == 1)
 	{
-		set_bitmap(sprite_sheet.Enemy_image(FISHER).first, sprite_sheet.Enemy_image(FISHER).second);
+		set_id(FISHER);
 		set_health(1);
 	}
 
 	else
 	{
-		set_bitmap(sprite_sheet.Enemy_image(FISHER2).first, sprite_sheet.Enemy_image(FISHER2).second);
+		set_id(FISHER2);
 		set_health(3);
 	}
 
@@ -28,7 +28,6 @@ Fisher::Fisher(Image &sprite_sheet, int version, int x, int y, int vel, int dire
 
 	nochange = 25;
 	reload_time = 40;
-	cropping = al_create_bitmap(80, 80);
 }
 
 
@@ -74,21 +73,25 @@ void Fisher::react(Image &image, Sound sound, Player* & player, std::vector<E_We
 		if (player->get_direction() == 2 && get_direction() == 1)
 		{
 			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
+			reload_time = 20;
 		}
 
 		else if (player->get_direction() == 3 && get_direction() == 0)
 		{
 			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
+			reload_time = 20;
 		}
 
 		else if (player->get_direction() == 1 && get_direction() == 2)
 		{
 			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
+			reload_time = 20;
 		}
 
 		else if (player->get_direction() == 0 && get_direction() == 3)
 		{
 			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
+			reload_time = 20;
 		}
 
 		if (eweapon.size() > 1)

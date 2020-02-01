@@ -6,51 +6,41 @@ Ammo::Ammo(Image image, int ammotype, int x, int y)
 {
 	set_x(x);
 	set_y(y);
+	set_image(image);
 
 	switch (ammotype)
 	{
 	case ROCKET_LAZER_AMMO:
-		set_bitmap(image.Ammo_image(ROCKET_LAZER_AMMO).first, image.Ammo_image(ROCKET_LAZER_AMMO).second);
 		ammo_type = ROCKET_LAZER_AMMO;
 		break;
 	case STUNNER_AMMO:
-		set_bitmap(image.Ammo_image(STUNNER_AMMO).first, image.Ammo_image(STUNNER_AMMO).second);
 		ammo_type = STUNNER_AMMO;
 		break;
 	case BOMB_AMMO:
-		set_bitmap(image.Ammo_image(BOMB_AMMO).first, image.Ammo_image(BOMB_AMMO).second);
 		ammo_type = BOMB_AMMO;
 		break;
 	case ICE_BOMB_AMMO:
-		set_bitmap(image.Ammo_image(ICE_BOMB_AMMO).first, image.Ammo_image(ICE_BOMB_AMMO).second);
 		ammo_type = ICE_BOMB_AMMO;
 		break;
 	case FIRE_BOMB_AMMO:
-		set_bitmap(image.Ammo_image(FIRE_BOMB_AMMO).first, image.Ammo_image(FIRE_BOMB_AMMO).second);
 		ammo_type = FIRE_BOMB_AMMO;
 		break;
 	case ATOMIC_BOMB_AMMO:
-		set_bitmap(image.Ammo_image(ATOMIC_BOMB_AMMO).first, image.Ammo_image(ATOMIC_BOMB_AMMO).second);
 		ammo_type = ATOMIC_BOMB_AMMO;
 		break;
 	case BI_NUKE_AMMO:
-		set_bitmap(image.Ammo_image(BI_NUKE_AMMO).first, image.Ammo_image(BI_NUKE_AMMO).second);
 		ammo_type = BI_NUKE_AMMO;
 		break;
 	case TRI_NUKE_AMMO:
-		set_bitmap(image.Ammo_image(TRI_NUKE_AMMO).first, image.Ammo_image(TRI_NUKE_AMMO).second);
 		ammo_type = TRI_NUKE_AMMO;
 		break;
 	case TRIANGULAR_MISSILE_AMMO:
-		set_bitmap(image.Ammo_image(TRIANGULAR_MISSILE_AMMO).first, image.Ammo_image(TRIANGULAR_MISSILE_AMMO).second);
 		ammo_type = TRIANGULAR_MISSILE_AMMO;
 		break;
 	case ARROW_AMMO:
-		set_bitmap(image.Ammo_image(ARROW_AMMO).first, image.Ammo_image(ARROW_AMMO).second);
 		ammo_type = ARROW_AMMO;
 		break;
 	case SLICER_AMMO:
-		set_bitmap(image.Ammo_image(SLICER_AMMO).first, image.Ammo_image(SLICER_AMMO).second);
 		ammo_type = SLICER_AMMO;
 		break;
 	}
@@ -73,9 +63,9 @@ int Ammo::get_y()
 	return this->y;
 }
 
-std::pair<ALLEGRO_BITMAP*, int> Ammo::get_bitmap()
+Image Ammo::get_image()
 {
-	return std::pair<ALLEGRO_BITMAP*, int>(this->image.first, this->image.second);
+	return this->image;
 }
 
 void Ammo::set_x(int x)
@@ -88,10 +78,9 @@ void Ammo::set_y(int y)
 	this->y = y;
 }
 
-void Ammo::set_bitmap(ALLEGRO_BITMAP * image, int entity_num)
+void Ammo::set_image(Image image)
 {
-	this->image.first = image;
-	this->image.second = entity_num;
+	this->image = image;
 }
 
 void Ammo::ammo_reload(Sound sound, Player* & player, Options option)
@@ -106,5 +95,5 @@ void Ammo::ammo_reload(Sound sound, Player* & player, Options option)
 
 void Ammo::render()
 {
-	al_draw_bitmap(get_bitmap().first, get_x(), get_y(), NULL);
+	al_draw_bitmap(get_image().Ammo_image(ammo_type).first, get_x(), get_y(), NULL);
 }

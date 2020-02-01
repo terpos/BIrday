@@ -12,7 +12,6 @@ public:
 private:
 	int x, y, seed;
 	std::default_random_engine power_up;
-	std::pair <ALLEGRO_BITMAP *, int> image;
 
 
 };

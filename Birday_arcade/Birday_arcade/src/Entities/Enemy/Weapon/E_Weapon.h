@@ -15,20 +15,22 @@ public:
 	virtual int get_y();
 	virtual int get_vel();
 	virtual int get_direction();
+	virtual int get_id();
 
 	//returns bitmap value
-	virtual std::pair <ALLEGRO_BITMAP*, int> get_bitmap();
+	virtual Image get_image();
 
 	//sets the x position, y position, speed, and direction of the player 
 	virtual void set_x(int x);
 	virtual void set_y(int y);
 	virtual void set_vel(int vel);
 	virtual void set_direction(int direction);
+	virtual void set_id(int id);
 
 	virtual int damage();
 
 	//sets the bitmap information
-	virtual void set_bitmap(ALLEGRO_BITMAP* image, int entity_num);
+	virtual void set_image(Image image);
 
 	//update weapon info
 	virtual void update();
@@ -38,17 +40,16 @@ public:
 
 private:
 	//integer variables
-	int x, y, vel, direction, buttons[7], type;
+	int x, y, vel, direction, buttons[7], type, id;
 
 	//boolean variable
 	bool draw;
 
 	//bitmap instance variables
 	ALLEGRO_BITMAP *cropping;
-	ALLEGRO_BITMAP *cropping2;
 
 	//pair variable
-	std::pair <ALLEGRO_BITMAP*, int> image;
+	Image image;
 
 };
 

@@ -4,6 +4,7 @@
 
 Enemy::Enemy(Image &sprite_sheet, int version, int x, int y, int vel, int direction)
 {
+	set_image(sprite_sheet);
 	set_version(version);
 	set_x(x);
 	set_y(y);
@@ -33,6 +34,7 @@ Enemy::Enemy(Image &sprite_sheet, int version, int x, int y, int vel, int direct
 Enemy::~Enemy()
 {
 	std::cout << "ENEMY WEAPON CLEARED" << std::endl;
+	al_destroy_bitmap(cropping);
 }
 
 int Enemy::get_x()
@@ -65,6 +67,11 @@ signed int Enemy::get_health()
 	return this->health;
 }
 
+int Enemy::get_id()
+{
+	return this->id;
+}
+
 int Enemy::Damage()
 {
 	return 1;
@@ -80,9 +87,9 @@ std::pair<bool, int> Enemy::is_hit()
 	return std::pair<bool, int>(this->hit.first, this->hit.second);
 }
 
-std::pair<ALLEGRO_BITMAP*, int> Enemy::get_bitmap()
+Image Enemy::get_image()
 {
-	return std::pair<ALLEGRO_BITMAP*, int>(this->image.first, this->image.second);
+	return this->image;
 }
 
 void Enemy::set_x(int x)
@@ -103,6 +110,11 @@ void Enemy::set_vel(int vel)
 void Enemy::set_health(signed int health)
 {
 	this->health = health;
+}
+
+void Enemy::set_id(int id)
+{
+	this->id = id;
 }
 
 void Enemy::set_direction(int direction)
@@ -131,10 +143,9 @@ void Enemy::set_kill(bool kill)
 	this->enemy_dead = kill;
 }
 
-void Enemy::set_bitmap(ALLEGRO_BITMAP * image, int entity_num)
+void Enemy::set_image(Image image)
 {
-	this->image.first = image;
-	this->image.second = entity_num;
+	this->image = image;
 }
 
 void Enemy::damage_col_update()
@@ -402,35 +413,35 @@ void Enemy::render(Image death)
 			is_damage = 0;
 		}
 
-		if (al_get_bitmap_width(get_bitmap().first) > 160)
+		if (al_get_bitmap_width(get_image().Enemy_image(get_id()).first) > 160)
 		{
 			switch (get_direction())
 			{
 			case 0:
-				al_draw_bitmap_region(get_bitmap().first, 0, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Enemy_image(get_id()).first, 0, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 1:
-				al_draw_bitmap_region(get_bitmap().first, 80, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Enemy_image(get_id()).first, 80, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 2:
-				al_draw_bitmap_region(get_bitmap().first, 160, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Enemy_image(get_id()).first, 160, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 3:
-				al_draw_bitmap_region(get_bitmap().first, 240, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Enemy_image(get_id()).first, 240, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			}
 		}
 
-		else if (al_get_bitmap_width(get_bitmap().first) == 160)
+		else if (al_get_bitmap_width(get_image().Enemy_image(get_id()).first) == 160)
 		{
 			if (animation.get_frame_position(51) >= 0 && animation.get_frame_position(51) <= 25)
 			{
-				al_draw_bitmap_region(get_bitmap().first, 0, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Enemy_image(get_id()).first, 0, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 			}
 
 			else if (animation.get_frame_position(51) > 25)
 			{
-				al_draw_bitmap_region(get_bitmap().first, 80, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Enemy_image(get_id()).first, 80, 80 * is_damage, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 			}
 
 		}

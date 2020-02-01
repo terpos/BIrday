@@ -34,6 +34,8 @@ public:
 	//gets the positive value of health
 	virtual signed int get_health();
 
+	virtual int get_id();
+
 	virtual int get_score() = 0;
 
 	virtual int Damage();
@@ -44,7 +46,7 @@ public:
 	virtual std::pair <bool, int> is_hit();
 
 	//gets the image information
-	virtual std::pair <ALLEGRO_BITMAP*, int> get_bitmap();
+	virtual Image get_image();
 
 	//sets the x position, y position, speed, and direction of the player 
 	virtual void set_x(int x);
@@ -58,13 +60,15 @@ public:
 	//sets the positive value of health
 	virtual void set_health(signed int health);
 
+	virtual void set_id(int id);
+
 	//sets whether the player is hit or not
 	virtual void set_hit(bool ishit, int status);
 
 	virtual void set_kill(bool kill);
 
 	//sets the bitmap information
-	virtual void set_bitmap(ALLEGRO_BITMAP* image, int entity_num);
+	virtual void set_image(Image image);
 
 	//updates the enemy's info when collided (player moves backward)
 	virtual void damage_col_update();
@@ -86,7 +90,7 @@ public:
 
 private:
 	//integer variables
-	int x, y, vel, direction, nochange, reload_time, version, is_damage, freeze_duration, burn_duration, tempvel, stop_duration;
+	int x, y, vel, direction, nochange, reload_time, version, is_damage, freeze_duration, burn_duration, tempvel, stop_duration, id;
 	unsigned int health;
 
 	//positive whole number variables
@@ -101,7 +105,7 @@ private:
 
 	//pair variables
 	std::pair <bool, int> hit;
-	std::pair <ALLEGRO_BITMAP*, int> image;
+	Image image;
 
 	//random engine instance variables
 	std::default_random_engine movement;

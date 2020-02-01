@@ -18,13 +18,14 @@ public:
 	virtual int get_direction();
 	virtual int damage();
 	virtual int enemy_status();
+	virtual int get_id();
 
 	virtual bool is_dead();
 	virtual bool enemy_damaged();
 	
 
 	//returns bitmap value
-	std::pair <ALLEGRO_BITMAP*, int> get_bitmap();
+	Image get_image();
 
 	virtual std::pair <bool, int> is_hit();
 
@@ -37,13 +38,14 @@ public:
 	virtual void abilities();
 	virtual void set_enemy_damage(bool damage);
 	virtual void set_enemy_status(int status);
+	virtual void set_id(int id);
 
 	virtual void set_hit(bool hit, int hit_count);
 
 	virtual void change_direction();
 
 	//sets the bitmap information
-	virtual void set_bitmap(ALLEGRO_BITMAP* image, int entity_num);
+	virtual void set_image(Image image);
 
 	//update weapon info
 	virtual void update();
@@ -53,23 +55,24 @@ public:
 
 
 	Animation animation, weapon_explosion, bomb_detonate;
+	ALLEGRO_BITMAP *cropping;
+	ALLEGRO_BITMAP *cropping2;
 
 private:
 	//integer variables
-	int x, y, vel, direction, buttons[7], type, seed, hit_count, temp_vel, status_enemy;
+	int x, y, vel, direction, buttons[7], type, seed, hit_count, temp_vel, status_enemy, id;
 
 	//boolean variable
 	bool draw, kill, hit, damage_enemy;
 
 	//bitmap instance variables
-	ALLEGRO_BITMAP *cropping;
-	ALLEGRO_BITMAP *cropping2;
+	
 
 
 	std::default_random_engine movement;
 
 	//pair variable
-	std::pair <ALLEGRO_BITMAP*, int> image;
+	Image image;
 
 
 };

@@ -13,7 +13,5 @@ public:
 private:
 	int type;
 
-	ALLEGRO_BITMAP *cropping;
-	ALLEGRO_BITMAP *cropping2;
 };
 

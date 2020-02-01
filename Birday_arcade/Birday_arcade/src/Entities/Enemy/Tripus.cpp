@@ -6,13 +6,13 @@ Tripus::Tripus(Image &sprite_sheet, int version, int x, int y, int vel, int dire
 {
 	if (version == 1)
 	{
-		set_bitmap(sprite_sheet.Enemy_image(TRIPUS).first, sprite_sheet.Enemy_image(TRIPUS).second);
+		set_id(TRIPUS);
 		set_health(1);
 	}
 
 	else
 	{
-		set_bitmap(sprite_sheet.Enemy_image(TRIPUS2).first, sprite_sheet.Enemy_image(TRIPUS2).second);
+		set_id(TRIPUS2);
 		set_health(3);
 	}
 
@@ -30,7 +30,6 @@ Tripus::Tripus(Image &sprite_sheet, int version, int x, int y, int vel, int dire
 
 	nochange = 25;
 	reload_time = 40;
-	cropping = al_create_bitmap(80, 80);
 }
 
 

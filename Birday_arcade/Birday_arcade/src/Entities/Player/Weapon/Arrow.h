@@ -14,7 +14,6 @@ private:
 	
 	std::default_random_engine movement;
 
-	ALLEGRO_BITMAP *cropping;
-	ALLEGRO_BITMAP *cropping2;
+	
 };
 

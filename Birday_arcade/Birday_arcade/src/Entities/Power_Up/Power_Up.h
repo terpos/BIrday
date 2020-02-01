@@ -14,12 +14,14 @@ public:
 	//gets the x position, y position, and bitmap information/tags
 	virtual int get_x();
 	virtual int get_y();
-	virtual std::pair <ALLEGRO_BITMAP*, int> get_bitmap();
+	virtual Image get_image();
+	virtual int get_id();
 
 	//sets the x position, y position, and bitmap information/tags
 	virtual void set_x(int x);
 	virtual void set_y(int y);
-	virtual void set_bitmap(ALLEGRO_BITMAP *image, int entity_num);
+	virtual void set_image(Image image);
+	virtual void set_id(int id);
 
 	//functionality of the power up
 	virtual void power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy, Options option);
@@ -29,10 +31,10 @@ public:
 
 private:
 	//integer variables
-	int x, y;
+	int x, y, id;
 	
 	//pair variables
-	std::pair <ALLEGRO_BITMAP *, int> image;
+	Image image;
 
 	
 };

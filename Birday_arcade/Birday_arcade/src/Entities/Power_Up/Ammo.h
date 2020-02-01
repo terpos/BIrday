@@ -11,12 +11,12 @@ public:
 
 	int get_x();
 	int get_y();
-	std::pair <ALLEGRO_BITMAP*, int> get_bitmap();
+	Image get_image();
 
 	//sets the x position, y position, and bitmap information/tags
 	void set_x(int x);
 	void set_y(int y);
-	void set_bitmap(ALLEGRO_BITMAP *image, int entity_num);
+	void set_image(Image image);
 
 	//functionality of the power up
 	void ammo_reload(Sound sound, Player* &player, Options option);
@@ -28,7 +28,7 @@ private:
 	//integer variables
 	int x, y, ammo_type;
 
-	//pair variables
-	std::pair <ALLEGRO_BITMAP *, int> image;
+	//image variables
+	Image image;
 };
 

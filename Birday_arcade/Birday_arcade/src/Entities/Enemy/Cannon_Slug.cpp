@@ -12,7 +12,7 @@ Cannon_Slug::Cannon_Slug(Image &sprite_sheet, int version, int x, int y, int vel
 
 	if (version == 1)
 	{
-		set_bitmap(sprite_sheet.Enemy_image(CANNON_SLUG).first, sprite_sheet.Enemy_image(CANNON_SLUG).second);
+		set_id(CANNON_SLUG);
 		//image.first = sprite_sheet.Enemy_image(CANNON_SLUG).first;
 		//image.second = sprite_sheet.Enemy_image(CANNON_SLUG).second;
 		this->health = 5;
@@ -20,7 +20,7 @@ Cannon_Slug::Cannon_Slug(Image &sprite_sheet, int version, int x, int y, int vel
 
 	else
 	{
-		set_bitmap(sprite_sheet.Enemy_image(CANNON_SLUG2).first, sprite_sheet.Enemy_image(CANNON_SLUG2).second);
+		set_id(CANNON_SLUG2);
 		//this->image.first = sprite_sheet.Enemy_image(CANNON_SLUG2).first;
 		//this->image.second = sprite_sheet.Enemy_image(CANNON_SLUG2).second;
 		this->health = 10;
@@ -35,7 +35,6 @@ Cannon_Slug::Cannon_Slug(Image &sprite_sheet, int version, int x, int y, int vel
 
 	nochange = 25;
 	reload_time = 40;
-	cropping = al_create_bitmap(80, 80);
 }
 
 

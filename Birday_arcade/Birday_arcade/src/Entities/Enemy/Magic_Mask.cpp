@@ -6,13 +6,13 @@ Magic_Mask::Magic_Mask(Image &sprite_sheet, int version, int x, int y, int vel, 
 {
 	if (version == 1)
 	{
-		set_bitmap(sprite_sheet.Enemy_image(MAGIC_MASK).first, sprite_sheet.Enemy_image(MAGIC_MASK).second);
+		set_id(MAGIC_MASK);
 		set_health(2);
 	}
 
 	else
 	{
-		set_bitmap(sprite_sheet.Enemy_image(MAGIC_MASK2).first, sprite_sheet.Enemy_image(MAGIC_MASK2).second);
+		set_id(MAGIC_MASK2);
 		set_health(4);
 	}
 
@@ -29,7 +29,6 @@ Magic_Mask::Magic_Mask(Image &sprite_sheet, int version, int x, int y, int vel, 
 
 	nochange = 25;
 	reload_time = 40;
-	cropping = al_create_bitmap(80, 80);
 }
 
 

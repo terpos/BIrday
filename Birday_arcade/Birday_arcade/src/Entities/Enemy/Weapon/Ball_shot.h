@@ -17,9 +17,7 @@ private:
 	bool draw;
 
 	ALLEGRO_BITMAP *cropping;
-	ALLEGRO_BITMAP *cropping2;
 
-	std::pair <ALLEGRO_BITMAP*, int> image;
 
 };
 

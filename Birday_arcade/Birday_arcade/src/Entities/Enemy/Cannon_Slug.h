@@ -23,11 +23,9 @@ private:
 
 	bool draw;
 	std::pair <bool, int> hit;
-	std::pair <ALLEGRO_BITMAP*, int> image;
 
 	std::default_random_engine movement;
 	std::default_random_engine shooting_probability;
 
-	ALLEGRO_BITMAP* cropping;
 };
 

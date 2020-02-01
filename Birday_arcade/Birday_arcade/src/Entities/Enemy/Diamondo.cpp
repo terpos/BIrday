@@ -6,13 +6,13 @@ Diamondo::Diamondo(Image &sprite_sheet, int version, int x, int y, int vel, int 
 {
 	if (version == 1)
 	{
-		set_bitmap(sprite_sheet.Enemy_image(DIAMONDO).first, sprite_sheet.Enemy_image(DIAMONDO).second);
+		set_id(DIAMONDO);
 		set_health(4);
 	}
 
 	else
 	{
-		set_bitmap(sprite_sheet.Enemy_image(DIAMONDO2).first, sprite_sheet.Enemy_image(DIAMONDO2).second);
+		set_id(DIAMONDO2);
 		set_health(8);
 	}
 
@@ -29,7 +29,6 @@ Diamondo::Diamondo(Image &sprite_sheet, int version, int x, int y, int vel, int 
 
 	nochange = 25;
 	reload_time = 25;
-	cropping = al_create_bitmap(80, 80);
 }
 
 

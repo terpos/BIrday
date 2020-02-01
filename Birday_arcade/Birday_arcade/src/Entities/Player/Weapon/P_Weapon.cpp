@@ -4,7 +4,7 @@
 
 P_Weapon::P_Weapon(Image &sprite_sheet, int x, int y, int vel, int direction)
 {
-	//set_bitmap(sprite_sheet.Player_Weapon_image(0).first, sprite_sheet.Player_image().second);
+	set_image(sprite_sheet);
 	set_x(x);
 	set_y(y);
 	set_vel(vel);
@@ -28,7 +28,8 @@ P_Weapon::P_Weapon(Image &sprite_sheet, int x, int y, int vel, int direction)
 
 P_Weapon::~P_Weapon()
 {
-	
+	al_destroy_bitmap(cropping);
+	al_destroy_bitmap(cropping2);
 }
 
 int P_Weapon::get_x()
@@ -61,6 +62,11 @@ int P_Weapon::enemy_status()
 	return this->status_enemy;
 }
 
+int P_Weapon::get_id()
+{
+	return this->id;
+}
+
 bool P_Weapon::is_dead()
 {
 	return this->kill;
@@ -71,9 +77,9 @@ bool P_Weapon::enemy_damaged()
 	return this->damage_enemy;
 }
 
-std::pair<ALLEGRO_BITMAP*, int> P_Weapon::get_bitmap()
+Image P_Weapon::get_image()
 {
-	return std::pair<ALLEGRO_BITMAP*, int>(this->image.first, this->image.second);
+	return this->image;
 }
 
 std::pair <bool, int> P_Weapon::is_hit()
@@ -123,6 +129,11 @@ void P_Weapon::set_enemy_status(int status)
 	this->status_enemy = status;
 }
 
+void P_Weapon::set_id(int id)
+{
+	this->id = id;
+}
+
 void P_Weapon::set_hit(bool hit, int hit_count)
 {
 	this->hit = hit;
@@ -164,10 +175,9 @@ void P_Weapon::change_direction()
 
 
 
-void P_Weapon::set_bitmap(ALLEGRO_BITMAP * image, int entity_num)
+void P_Weapon::set_image(Image image)
 {
-	this->image.first = image;
-	this->image.second = entity_num;
+	this->image = image;
 }
 
 void P_Weapon::update()
@@ -259,40 +269,40 @@ void P_Weapon::render(Image expl, Sound sound, bool play_sound)
 
 	else
 	{
-		if (al_get_bitmap_width(get_bitmap().first) > 160)
+		if (al_get_bitmap_width(get_image().Player_Weapon_image(get_id()).first) > 160)
 		{
 			switch (get_direction())
 			{
 			case 0:
-				al_draw_bitmap_region(get_bitmap().first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 1:
-				al_draw_bitmap_region(get_bitmap().first, 160, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 160, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 2:
-				al_draw_bitmap_region(get_bitmap().first, 240, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 240, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 3:
-				al_draw_bitmap_region(get_bitmap().first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			}
 		}
 
-		else if (al_get_bitmap_width(get_bitmap().first) == 160)
+		else if (al_get_bitmap_width(get_image().Player_Weapon_image(get_id()).first) == 160)
 		{
 			switch (get_direction())
 			{
 			case 0:
-				al_draw_bitmap_region(get_bitmap().first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 1:
-				al_draw_bitmap_region(get_bitmap().first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 0, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 2:
-				al_draw_bitmap_region(get_bitmap().first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			case 3:
-				al_draw_bitmap_region(get_bitmap().first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
+				al_draw_bitmap_region(get_image().Player_Weapon_image(get_id()).first, 80, 0, al_get_bitmap_width(cropping), al_get_bitmap_height(cropping), get_x(), get_y(), NULL);
 				break;
 			}
 		}

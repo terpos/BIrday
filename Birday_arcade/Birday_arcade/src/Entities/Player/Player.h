@@ -49,7 +49,7 @@ public:
 	std::pair <bool, int> is_hit();
 
 	//gets the image information
-	std::pair <ALLEGRO_BITMAP*, int> get_bitmap();
+	Image get_image();
 
 	//returns the buttons
 	int get_buttons(int index);
@@ -74,7 +74,7 @@ public:
 	void set_hit(bool ishit, int status);
 
 	//sets the bitmap information
-	void set_bitmap(ALLEGRO_BITMAP* image, int entity_num);
+	void set_image(Image image);
 
 	//sets the button configurations
 	void set_buttons(int buttons[7]);
@@ -107,10 +107,9 @@ private:
 
 	//pair variables
 	std::pair <bool, int> hit;
-	std::pair <ALLEGRO_BITMAP*, int> image;
 
 	Animation Damage, heal;
-
+	Image image;
 
 	//bitmap instance variable
 	ALLEGRO_BITMAP* cropping;	

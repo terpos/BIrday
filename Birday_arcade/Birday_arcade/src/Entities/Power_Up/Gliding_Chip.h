@@ -12,6 +12,5 @@ public:
 private:
 	int x, y;
 
-	std::pair <ALLEGRO_BITMAP *, int> image;
 };
 
