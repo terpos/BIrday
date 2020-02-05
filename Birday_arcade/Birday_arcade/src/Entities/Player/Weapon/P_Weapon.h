@@ -8,7 +8,7 @@ class P_Weapon
 {
 public:
 	//puts in initial value
-	P_Weapon(Image &sprite_sheet, int x, int y, int vel, int direction);
+	P_Weapon(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce);
 	~P_Weapon();
 
 	//gets x position, y position, speed, and direction of the player

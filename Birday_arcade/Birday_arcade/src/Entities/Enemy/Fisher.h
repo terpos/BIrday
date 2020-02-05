@@ -14,7 +14,7 @@ public:
 	void shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet);
 
 private:
-	int x, y, vel, direction;
+	int x, y, vel, direction, spit_duration;
 	unsigned int health;
 	unsigned seed;
 

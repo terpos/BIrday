@@ -46,10 +46,13 @@ public:
 	//returns the status depending on the status number
 	std::pair <ALLEGRO_BITMAP*, int> status_image(int status_num);
 
+	//returns the misc image based on misc number
+	std::pair <ALLEGRO_BITMAP*, int> misc_image(int misc_num);
+
 private:
 	//vector pair variables
 	std::vector < std::pair <ALLEGRO_BITMAP*, int> > tile_piece, enemies, player, P_weapon, 
-		E_weapon, PowerUp, Player_Weapon_Ammo, Background, Destruction, status; 
+		E_weapon, PowerUp, Player_Weapon_Ammo, Background, Destruction, status, misc; 
 
 	
 	

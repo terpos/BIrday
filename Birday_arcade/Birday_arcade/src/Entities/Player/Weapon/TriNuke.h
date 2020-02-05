@@ -4,7 +4,7 @@
 class TriNuke: public P_Weapon
 {
 public:
-	TriNuke(Image &sprite_sheet, int x, int y, int vel, int direction);
+	TriNuke(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce);
 	~TriNuke();
 
 	int damage();

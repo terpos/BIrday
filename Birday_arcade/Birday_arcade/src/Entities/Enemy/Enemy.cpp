@@ -288,7 +288,6 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 
 	if (is_hit().first && is_hit().second == 1)
 	{
-		std::cout << damage.get_frame() << std::endl;
 		damage.increment_frame();
 	}
 

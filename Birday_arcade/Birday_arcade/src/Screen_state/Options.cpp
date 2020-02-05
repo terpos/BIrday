@@ -102,12 +102,25 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
-		
-		if (options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9 || options == 10)
+		if (get_last_screen() == MENU_SCREEN)
 		{
-			if (press_any_key)
+			if (options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9 || options == 10)
 			{
-				num_of_key_pressed = 2;
+				if (press_any_key)
+				{
+					num_of_key_pressed = 2;
+				}
+			}
+		}
+
+		if (get_last_screen() == PAUSE_SCREEN)
+		{
+			if (options == 3 || options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9)
+			{
+				if (press_any_key)
+				{
+					num_of_key_pressed = 2;
+				}
 			}
 		}
 
@@ -123,7 +136,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 				set_last_screen(OPTION_SCREEN);
 				screennum = QUIT_SCREEN;
 			}
-			
+
 		}
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_UP && !press_any_key)
@@ -132,7 +145,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 			options--;
 			if (options < 1)
 			{
-				options = 11;
+				options = max_options;
 			}
 
 		}
@@ -141,7 +154,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 		{
 
 			options++;
-			if (options > 11)
+			if (options > max_options)
 			{
 				options = 1;
 			}
@@ -174,10 +187,10 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 				//al_draw_text(font.get_font(0), Sel, 500, 390, NULL, "DIFFICULTY:");
 				difficulty_option--;
 				break;
-		
+
 			}
 
-			
+
 
 			if (difficulty_option < 1)
 			{
@@ -213,7 +226,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 				difficulty_option++;
 				Set_difficulty_options(difficulty_option);
 				break;
-			
+
 			}
 
 			if (sound_options > 2)
@@ -234,25 +247,40 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_ENTER)
 		{
-			if (options == 11)
+			if (get_last_screen() == MENU_SCREEN)
 			{
-				screennum = get_last_screen();
+				if (options == 11)
+				{
+					screennum = get_last_screen();
+				}
+
+				if (options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9 || options == 10)
+				{
+					press_any_key = true;
+					num_of_key_pressed = 1;
+					e.type = ALLEGRO_EVENT_KEY_UP;
+				}
 			}
 
-			if (options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9 || options == 10)
+			if (get_last_screen() == PAUSE_SCREEN)
 			{
-				press_any_key = true;
-				num_of_key_pressed = 1;
-				e.type = ALLEGRO_EVENT_KEY_UP;
+				if (options == 10)
+				{
+					screennum = get_last_screen();
+				}
+
+				if (options == 3 || options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9)
+				{
+					press_any_key = true;
+					num_of_key_pressed = 1;
+					e.type = ALLEGRO_EVENT_KEY_UP;
+				}
 			}
-
-			
-
 		}
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_SPACE)
 		{
-			if (options == 11 || options < 4)
+			if (!press_any_key)
 			{
 				screennum = get_last_screen();
 			}
@@ -260,41 +288,87 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 	}
 
 
-	if (press_any_key && num_of_key_pressed == 2)
+
+	if (get_last_screen() == MENU_SCREEN)
 	{
-	std::cout << "key Pressed" << std::endl;
-		switch (options)
+		max_options = 11;
+		if (press_any_key && num_of_key_pressed == 2)
 		{
-		case 4:
-			control_option[0] = e.keyboard.keycode;
-			press_any_key = false;
-			break;
-		case 5:
-			control_option[1] = e.keyboard.keycode;
-			press_any_key = false;
-			break;
-		case 6:
-			control_option[2] = e.keyboard.keycode;
-			press_any_key = false;
-			break;
-		case 7:
-			control_option[3] = e.keyboard.keycode;
-			press_any_key = false;
-			break;
-		case 8:
-			control_option[4] = e.keyboard.keycode;
-			press_any_key = false;
-			break;
-		case 9:
-			control_option[5] = e.keyboard.keycode;
-			press_any_key = false;
-			break;
-		case 10:
-			control_option[6] = e.keyboard.keycode;
-			press_any_key = false;
-			break;
+			std::cout << "key Pressed" << std::endl;
+			switch (options)
+			{
+			case 4:
+				control_option[0] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 5:
+				control_option[1] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 6:
+				control_option[2] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 7:
+				control_option[3] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 8:
+				control_option[4] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 9:
+				control_option[5] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 10:
+				control_option[6] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			}
 		}
 	}
+
+	if (get_last_screen() == PAUSE_SCREEN)
+	{
+		max_options = 10;
+		if (press_any_key && num_of_key_pressed == 2)
+		{
+			std::cout << "key Pressed" << std::endl;
+			switch (options)
+			{
+			case 3:
+				control_option[0] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 4:
+				control_option[1] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 5:
+				control_option[2] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 6:
+				control_option[3] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 7:
+				control_option[4] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 8:
+				control_option[5] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			case 9:
+				control_option[6] = e.keyboard.keycode;
+				press_any_key = false;
+				break;
+			}
+		}
+	}
+
 }
 
 void Options::render(Image image, Font font)
@@ -303,142 +377,270 @@ void Options::render(Image image, Font font)
 
 	al_draw_text(font.get_font(1), al_map_rgb(255, 25, 90), 500, 150, NULL, "OPTION");
 
-	al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "SOUND:");
-	
-	al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "TILE STYLE:");
-	al_draw_text(font.get_font(0), notSel, 500, 390, NULL, "DIFFICULTY:");
-	
-	al_draw_text(font.get_font(0), al_map_rgb(0, 200, 200), 500, 450, NULL, "CONTROLS:");
-	al_draw_text(font.get_font(0), notSel, 500, 480, NULL, "MOVE DOWN:");
-	al_draw_text(font.get_font(0), notSel, 500, 510, NULL, "MOVE UP:");
-	al_draw_text(font.get_font(0), notSel, 500, 540, NULL, "MOVE RIGHT:");
-	al_draw_text(font.get_font(0), notSel, 500, 570, NULL, "MOVE LEFT:");
-	al_draw_text(font.get_font(0), notSel, 500, 600, NULL, "SHOOT:");
-	al_draw_text(font.get_font(0), notSel, 500, 630, NULL, "PREV WEAPON:");
-	al_draw_text(font.get_font(0), notSel, 500, 660, NULL, "NEXT WEAPON:");
-
-	if (sound_options)
+	if (get_last_screen() == MENU_SCREEN)
 	{
-		al_draw_text(font.get_font(0), SelOption, 625, 330, NULL, "ON");
-	}
+		al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "SOUND:");
 
-	else 
-	{
-		al_draw_text(font.get_font(0), SelOption, 625, 330, NULL, "OFF");
-	}
+		al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "TILE STYLE:");
+		al_draw_text(font.get_font(0), notSel, 500, 390, NULL, "DIFFICULTY:");
 
-	if (difficulty_option == 1)
-	{
-		al_draw_text(font.get_font(0), SelOption, 700, 390, NULL, "EASY");
-	}
+		al_draw_text(font.get_font(0), al_map_rgb(0, 200, 200), 500, 450, NULL, "CONTROLS:");
+		al_draw_text(font.get_font(0), notSel, 500, 480, NULL, "MOVE DOWN:");
+		al_draw_text(font.get_font(0), notSel, 500, 510, NULL, "MOVE UP:");
+		al_draw_text(font.get_font(0), notSel, 500, 540, NULL, "MOVE RIGHT:");
+		al_draw_text(font.get_font(0), notSel, 500, 570, NULL, "MOVE LEFT:");
+		al_draw_text(font.get_font(0), notSel, 500, 600, NULL, "SHOOT:");
+		al_draw_text(font.get_font(0), notSel, 500, 630, NULL, "PREV WEAPON:");
+		al_draw_text(font.get_font(0), notSel, 500, 660, NULL, "NEXT WEAPON:");
 
-	else if (difficulty_option == 2)
-	{
-		al_draw_text(font.get_font(0), SelOption, 700, 390, NULL, "MEDIUM");
-	}
-
-	else if (difficulty_option == 3)
-	{
-		al_draw_text(font.get_font(0), SelOption, 700, 390, NULL, "HARD");
-	}
-
-	if (tile_options == 1)
-	{
-		al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "NORMAL");
-	}
-
-	if (tile_options == 2)
-	{
-		al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "CIRCULAR");
-	}
-
-	if (tile_options == 3)
-	{
-		al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "TROPICAL");
-	}
-
-	if (tile_options == 4)
-	{
-		al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "PILLAR");
-	}
-
-	if (tile_options == 5)
-	{
-		al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "FIELD");
-	}
-
-	al_draw_text(font.get_font(0), notSel, 500, 720, NULL, "BACK TO MAIN MENU (SPACEBAR)");
-
-	al_draw_text(font.get_font(0), SelOption, 750, 480, NULL, key_display[control_option[0]].c_str());
-	al_draw_text(font.get_font(0), SelOption, 750, 510, NULL, key_display[control_option[1]].c_str());
-	al_draw_text(font.get_font(0), SelOption, 750, 540, NULL, key_display[control_option[2]].c_str());
-	al_draw_text(font.get_font(0), SelOption, 750, 570, NULL, key_display[control_option[3]].c_str());
-	al_draw_text(font.get_font(0), SelOption, 750, 600, NULL, key_display[control_option[4]].c_str());
-	al_draw_text(font.get_font(0), SelOption, 750, 630, NULL, key_display[control_option[5]].c_str());
-	al_draw_text(font.get_font(0), SelOption, 750, 660, NULL, key_display[control_option[6]].c_str());
-
-	switch (options)
-	{
-	case 1:
-		al_draw_text(font.get_font(0), Sel, 500, 330, NULL, "SOUND:");
-		break;
-	case 2:
-		al_draw_text(font.get_font(0), Sel, 500, 360, NULL, "TILE STYLE:");
-		break;
-	case 3:
-		al_draw_text(font.get_font(0), Sel, 500, 390, NULL, "DIFFICULTY:");
-		break;
-	case 4:
-		al_draw_text(font.get_font(0), Sel, 500, 480, NULL, "MOVE DOWN:");
-		if (press_any_key)
+		if (sound_options)
 		{
-			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 480, NULL, "(Press Any Key)");
+			al_draw_text(font.get_font(0), SelOption, 625, 330, NULL, "ON");
 		}
-		break;
-	case 5:
-		al_draw_text(font.get_font(0), Sel, 500, 510, NULL, "MOVE UP:");
-		if (press_any_key)
+
+		else
 		{
-			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 510, NULL, "(Press Any Key)");
+			al_draw_text(font.get_font(0), SelOption, 625, 330, NULL, "OFF");
 		}
-		break;
-	case 6:
-		al_draw_text(font.get_font(0), Sel, 500, 540, NULL, "MOVE RIGHT:");
-		if (press_any_key)
+
+		if (difficulty_option == 1)
 		{
-			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 540, NULL, "(Press Any Key)");
+			al_draw_text(font.get_font(0), SelOption, 700, 390, NULL, "EASY");
 		}
-		break;
-	case 7:
-		al_draw_text(font.get_font(0), Sel, 500, 570, NULL, "MOVE LEFT:");
-		if (press_any_key)
+
+		else if (difficulty_option == 2)
 		{
-			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 570, NULL, "(Press Any Key)");
+			al_draw_text(font.get_font(0), SelOption, 700, 390, NULL, "MEDIUM");
 		}
-		break;
-	case 8:
-		al_draw_text(font.get_font(0), Sel, 500, 600, NULL, "SHOOT:");
-		if (press_any_key)
+
+		else if (difficulty_option == 3)
 		{
-			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 600, NULL, "(Press Any Key)");
+			al_draw_text(font.get_font(0), SelOption, 700, 390, NULL, "HARD");
 		}
-		break;
-	case 9:
-		al_draw_text(font.get_font(0), Sel, 500, 630, NULL, "PREV WEAPON:");
-		if (press_any_key)
+
+		if (tile_options == 1)
 		{
-			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 630, NULL, "(Press Any Key)");
+			al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "NORMAL");
 		}
-		break;
-	case 10:
-		al_draw_text(font.get_font(0), Sel, 500, 660, NULL, "NEXT WEAPON:");
-		if (press_any_key)
+
+		if (tile_options == 2)
 		{
-			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 660, NULL, "(Press Any Key)");
+			al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "CIRCULAR");
 		}
-		break;
-	case 11:
-		al_draw_text(font.get_font(0), Sel, 500, 720, NULL, "BACK TO MAIN MENU (SPACEBAR)");
-		break;
+
+		if (tile_options == 3)
+		{
+			al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "TROPICAL");
+		}
+
+		if (tile_options == 4)
+		{
+			al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "PILLAR");
+		}
+
+		if (tile_options == 5)
+		{
+			al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "FIELD");
+		}
+
+		al_draw_text(font.get_font(0), notSel, 500, 720, NULL, "BACK TO MAIN MENU (SPACEBAR)");
+
+		al_draw_text(font.get_font(0), SelOption, 750, 480, NULL, key_display[control_option[0]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 510, NULL, key_display[control_option[1]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 540, NULL, key_display[control_option[2]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 570, NULL, key_display[control_option[3]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 600, NULL, key_display[control_option[4]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 630, NULL, key_display[control_option[5]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 660, NULL, key_display[control_option[6]].c_str());
+
+		switch (options)
+		{
+		case 1:
+			al_draw_text(font.get_font(0), Sel, 500, 330, NULL, "SOUND:");
+			break;
+		case 2:
+			al_draw_text(font.get_font(0), Sel, 500, 360, NULL, "TILE STYLE:");
+			break;
+		case 3:
+			al_draw_text(font.get_font(0), Sel, 500, 390, NULL, "DIFFICULTY:");
+			break;
+		case 4:
+			al_draw_text(font.get_font(0), Sel, 500, 480, NULL, "MOVE DOWN:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 480, NULL, "(Press Any Key)");
+			}
+			break;
+		case 5:
+			al_draw_text(font.get_font(0), Sel, 500, 510, NULL, "MOVE UP:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 510, NULL, "(Press Any Key)");
+			}
+			break;
+		case 6:
+			al_draw_text(font.get_font(0), Sel, 500, 540, NULL, "MOVE RIGHT:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 540, NULL, "(Press Any Key)");
+			}
+			break;
+		case 7:
+			al_draw_text(font.get_font(0), Sel, 500, 570, NULL, "MOVE LEFT:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 570, NULL, "(Press Any Key)");
+			}
+			break;
+		case 8:
+			al_draw_text(font.get_font(0), Sel, 500, 600, NULL, "SHOOT:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 600, NULL, "(Press Any Key)");
+			}
+			break;
+		case 9:
+			al_draw_text(font.get_font(0), Sel, 500, 630, NULL, "PREV WEAPON:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 630, NULL, "(Press Any Key)");
+			}
+			break;
+		case 10:
+			al_draw_text(font.get_font(0), Sel, 500, 660, NULL, "NEXT WEAPON:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 660, NULL, "(Press Any Key)");
+			}
+			break;
+		case 11:
+			al_draw_text(font.get_font(0), Sel, 500, 720, NULL, "BACK TO MAIN MENU (SPACEBAR)");
+			break;
+		}
+	}
+
+	if (get_last_screen() == PAUSE_SCREEN)
+	{
+		al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "SOUND:");
+
+		al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "TILE STYLE:");
+
+		al_draw_text(font.get_font(0), al_map_rgb(0, 200, 200), 500, 450, NULL, "CONTROLS:");
+		al_draw_text(font.get_font(0), notSel, 500, 480, NULL, "MOVE DOWN:");
+		al_draw_text(font.get_font(0), notSel, 500, 510, NULL, "MOVE UP:");
+		al_draw_text(font.get_font(0), notSel, 500, 540, NULL, "MOVE RIGHT:");
+		al_draw_text(font.get_font(0), notSel, 500, 570, NULL, "MOVE LEFT:");
+		al_draw_text(font.get_font(0), notSel, 500, 600, NULL, "SHOOT:");
+		al_draw_text(font.get_font(0), notSel, 500, 630, NULL, "PREV WEAPON:");
+		al_draw_text(font.get_font(0), notSel, 500, 660, NULL, "NEXT WEAPON:");
+
+		if (sound_options)
+		{
+			al_draw_text(font.get_font(0), SelOption, 625, 330, NULL, "ON");
+		}
+
+		else
+		{
+			al_draw_text(font.get_font(0), SelOption, 625, 330, NULL, "OFF");
+		}
+
+
+		if (tile_options == 1)
+		{
+			al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "NORMAL");
+		}
+
+		if (tile_options == 2)
+		{
+			al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "CIRCULAR");
+		}
+
+		if (tile_options == 3)
+		{
+			al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "TROPICAL");
+		}
+
+		if (tile_options == 4)
+		{
+			al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "PILLAR");
+		}
+
+		if (tile_options == 5)
+		{
+			al_draw_text(font.get_font(0), SelOption, 700, 360, NULL, "FIELD");
+		}
+
+		al_draw_text(font.get_font(0), notSel, 500, 720, NULL, "BACK TO MAIN MENU (SPACEBAR)");
+
+		al_draw_text(font.get_font(0), SelOption, 750, 480, NULL, key_display[control_option[0]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 510, NULL, key_display[control_option[1]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 540, NULL, key_display[control_option[2]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 570, NULL, key_display[control_option[3]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 600, NULL, key_display[control_option[4]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 630, NULL, key_display[control_option[5]].c_str());
+		al_draw_text(font.get_font(0), SelOption, 750, 660, NULL, key_display[control_option[6]].c_str());
+
+		switch (options)
+		{
+		case 1:
+			al_draw_text(font.get_font(0), Sel, 500, 330, NULL, "SOUND:");
+			break;
+		case 2:
+			al_draw_text(font.get_font(0), Sel, 500, 360, NULL, "TILE STYLE:");
+			break;
+		
+		case 3:
+			al_draw_text(font.get_font(0), Sel, 500, 480, NULL, "MOVE DOWN:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 480, NULL, "(Press Any Key)");
+			}
+			break;
+		case 4:
+			al_draw_text(font.get_font(0), Sel, 500, 510, NULL, "MOVE UP:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 510, NULL, "(Press Any Key)");
+			}
+			break;
+		case 5:
+			al_draw_text(font.get_font(0), Sel, 500, 540, NULL, "MOVE RIGHT:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 540, NULL, "(Press Any Key)");
+			}
+			break;
+		case 6:
+			al_draw_text(font.get_font(0), Sel, 500, 570, NULL, "MOVE LEFT:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 570, NULL, "(Press Any Key)");
+			}
+			break;
+		case 7:
+			al_draw_text(font.get_font(0), Sel, 500, 600, NULL, "SHOOT:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 600, NULL, "(Press Any Key)");
+			}
+			break;
+		case 8:
+			al_draw_text(font.get_font(0), Sel, 500, 630, NULL, "PREV WEAPON:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 630, NULL, "(Press Any Key)");
+			}
+			break;
+		case 9:
+			al_draw_text(font.get_font(0), Sel, 500, 660, NULL, "NEXT WEAPON:");
+			if (press_any_key)
+			{
+				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 1050, 660, NULL, "(Press Any Key)");
+			}
+			break;
+		case 10:
+			al_draw_text(font.get_font(0), Sel, 500, 720, NULL, "BACK TO MAIN MENU (SPACEBAR)");
+			break;
+		}
 	}
 }

@@ -14,12 +14,13 @@ B_2_Bomber_Strike_Chip::~B_2_Bomber_Strike_Chip()
 {
 }
 
-void B_2_Bomber_Strike_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy, Options option)
+void B_2_Bomber_Strike_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy, std::vector <B_2_Bomber*> &b2, Options option)
 {
 	if (option.get_sound_options())
 	{
 		al_play_sample_instance(sound.sound_effects(2));
 	}
 
-	enemy.clear();
+	b2.push_back(new B_2_Bomber(get_image()));
+
 }

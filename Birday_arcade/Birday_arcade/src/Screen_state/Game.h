@@ -22,6 +22,10 @@
 #include "Entities/Enemy/Fisher.h"
 #include "Entities/Enemy/Tripus.h"
 
+#include "Entities/Power_Up/B_2_bomber.h"
+#include "Entities/Power_Up/needle_wind.h"
+
+
 #pragma once
 class Game
 {
@@ -37,7 +41,7 @@ public:
 
 	
 
-	void reset();
+	void reset(Weapons_Unlocked_List &weapons_unlocked);
 
 private:
 	//vector object variables
@@ -54,11 +58,14 @@ private:
 	std::default_random_engine power_up_popup, ammo_popup, enemy_spawn, yposition, xposition;
 
 	Animation healing[2];
+	std::vector <B_2_Bomber*> b2;
+	std::vector <needle_wind*> nw;
 
-	bool unlock_weapon[12], levelup, initial, spreadout;
+
+	bool unlock_weapon[12], levelup, initial, spreadout, increment_defense, increment_max_ammo, increase_bounce, destroyed_by_b2;
 
 	int buttons[7], seed, duration1, duration2, num_of_kills, 
-		num_of_weapon, level, score, notification_duration, level_duration, x1, x2;
+		num_of_weapon, level, score, notification_duration, level_duration, x1, x2, defense, num_of_notification, num_of_bounce[12], appear_duration1, appear_duration2;
 	double healing_loading[2];
 };
 

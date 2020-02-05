@@ -27,7 +27,7 @@ public:
 	virtual void set_direction(int direction);
 	virtual void set_id(int id);
 
-	virtual int damage();
+	virtual int damage() = 0;
 
 	//sets the bitmap information
 	virtual void set_image(Image image);

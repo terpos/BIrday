@@ -41,11 +41,13 @@ void Collision::Window_Collision(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT & e, Pl
 void Collision::Window_Collision(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT & e, Enemy * & enemy)
 {
 	
-	if (enemy->get_x() < 0 || enemy->get_y() < 0 || enemy->get_x() + 80 > al_get_display_width(display) || enemy->get_y() + 80 > 720)
+	if (enemy->get_x() < 0 || enemy->get_y() < 80 || enemy->get_x() + 80 > al_get_display_width(display) || enemy->get_y() + 80 > 720 - 80)
 	{
 		enemy->set_move_duration(0);
 		enemy->change_direction();
 	}
+
+
 }
 
 void Collision::Window_Collision(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT & e, std::vector <P_Weapon*> & pweapon, std::vector <E_Weapon *> &eweapon)

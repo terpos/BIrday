@@ -12,9 +12,15 @@ public:
 	Weapons_Unlocked_List();
 	~Weapons_Unlocked_List();
 
-	void add_word_to_list(std::string word);
+	void add_weapon_word_list(std::string word);
 
-	std::string get_list(int index);
+	void add_word_to_screen(std::string word);
+
+	std::string get_weapon_list(int index);
+
+	std::string get_screen_list(int index);
+
+	void clear_all();
 
 	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, Options &option, ALLEGRO_EVENT &e, int &screennum, bool &done);
 	void render(Image image, Font font);
@@ -26,8 +32,8 @@ private:
 	ALLEGRO_COLOR notSel = al_map_rgb(0, 255, 0);
 
 
-	std::vector <std::string> listing;
+	std::vector <std::string> listing, listing2;
 
-	int page;
+	int move_over, move_down;
 };
 

@@ -73,10 +73,6 @@ void E_Weapon::set_id(int id)
 	this->id = id;
 }
 
-int E_Weapon::damage()
-{
-	return 0;
-}
 
 void E_Weapon::set_image(Image image)
 {

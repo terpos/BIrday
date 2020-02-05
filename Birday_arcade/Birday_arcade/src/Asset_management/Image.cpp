@@ -34,12 +34,13 @@ void Image::Load_Images()
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Bombs.png"), PWEAPON));
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Ice_Bombs.png"), PWEAPON));
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Fire_Bombs.png"), PWEAPON));
-	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Atomic_Bombs.png"), PWEAPON));
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Bi_Nuke.png"), PWEAPON));
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Tri_Nuke.png"), PWEAPON));
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Triangular_Missle.png"), PWEAPON));
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Arrow.png"), PWEAPON));
 	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Slicer.png"), PWEAPON));
+	this->P_weapon.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Player/Weapon/Atomic_Bombs.png"), PWEAPON));
+
 
 	//Enemy Version 1
 	this->enemies.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Enemy/Tripus.png"), ENEMY));
@@ -105,8 +106,8 @@ void Image::Load_Images()
 	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/Purple_Tile.png"), TILES));
 	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/Rock_Tile.png"), TILES));
 	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/Sand_Tile.png"), TILES));
-	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/White_Circle_Tile.png"), TILES));
-	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/white_Tile.png"), TILES));
+	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/Dark_Gray_Circle_Tile.png"), TILES));
+	this->tile_piece.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Tiles/Dark_Gray_Tile.png"), TILES));
 
 	//Background
 	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Menu.png"), BACKGROUND));
@@ -118,7 +119,7 @@ void Image::Load_Images()
 	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Player_Weapon_Materials.png"), BACKGROUND));
 	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Power_Up_Materials.png"), BACKGROUND));
 	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Next_Prev.png"), BACKGROUND));
-
+	this->Background.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Background/Terpos_Intro.png"), BACKGROUND));
 
 	//Destruction
 	this->Destruction.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Enemy_Destroyed.png"), DESTRUCTION));
@@ -128,6 +129,10 @@ void Image::Load_Images()
 	//Status
 	this->status.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Freeze.png"), STATUS));
 	this->status.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/Burn.png"), STATUS));
+
+	//Misc
+	this->misc.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/B_2_bomber.png"), MISC));
+	this->misc.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/needle_wind.png"), MISC));
 
 	std::cout << "PLAYER SIZE: " << player.size() << std::endl;
 	std::cout << "PWEAPON SIZE: " << P_weapon.size() << std::endl;
@@ -189,6 +194,11 @@ void Image::Load_Images()
 	for (int i = 0; i < Destruction.size(); i++)
 	{
 		malloc(sizeof(Destruction[i]));
+	}
+
+	for (int i = 0; i < misc.size(); i++)
+	{
+		malloc(sizeof(misc[i]));
 	}
 
 }
@@ -286,6 +296,15 @@ void Image::Image_error_check()
 			{
 				break;
 				throw 99;
+			}
+		}
+
+		for (int i = 0; i < misc.size(); i++)
+		{
+			if (misc[i].first == NULL)
+			{
+				throw 99;
+				break;
 			}
 		}
 	}
@@ -398,4 +417,9 @@ std::pair<ALLEGRO_BITMAP*, int> Image::Destruction_image(int destruction_num)
 std::pair<ALLEGRO_BITMAP*, int> Image::status_image(int status_num)
 {
 	return std::pair<ALLEGRO_BITMAP*, int>(this->status[status_num].first, this->status[status_num].second);
+}
+
+std::pair<ALLEGRO_BITMAP*, int> Image::misc_image(int misc_num)
+{
+	return std::pair<ALLEGRO_BITMAP*, int>(this->misc[misc_num].first, this->misc[misc_num].second);
 }

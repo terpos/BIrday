@@ -19,6 +19,8 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="src\Entities\Power_Up\needle_wind.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\B_2_Bomber.cpp" />
     <ClCompile Include="src\Entities\Enemy\Weapon\Gunk.cpp" />
     <ClCompile Include="src\Screen_state\Game_Over.cpp" />
     <ClCompile Include="src\Asset_management\Font.cpp" />
@@ -76,6 +78,8 @@
     <ClCompile Include="src\Screen_state\Weapons_Unlocked_List.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="src\Entities\Power_Up\needle_wind.h" />
+    <ClInclude Include="src\Entities\Power_Up\B_2_Bomber.h" />
     <ClInclude Include="src\Entities\Enemy\Weapon\Gunk.h" />
     <ClInclude Include="src\Screen_state\Game_Over.h" />
     <ClInclude Include="src\Asset_management\Font.h" />
@@ -233,7 +237,6 @@
     <Image Include="src\Asset_management\white.png" />
     <Image Include="src\Asset_management\white2.png" />
     <Image Include="src\glass.jpg" />
-    <Image Include="src\Mario.png" />
   </ItemGroup>
   <ItemGroup>
     <Media Include="Assets\Sound\Sound Effects\151022__bubaproducer__laser-shot-silenced.wav" />

@@ -7,6 +7,7 @@ Power_Up::Power_Up(Image image, int x, int y)
 	set_image(image);
 	set_x(x);
 	set_y(y);
+	
 }
 
 
@@ -44,6 +45,11 @@ void Power_Up::set_y(int y)
 	this->y = y;
 }
 
+int Power_Up::get_random_powerup()
+{
+	return 0;
+}
+
 void Power_Up::set_image(Image image)
 {
 	this->image = image;
@@ -54,11 +60,12 @@ void Power_Up::set_id(int id)
 	this->id = id;
 }
 
-void Power_Up::power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy, Options option)
+void Power_Up::power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy, std::vector <B_2_Bomber*> &b2, Options option)
 {
 }
 
 void Power_Up::render()
 {
 	al_draw_bitmap(get_image().Power_Up_image(get_id()).first, get_x(), get_y(), NULL);
+
 }

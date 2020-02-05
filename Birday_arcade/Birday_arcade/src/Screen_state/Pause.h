@@ -11,7 +11,7 @@ public:
 	Pause();
 	~Pause();
 
-	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, Options &option, Game &game, ALLEGRO_EVENT &e, int &screennum, bool &done);
+	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, Options &option, Game &game, ALLEGRO_EVENT &e, Weapons_Unlocked_List &weapons_unlocked, int &screennum, bool &done);
 	void render(Image image, Font font);
 
 private:

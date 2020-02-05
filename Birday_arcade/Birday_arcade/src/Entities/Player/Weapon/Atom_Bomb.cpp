@@ -2,7 +2,7 @@
 
 
 
-Atom_Bomb::Atom_Bomb(Image &sprite_sheet, int x, int y, int vel, int direction) : P_Weapon(sprite_sheet, x, y, vel, direction)
+Atom_Bomb::Atom_Bomb(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce) : P_Weapon(sprite_sheet, x, y, vel, direction, num_of_bounce)
 {
 	set_id(ATOMIC_BOMBS);
 	set_x(x);

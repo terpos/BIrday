@@ -1,6 +1,6 @@
 #include "BiNuke.h"
 
-BiNuke::BiNuke(Image & sprite_sheet, int x, int y, int vel, int direction) :P_Weapon(sprite_sheet, x, y, vel, direction)
+BiNuke::BiNuke(Image & sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce) :P_Weapon(sprite_sheet, x, y, vel, direction, num_of_bounce)
 {
 	set_id(BI_NUKE);
 	set_x(x);
@@ -8,7 +8,7 @@ BiNuke::BiNuke(Image & sprite_sheet, int x, int y, int vel, int direction) :P_We
 	set_vel(vel);
 	set_direction(direction);
 
-	set_hit(false, 1);
+	set_hit(false, num_of_bounce);
 
 
 	this->type = 0;

@@ -3,6 +3,7 @@
 #include "Asset_management/Font.h"
 #include "Asset_management/Sound.h"
 #include "Options.h"
+#include "Asset_management/Animation.h"
 
 #pragma once
 class Menu
@@ -20,9 +21,12 @@ private:
 	Image image;
 
 	int options;
+	bool rect_out;
 
-	ALLEGRO_COLOR Sel = al_map_rgb(255, 0, 0);
-	ALLEGRO_COLOR notSel = al_map_rgb(0, 255, 0);
+	Animation title, bg, choice, intro;
+
+	ALLEGRO_COLOR Sel;
+	ALLEGRO_COLOR notSel;
 
 };
 

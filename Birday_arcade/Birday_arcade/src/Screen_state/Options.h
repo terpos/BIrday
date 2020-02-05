@@ -32,7 +32,7 @@ public:
 
 private:
 	Image image;
-	int options, tile_options, difficulty_option, control_option[7], screennum, num_of_key_pressed;
+	int options, tile_options, difficulty_option, control_option[7], screennum, num_of_key_pressed, max_options;
 	bool sound_options, press_any_key;
 
 	ALLEGRO_COLOR Sel;

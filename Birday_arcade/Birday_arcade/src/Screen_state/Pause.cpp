@@ -14,7 +14,7 @@ Pause::~Pause()
 {
 }
 
-void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Options &option, Game &game, ALLEGRO_EVENT & e, int & screennum, bool & done)
+void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Options &option, Game &game, ALLEGRO_EVENT & e, Weapons_Unlocked_List &weapons_unlocked, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
 
@@ -49,8 +49,9 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 		switch (e.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_1:
+			std::cout << options << std::endl;
 			option.set_last_screen(PAUSE_SCREEN);
-			screennum = options;
+			screennum = GAME_SCREEN;
 			break;
 
 		case ALLEGRO_KEY_2:
@@ -63,7 +64,7 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 			break;
 
 		case ALLEGRO_KEY_4:
-			game.reset();
+			game.reset(weapons_unlocked);
 			screennum = MENU_SCREEN;
 			break;
 		}
@@ -83,7 +84,7 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 
 			else if (options == 4)
 			{
-				game.reset();
+				game.reset(weapons_unlocked);
 				screennum = MENU_SCREEN;
 			}
 

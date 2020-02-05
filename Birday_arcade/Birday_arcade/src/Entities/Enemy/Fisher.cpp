@@ -16,6 +16,8 @@ Fisher::Fisher(Image &sprite_sheet, int version, int x, int y, int vel, int dire
 		set_health(3);
 	}
 
+	spit_duration = 0;
+
 	set_x(x);
 	set_y(y);
 	set_vel(vel);
@@ -65,38 +67,48 @@ void Fisher::react(Image &image, Sound sound, Player* & player, std::vector<E_We
 {
 	if ((player->get_x() < get_x() + 240 && player->get_x() + 240 > get_x() && player->get_y() < get_y() + 240 && player->get_y() + 240 > get_y()) && get_vel() > 0)
 	{
-		if (option.get_sound_options())
+		if (spit_duration <= 0)
 		{
-			al_play_sample_instance(sound.sound_effects(19));
+			if (option.get_sound_options())
+			{
+				al_play_sample_instance(sound.sound_effects(19));
+			}
+
+			if (player->get_direction() == 2 && get_direction() == 1)
+			{
+				eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
+				reload_time = 20;
+			}
+
+			else if (player->get_direction() == 3 && get_direction() == 0)
+			{
+				eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
+				reload_time = 20;
+			}
+
+			else if (player->get_direction() == 1 && get_direction() == 2)
+			{
+				eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
+				reload_time = 20;
+			}
+
+			else if (player->get_direction() == 0 && get_direction() == 3)
+			{
+				eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
+				reload_time = 20;
+			}
+
+			if (eweapon.size() > 1)
+			{
+				eweapon.erase(eweapon.begin() + 1);
+			}
+
+			spit_duration = 50;
 		}
 
-		if (player->get_direction() == 2 && get_direction() == 1)
+		else
 		{
-			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
-			reload_time = 20;
-		}
-
-		else if (player->get_direction() == 3 && get_direction() == 0)
-		{
-			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
-			reload_time = 20;
-		}
-
-		else if (player->get_direction() == 1 && get_direction() == 2)
-		{
-			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
-			reload_time = 20;
-		}
-
-		else if (player->get_direction() == 0 && get_direction() == 3)
-		{
-			eweapon.push_back(new Venom_Spit(image, get_x(), get_y(), 20, get_direction()));
-			reload_time = 20;
-		}
-
-		if (eweapon.size() > 1)
-		{
-			eweapon.erase(eweapon.begin() + 1);
+			spit_duration--;
 		}
 	}
 }

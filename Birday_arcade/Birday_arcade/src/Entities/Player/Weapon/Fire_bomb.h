@@ -4,7 +4,7 @@
 class Fire_bomb: public P_Weapon
 {
 public:
-	Fire_bomb(Image &sprite_sheet, int x, int y, int vel, int direction);
+	Fire_bomb(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce);
 	~Fire_bomb();
 
 	void abilities();

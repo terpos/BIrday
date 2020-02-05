@@ -2,7 +2,7 @@
 
 
 
-P_Weapon::P_Weapon(Image &sprite_sheet, int x, int y, int vel, int direction)
+P_Weapon::P_Weapon(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce)
 {
 	set_image(sprite_sheet);
 	set_x(x);
@@ -195,12 +195,12 @@ void P_Weapon::update()
 		}
 
 
-		if (animation.get_frame() == 100)
+		if (animation.get_frame() >= 100)
 		{
 			animation.reset_frame();
 		}
 
-		if (weapon_explosion.get_frame() == 10)
+		if (weapon_explosion.get_frame() >= 10)
 		{
 			
 			if (is_hit().second == 0)

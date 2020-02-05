@@ -85,7 +85,10 @@ void Ammo::set_image(Image image)
 
 void Ammo::ammo_reload(Sound sound, Player* & player, Options option)
 {
-	player->set_num_of_ammo(player->get_num_of_ammo(ammo_type) + 1, ammo_type);
+	if (player->get_num_of_ammo(ammo_type) < player->get_max_num_of_ammo(ammo_type))
+	{
+		player->set_num_of_ammo(player->get_num_of_ammo(ammo_type) + 1, ammo_type);
+	}
 
 	if (option.get_sound_options())
 	{

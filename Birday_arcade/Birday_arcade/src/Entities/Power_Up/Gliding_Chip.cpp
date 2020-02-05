@@ -14,7 +14,7 @@ Gliding_Chip::~Gliding_Chip()
 {
 }
 
-void Gliding_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy, Options option)
+void Gliding_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy, std::vector <B_2_Bomber*> &b2, Options option)
 {
 	if (option.get_sound_options())
 	{

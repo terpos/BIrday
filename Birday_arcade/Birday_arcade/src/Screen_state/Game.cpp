@@ -19,16 +19,30 @@ Game::Game()
 	unlock_weapon[BOMBS] = false;
 	unlock_weapon[ICE_BOMBS] = false;
 	unlock_weapon[FIRE_BOMBS] = false;
-	unlock_weapon[ATOMIC_BOMBS] = false;
 	unlock_weapon[BI_NUKE] = false;
 	unlock_weapon[TRI_NUKE] = false;
 	unlock_weapon[TRIANGULAR_MISSILE] = false;
 	unlock_weapon[ARROW] = false;
 	unlock_weapon[SLICER] = false;
 
+	num_of_bounce[LAZER] = 0;
+	num_of_bounce[ROCKET_LAZER] = 0;
+	num_of_bounce[STUNNER] = 0;
+	num_of_bounce[BOMBS] = 0;
+	num_of_bounce[ICE_BOMBS] = 0;
+	num_of_bounce[FIRE_BOMBS] = 0;
+	num_of_bounce[BI_NUKE] = 1;
+	num_of_bounce[TRI_NUKE] = 2;
+	num_of_bounce[TRIANGULAR_MISSILE] = 0;
+	num_of_bounce[ARROW] = 2;
+	num_of_bounce[SLICER] = 0;
+
 	levelup = false;
 	initial = true;
-	
+	increment_defense = false;
+	increment_max_ammo = false;
+	destroyed_by_b2 = false;
+
 	healing_loading[0] = 0;
 	healing_loading[1] = 0;
 
@@ -43,11 +57,15 @@ Game::Game()
 	num_of_kills = 0;
 	duration1 = 200;
 	duration2 = 250;
+	appear_duration1 = 0;
+	appear_duration2 = 0;
+
 	num_of_weapon = 0;
 	level = 1;
 	score = 0;
 	level_duration = 0;
-	
+	defense = 1;
+	num_of_notification = -1;
 
 	healing[0].set_frame(0);
 	healing[1].set_frame(0);
@@ -63,7 +81,7 @@ Game::~Game()
 	powerup.clear();
 	ammo.clear();
 
-	std::cout << "Memory Deallocated" << std::endl;
+	std::cout << "Game Deallocated" << std::endl;
 }
 
 void Game::init(Options option)
@@ -81,7 +99,7 @@ void Game::init(Options option)
 void Game::load(Image image)
 {
 	//vector variable assignment
-	player = new Player(image, 8 *80, 80, 80, 0, buttons);
+	player = new Player(image, 8 *80, 0, 80, 0, buttons);
 
 }
 
@@ -163,7 +181,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 	}
 
 	//controls player
-	player->control(image, sound, e, option, pweapon, unlock_weapon, num_of_weapon);
+	player->control(image, sound, e, option, pweapon, unlock_weapon, num_of_weapon, num_of_bounce);
 
 	if (x1 > 0 && x2 < 1360)
 	{
@@ -176,7 +194,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		if (level_duration == 1)
 		{
 			level_duration = 0;
-			level++;
+			
 		}
 
 		if (level_duration > 1)
@@ -187,6 +205,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 		if (enemy.size() <= 0 && !levelup)
 		{
+			level++;
 			levelup = true;
 			level_duration = 150;
 		}
@@ -1370,7 +1389,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 	//updates stuff
 	if (e.type == ALLEGRO_EVENT_TIMER && x1 == 0 && x2 == 1360)
 	{
-		
 
 		if (notification_duration > 0)
 		{
@@ -1386,21 +1404,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 		if (player->get_health() <= 0)
 		{
-			enemy.clear();
-			level = option.get_level_for_difficulty();
-			player->damage_col_tile_update();
-			player->set_health(100);
-			player->set_x(8);
-			player->set_y(0);
-			player->set_direction(0);
-			initial = true;
-			player->set_x(8 * 80);
-			player->set_y(80);
-			player->set_hit(false, 0);
-			healing_loading[0] = 0;
-			healing_loading[1] = 0;
-			eweapon.clear();
-			pweapon.clear();
+			reset(weapons_unlocked);
 			screennum = GAME_OVER_SCREEN;
 		}
 
@@ -1409,10 +1413,10 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			player->set_health(100);
 		}
 
-		
-	
 
-		//std::cout << healing_loading[0] << std::endl;
+		std::cout << num_of_kills << std::endl;
+
+
 
 		if (healing_loading[0] > 80)
 		{
@@ -1434,6 +1438,12 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 			if (player->get_health() < 100.00)
 			{
+				if (option.get_sound_options())
+				{
+					al_set_sample_instance_position(sound.sound_effects(12), 0);
+					al_play_sample_instance(sound.sound_effects(12));
+				}
+
 				player->set_vel(0);
 				player->set_direction(0);
 				player->set_health(player->get_health() + 1);
@@ -1471,6 +1481,11 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		{
 			if (player->get_health() < 100.00)
 			{
+				if (option.get_sound_options())
+				{
+					al_set_sample_instance_position(sound.sound_effects(12), 0);
+					al_play_sample_instance(sound.sound_effects(12));
+				}
 				player->set_healing(true);
 				player->set_direction(0);
 				player->set_vel(0);
@@ -1487,7 +1502,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			}
 		}
 
-		
+
 
 		//updates player's info
 		player->update(pweapon);
@@ -1514,21 +1529,37 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 				if (player->is_hit().first && player->is_hit().second)
 				{
-					player->set_health(player->get_health() - enemy[i]->Damage());
+					player->set_health(player->get_health() - enemy[i]->Damage() / defense);
 					player->set_hit(false, player->is_hit().second);
 				}
 
+				for (int j = 0; j < nw.size(); j++)
+				{
+					
+
+					if (collision.collision_detect(nw[j]->get_x(), nw[j]->get_y(), enemy[i]->get_x(), enemy[i]->get_y())) 
+					{
+						enemy[i]->set_health(0);
+					}
+				}
+
+				for (int j = 0; j < b2.size(); j++)
+				{
+
+					if (b2[j]->get_y() + al_get_bitmap_width(image.misc_image(0).first) <= 720)
+					{
+						enemy[i]->set_health(0);
+						eweapon.clear();
+					}
+				}
 
 				enemy[i]->update(eweapon, option, pweapon, image, sound);
 
 				//enemy & tile collision 
-			
-
 				for (int tile_y = 0; tile_y < m.get_length(); tile_y++)
 				{
 					for (int tile_x = 0; tile_x < m.get_width(); tile_x++)
 					{
-						//std::cout << m.get_tile_number(j);
 						if (m.get_tile_number(tile_x, tile_y) == 1)
 						{
 							if (collision.collision_detect(enemy[i]->get_x(), enemy[i]->get_y(), tile_x*al_get_bitmap_width(image.Tiles(6).first), tile_y*al_get_bitmap_width(image.Tiles(6).first)))
@@ -1587,12 +1618,23 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 				if (enemy[i]->is_dead())
 				{
-					score = score + enemy[i]->get_score();
-					num_of_kills++;
-					enemy.erase(enemy.begin() + i);
+					if (!destroyed_by_b2)
+					{
+						score = score + enemy[i]->get_score();
+						num_of_kills++;
+						enemy.erase(enemy.begin() + i);
+					}
+
+					else
+					{
+						enemy.erase(enemy.begin() + i);
+					}
+				
 				}
 			}
 		}
+
+		std::cout << "B2: " << destroyed_by_b2 << std::endl;
 
 		//collision for tiles (player and enemy weapon)
 		for (int tile_y = 0; tile_y < m.get_length(); tile_y++)
@@ -1683,9 +1725,15 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 				player->set_hit(true, 1);
 				eweapon.erase(eweapon.begin() + i);
 			}
+
+			if (player->is_hit().first && player->is_hit().second)
+			{
+				player->set_health(player->get_health() - eweapon[i]->damage() / defense);
+				player->set_hit(false, player->is_hit().second);
+			}
 		}
 
-		
+
 
 		//update power up's info
 		for (int i = 0; i < powerup.size(); i++)
@@ -1694,7 +1742,13 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			if (collision.collision_detect(player->get_x(), player->get_y(), powerup[i]->get_x(), powerup[i]->get_y()))
 			{
 				duration1 = 200;
-				powerup[i]->power_up_abilities(sound, player, enemy, option);
+
+				if (powerup[i]->get_id() == NEEDLE_WIND_BLAST_CHIP)
+				{
+					nw.push_back(new needle_wind(image));
+				}
+
+				powerup[i]->power_up_abilities(sound, player, enemy, b2, option);
 				powerup.erase(powerup.begin() + i);
 			}
 		}
@@ -1719,7 +1773,64 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			pweapon[i]->update();
 		}
 
-		
+		for (int i = 0; i < b2.size(); i++)
+		{			
+			if (b2[i]->get_y() + al_get_bitmap_width(image.misc_image(0).first) < -1000)
+			{
+				destroyed_by_b2 = false;
+				b2.erase(b2.begin() + i);
+			}
+
+			else
+			{
+				destroyed_by_b2 = true;
+				b2[i]->go_up();
+			}
+		}
+
+		for (int i = 0; i < nw.size(); i++)
+		{
+			nw[i]->go_right();
+
+			if (nw[i]->get_x() > 2000)
+			{
+				destroyed_by_b2 = false;
+				nw.erase(nw.begin() + i);
+			}
+
+			else
+			{
+				destroyed_by_b2 = true;
+				nw[i]->go_right();
+
+			}
+
+
+		}
+
+		if (appear_duration1 > 1)
+		{
+			appear_duration1--;
+		}
+
+		if (appear_duration2 > 1)
+		{
+			appear_duration2--;
+		}
+
+		if (appear_duration1 == 1)
+		{
+			powerup.clear();
+			duration1 = 200;
+			appear_duration1--;
+		}
+
+		if (appear_duration2 == 1)
+		{
+			ammo.clear();
+			duration2 = 250;
+			appear_duration2--;
+		}
 
 		if (duration1 == 1)
 		{
@@ -1743,10 +1854,10 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			case COPY_CHIP:
 				powerup.push_back(new Copy_Chip(image, 320, 320));
 				break;
-
 			}
 
 			duration1--;
+			appear_duration1 = 200;
 		}
 
 		else if (duration1 > 1)
@@ -1757,7 +1868,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 		if (duration2 == 1)
 		{
-		
+
 			switch (ammos(ammo_popup))
 			{
 			case 0:
@@ -1798,113 +1909,439 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 				break;
 			}
 
-
 			duration2--;
+
+			appear_duration2 = 200;
 		}
 
 		else if (duration2 > 1)
 		{
 			duration2--;
 		}
+	
 
-
-		if (num_of_kills == 1 && !unlock_weapon[ROCKET_LAZER])
+		if (num_of_kills == 2 && !unlock_weapon[ROCKET_LAZER])
 		{
 			unlock_weapon[ROCKET_LAZER] = true;
 			this->num_of_weapon++;
 
-			weapons_unlocked.add_word_to_list("ROCKET LAZER");
-			notification_duration = 200;
+			weapons_unlocked.add_weapon_word_list("ROCKET LAZER");
+			weapons_unlocked.add_word_to_screen("ROCKET LAZER");
+
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 8 && !increment_max_ammo)
+		{
+			notification_duration = 0;
+
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(ROCKET_LAZER);
+			player->set_num_of_ammo(player->get_max_num_of_ammo(ROCKET_LAZER), ROCKET_LAZER);
+
+			weapons_unlocked.add_word_to_screen("ROCKET LAZER: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
 
 		}
-		if (num_of_kills == 2 && !unlock_weapon[STUNNER])
+
+		if (num_of_kills == 10 && !unlock_weapon[STUNNER])
 		{
+			notification_duration = 0;
+
 			unlock_weapon[STUNNER] = true;
 			this->num_of_weapon++;
+			increment_max_ammo = false;
 
-			weapons_unlocked.add_word_to_list("STUNNER");
-			notification_duration = 200;
+			weapons_unlocked.add_weapon_word_list("STUNNER");
+			weapons_unlocked.add_word_to_screen("STUNNER");
 
+			notification_duration = 150;
+			num_of_notification++;
 		}
-		if (num_of_kills == 3 && !unlock_weapon[BOMBS])
+
+		if (num_of_kills == 15 && !increment_max_ammo)
 		{
+			notification_duration = 0;
+
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(STUNNER);
+
+			player->set_num_of_ammo(player->get_max_num_of_ammo(STUNNER), STUNNER);
+
+			weapons_unlocked.add_word_to_screen("STUNNER: MORE AMMO");
+
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 20 && !unlock_weapon[BOMBS])
+		{
+			notification_duration = 0;
+
+			increment_max_ammo = false;
 			unlock_weapon[BOMBS] = true;
 			this->num_of_weapon++;
 
-			weapons_unlocked.add_word_to_list("BOMBS");
-			notification_duration = 200;
+			weapons_unlocked.add_weapon_word_list("BOMBS");
+			weapons_unlocked.add_word_to_screen("BOMBS");
+			notification_duration = 150;
+			num_of_notification++;
 
 		}
-		if (num_of_kills == 4 && !unlock_weapon[ICE_BOMBS])
+		if (num_of_kills == 25 && !unlock_weapon[ICE_BOMBS])
 		{
+			notification_duration = 0;
+
 			unlock_weapon[ICE_BOMBS] = true;
 			this->num_of_weapon++;
 
-			weapons_unlocked.add_word_to_list("ICE BOMBS");
-			notification_duration = 200;
+			weapons_unlocked.add_weapon_word_list("ICE BOMBS");
+			weapons_unlocked.add_word_to_screen("ICE BOMBS");
+
+			notification_duration = 150;
+			num_of_notification++;
 		}
-		if (num_of_kills == 5 && !unlock_weapon[FIRE_BOMBS])
+		if (num_of_kills == 30 && !unlock_weapon[FIRE_BOMBS])
 		{
+			notification_duration = 0;
+
 			unlock_weapon[FIRE_BOMBS] = true;
 			num_of_weapon++;
 
-			weapons_unlocked.add_word_to_list("FIRE BOMBS");
-			notification_duration = 200;
+			weapons_unlocked.add_weapon_word_list("FIRE BOMBS");
+			weapons_unlocked.add_word_to_screen("FIRE BOMBS");
+
+			notification_duration = 150;
+			num_of_notification++;
 
 		}
-		if (num_of_kills == 6 && !unlock_weapon[ATOMIC_BOMBS])
+
+		if (num_of_kills == 32 && !increment_defense)
 		{
-			unlock_weapon[ATOMIC_BOMBS] = true;
-			this->num_of_weapon++;
+			notification_duration = 0;
 
-			weapons_unlocked.add_word_to_list("ATOMIC BOMBS");
-			notification_duration = 200;
+			increment_defense = true;
+			defense++;
 
+			weapons_unlocked.add_word_to_screen("DEFENSE UP +1");
+			notification_duration = 150;
+			num_of_notification++;
 		}
-		if (num_of_kills == 7 && !unlock_weapon[BI_NUKE])
+
+		if (num_of_kills == 35 && !increment_max_ammo)
 		{
+			notification_duration = 0;
+
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(BOMBS);
+
+			player->set_num_of_ammo(player->get_max_num_of_ammo(BOMBS), BOMBS);
+
+			weapons_unlocked.add_word_to_screen("BOMBS: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 40 && increment_max_ammo)
+		{
+			notification_duration = 0;
+
+			increment_max_ammo = false;
+			player->multiply_max_num_of_ammo(ICE_BOMBS);
+
+			player->set_num_of_ammo(player->get_max_num_of_ammo(ICE_BOMBS), ICE_BOMBS);
+
+			weapons_unlocked.add_word_to_screen("ICE BOMBS: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 45 && !increment_max_ammo)
+		{
+			notification_duration = 0;
+
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(FIRE_BOMBS);
+
+			player->set_num_of_ammo(player->get_max_num_of_ammo(FIRE_BOMBS), FIRE_BOMBS);
+
+			weapons_unlocked.add_word_to_screen("FIRE BOMBS: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 50 && !unlock_weapon[BI_NUKE])
+		{
+			notification_duration = 0;
+			increment_max_ammo = false;
+			increment_defense = false;
 			unlock_weapon[BI_NUKE] = true;
 			this->num_of_weapon++;
 
 
-			weapons_unlocked.add_word_to_list("BI NUKE");
-			notification_duration = 200;
+			weapons_unlocked.add_weapon_word_list("BI NUKE");
+			weapons_unlocked.add_word_to_screen("BI NUKE");
+
+			notification_duration = 150;
+			num_of_notification++;
 		}
-		if (num_of_kills == 8 && !unlock_weapon[TRI_NUKE])
+
+		if (num_of_kills == 52 && !increment_max_ammo)
 		{
-			unlock_weapon[TRI_NUKE] = true;
+			notification_duration = 0;
+
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(BI_NUKE);
+
+			player->set_num_of_ammo(player->get_max_num_of_ammo(BI_NUKE), BI_NUKE);
+
+			weapons_unlocked.add_word_to_screen("BI NUKE: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 55 && !increase_bounce)
+		{
+			notification_duration = 0;
+			increment_max_ammo = false;
+			increase_bounce = true;
+			num_of_bounce[LAZER] = 1;
+			
+			weapons_unlocked.add_word_to_screen("LAZER: BOUNCE TWICE");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 60 && !unlock_weapon[TRI_NUKE])
+		{
+			notification_duration = 0;
+
+			unlock_weapon[TRI_NUKE] = true;	
 			this->num_of_weapon++;
 
-			weapons_unlocked.add_word_to_list("TRI NUKE");
-			notification_duration = 200;
+			weapons_unlocked.add_weapon_word_list("TRI NUKE");
+			weapons_unlocked.add_word_to_screen("TRI NUKE");
 
+			notification_duration = 150;
+			num_of_notification++;
 		}
-		if (num_of_kills == 9 && !unlock_weapon[TRIANGULAR_MISSILE])
+
+		if (num_of_kills == 62 && !increment_defense)
 		{
+			notification_duration = 0;
+
+			increment_defense = true;
+			defense++;
+			weapons_unlocked.add_word_to_screen("DEFENSE UP +1");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 65 && !increment_max_ammo)
+		{
+			notification_duration = 0;
+
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(TRI_NUKE);
+
+			player->set_num_of_ammo(player->get_max_num_of_ammo(TRI_NUKE), TRI_NUKE);
+
+			weapons_unlocked.add_word_to_screen("TRI NUKE: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 70 && !unlock_weapon[TRIANGULAR_MISSILE])
+		{
+			notification_duration = 0;
+
+			increment_max_ammo = false;
+			increment_defense = false;
 			unlock_weapon[TRIANGULAR_MISSILE] = true;
 			this->num_of_weapon++;
 
-			weapons_unlocked.add_word_to_list("TRIANGULAR MISSILE");
-			notification_duration = 200;
 
+			weapons_unlocked.add_weapon_word_list("TRIANGULAR MISSILE");
+			weapons_unlocked.add_word_to_screen("TRIANGULAR MISSILE");
+
+			notification_duration = 150;
+			num_of_notification++;
 		}
-		if (num_of_kills == 10 && !unlock_weapon[ARROW])
+
+		if (num_of_kills == 75 && !increment_max_ammo)
 		{
+			notification_duration = 0;
+
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(TRIANGULAR_MISSILE);
+
+			player->set_num_of_ammo(player->get_max_num_of_ammo(TRIANGULAR_MISSILE), TRIANGULAR_MISSILE);
+
+			weapons_unlocked.add_word_to_screen("TRIANGULAR MISSILE: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 80 && !unlock_weapon[ARROW])
+		{
+			notification_duration = 0;
+			increase_bounce = false;
+			increment_max_ammo = false;
 			unlock_weapon[ARROW] = true;
 			this->num_of_weapon++;
 
-			weapons_unlocked.add_word_to_list("ARROW");
-			notification_duration = 200;
+			weapons_unlocked.add_word_to_screen("ARROW");
+			weapons_unlocked.add_weapon_word_list("ARROW");
+
+			notification_duration = 150;
+			num_of_notification++;
 		}
-		if (num_of_kills == 11 && !unlock_weapon[SLICER])
+
+		if (num_of_kills == 85 && !increase_bounce)
 		{
+			notification_duration = 0;
+
+			increase_bounce = true;
+			num_of_bounce[ARROW] = 4;
+
+			weapons_unlocked.add_word_to_screen("ARROW: BOUNCE 5x");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 90 && !increment_max_ammo)
+		{
+			increase_bounce = false;
+			notification_duration = 0;
+
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(ARROW);
+
+			player->set_num_of_ammo(player->get_max_num_of_ammo(ARROW), ARROW);
+
+			weapons_unlocked.add_word_to_screen("ARROW: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 100 && !unlock_weapon[SLICER])
+		{
+			notification_duration = 0;
+
+			increment_max_ammo = false;
 			unlock_weapon[SLICER] = true;
 			this->num_of_weapon++;
 
-			weapons_unlocked.add_word_to_list("SLICER");
-			notification_duration = 200;
+			weapons_unlocked.add_word_to_screen("SLICER");
+			weapons_unlocked.add_weapon_word_list("SLICER");
+			notification_duration = 150;
+			num_of_notification++;
 		}
 
+		if (num_of_kills == 110 && !increment_max_ammo)
+		{
+			notification_duration = 0;
+
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(SLICER);
+
+			player->set_num_of_ammo(player->get_max_num_of_ammo(SLICER), SLICER);
+
+			weapons_unlocked.add_word_to_screen("SLICER: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 115 && !increase_bounce)
+		{
+			notification_duration = 0;
+			increment_max_ammo = false;
+			increase_bounce = true;
+			num_of_bounce[ARROW] = 9;
+
+			weapons_unlocked.add_word_to_screen("ARROW: BOUNCE 10x");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 130 && !increment_max_ammo)
+		{
+			notification_duration = 0;
+
+			increase_bounce = false;
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(TRI_NUKE);
+
+			player->set_num_of_ammo(player->get_max_num_of_ammo(TRI_NUKE), TRI_NUKE);
+
+			weapons_unlocked.add_word_to_screen("TRI NUKE: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 140 && !increase_bounce)
+		{
+			notification_duration = 0;
+			increment_max_ammo = false;
+			increase_bounce = true;
+			num_of_bounce[STUNNER] = 2;
+
+			weapons_unlocked.add_word_to_screen("STUNNER: BOUNCE 3x");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 155 && increase_bounce)
+		{
+			notification_duration = 0;
+
+			increase_bounce = false;
+			num_of_bounce[SLICER] = 2;
+
+			weapons_unlocked.add_word_to_screen("SLICER: BOUNCE 3x");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		
+
+		if (num_of_kills == 175 && !increment_max_ammo)
+		{
+			notification_duration = 0;
+			increase_bounce = true;
+			increment_max_ammo = true;
+			player->multiply_max_num_of_ammo(SLICER);
+
+			weapons_unlocked.add_word_to_screen("SLICER: MORE AMMO");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 155 && increase_bounce)
+		{
+			notification_duration = 0;
+
+			increase_bounce = false;
+			num_of_bounce[SLICER] = 4;
+
+			weapons_unlocked.add_word_to_screen("SLICER: BOUNCE 5x");
+			notification_duration = 150;
+			num_of_notification++;
+		}
+
+		if (num_of_kills == 180 && !increment_defense)
+		{
+			notification_duration = 0;
+
+			increment_defense = true;
+			defense++;
+
+			weapons_unlocked.add_word_to_screen("DEFENSE MAX");
+			notification_duration = 150;
+			num_of_notification++;
+		}
 	}
 }
 
@@ -1993,10 +2430,10 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 				switch (option.get_tile_options())
 				{
 				case 1:
-					al_draw_bitmap(image.Tiles(GRAY_SQUARE).first, j*al_get_bitmap_width(image.Tiles(GRAY_SQUARE).first), i*al_get_bitmap_height(image.Tiles(GRAY_SQUARE).first), NULL);
+					al_draw_bitmap(image.Tiles(DARK_GRAY_SQUARE).first, j*al_get_bitmap_width(image.Tiles(DARK_GRAY_SQUARE).first), i*al_get_bitmap_height(image.Tiles(DARK_GRAY_SQUARE).first), NULL);
 					break;
 				case 2:
-					al_draw_bitmap(image.Tiles(WHITE_CIRCLE).first, j*al_get_bitmap_width(image.Tiles(WHITE_CIRCLE).first), i*al_get_bitmap_height(image.Tiles(WHITE_CIRCLE).first), NULL);
+					al_draw_bitmap(image.Tiles(DARK_GRAY_CIRCLE).first, j*al_get_bitmap_width(image.Tiles(DARK_GRAY_CIRCLE).first), i*al_get_bitmap_height(image.Tiles(DARK_GRAY_CIRCLE).first), NULL);
 					break;
 				case 3:
 					al_draw_bitmap(image.Tiles(SAND).first, j*al_get_bitmap_width(image.Tiles(SAND).first), i*al_get_bitmap_height(image.Tiles(SAND).first), NULL);
@@ -2036,7 +2473,11 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 			}
 		}
 	}
-
+	
+	for (int i = 0; i < nw.size(); i++)
+	{
+		nw[i]->render();
+	}
 	
 	if (healing_loading[0] < 80)
 	{
@@ -2111,19 +2552,21 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 		player->render();
 	}
 
-		
-	
-
 	for (int i = 0; i < enemy.size(); i++)
 	{
 		enemy[i]->render(image);
 	}
 
+	for (int i = 0; i < b2.size(); i++)
+	{
+		b2[i]->render();
+	}
+
 	if (level_duration != 0)
 	{
-		al_draw_filled_rectangle(0, 0, 400, 80, al_map_rgb(0, 0, 0));
+		al_draw_filled_rectangle(0, 0, 460, 80, al_map_rgb(0, 0, 0));
 		al_draw_text(font.get_font(1), al_map_rgb(255, 255, 255), 0, 0, NULL, "LEVEL ");
-		al_draw_textf(font.get_font(1), al_map_rgb(255, 255, 255), 0 + al_get_text_width(font.get_font(1) , "LEVEL "), 0, NULL, "%i", level + 1);
+		al_draw_textf(font.get_font(1), al_map_rgb(255, 255, 255), 0 + al_get_text_width(font.get_font(1) , "LEVEL "), 0, NULL, "%i", level);
 
 	}
 
@@ -2141,23 +2584,25 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 
 	al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 1200 + al_get_text_width(font.get_font(3), "LEVEL "), 732, NULL, "%i", level);
 
-	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 400, 732, NULL, "WEAPON:");
+	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 350, 732, NULL, "WEAPON:");
 
 	if (player->get_option_weapon() == 0)
 	{
-		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 400 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, "LAZER");
+		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 350 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, "LAZER");
 	}
 
 	else
 	{
-		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 400 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, weapons_unlocked.get_list(player->get_option_weapon() - 1).c_str());
-		al_draw_textf(font.get_font(3), al_map_rgb(200, 200, 255), 400 + al_get_text_width(font.get_font(3), weapons_unlocked.get_list(player->get_option_weapon() - 1).append("WEAPON:  ").c_str()), 732, NULL, "%d", player->get_num_of_ammo(player->get_option_weapon()));
+		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 350 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, weapons_unlocked.get_weapon_list(player->get_option_weapon() - 1).c_str());
+		al_draw_textf(font.get_font(3), al_map_rgb(200, 200, 255), 350 + al_get_text_width(font.get_font(3), weapons_unlocked.get_weapon_list(player->get_option_weapon() - 1).append("WEAPON:  ").c_str()), 732, NULL, "%d", player->get_num_of_ammo(player->get_option_weapon()));
+		al_draw_textf(font.get_font(3), al_map_rgb(100, 255, 100), 380 + al_get_text_width(font.get_font(3), weapons_unlocked.get_weapon_list(player->get_option_weapon() - 1).append("WEAPON:  ").c_str()), 732, NULL, "/ %d", player->get_max_num_of_ammo(player->get_option_weapon()));
+
 	}
 
-	if (num_of_weapon > 0 && notification_duration != 0)
+	if (num_of_notification >= 0 && notification_duration != 0)
 	{
- 		al_draw_textf(font.get_font(3), al_map_rgb(255, 175, 0), 850, 732, NULL, weapons_unlocked.get_list(num_of_weapon - 1).c_str());
- 		al_draw_textf(font.get_font(3), al_map_rgb(255, 175, 0), 850 + al_get_text_width(font.get_font(3), weapons_unlocked.get_list(num_of_weapon - 1).c_str()), 732, NULL, " UNLOCKED");
+ 		al_draw_textf(font.get_font(3), al_map_rgb(255, 175, 0), 725, 732, NULL, weapons_unlocked.get_screen_list(num_of_notification).c_str());
+ 		al_draw_textf(font.get_font(3), al_map_rgb(255, 175, 0), 725 + al_get_text_width(font.get_font(3), weapons_unlocked.get_screen_list(num_of_notification).c_str()), 732, NULL, " UNLOCKED");
 	}
 
 	al_draw_filled_rectangle(0, 0, x1, 720, al_map_rgb(0, 0, 0));
@@ -2166,21 +2611,53 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 
 }
 
-void Game::reset()
+void Game::reset(Weapons_Unlocked_List &weapons_unlocked)
 {
+	level_duration = 0;
 	enemy.clear();
 	level = 0;
 	player->damage_col_tile_update();
 	player->set_health(100);
-	player->set_x(8);
-	player->set_y(0);
 	player->set_direction(0);
 	initial = true;
 	player->set_x(8 * 80);
-	player->set_y(80);
+	player->set_y(0);
 	player->set_hit(false, 0);
 	healing_loading[0] = 0;
 	healing_loading[1] = 0;
 	eweapon.clear();
 	pweapon.clear();
+	num_of_kills = 0;
+	num_of_notification = -1;
+	weapons_unlocked.clear_all();
+	num_of_weapon = 0;
+	ammo.clear();
+	powerup.clear();
+	player->reset_ammo();
+
+	unlock_weapon[ROCKET_LAZER] = false;
+	unlock_weapon[STUNNER] = false;
+	unlock_weapon[BOMBS] = false;
+	unlock_weapon[ICE_BOMBS] = false;
+	unlock_weapon[FIRE_BOMBS] = false;
+	unlock_weapon[ATOMIC_BOMBS] = false;
+	unlock_weapon[BI_NUKE] = false;
+	unlock_weapon[TRI_NUKE] = false;
+	unlock_weapon[TRIANGULAR_MISSILE] = false;
+	unlock_weapon[ARROW] = false;
+	unlock_weapon[SLICER] = false;
+
+	num_of_bounce[LAZER] = 0;
+	num_of_bounce[ROCKET_LAZER] = 0;
+	num_of_bounce[STUNNER] = 0;
+	num_of_bounce[BOMBS] = 0;
+	num_of_bounce[ICE_BOMBS] = 0;
+	num_of_bounce[FIRE_BOMBS] = 0;
+	num_of_bounce[ATOMIC_BOMBS] = 0;
+	num_of_bounce[BI_NUKE] = 1;
+	num_of_bounce[TRI_NUKE] = 2;
+	num_of_bounce[TRIANGULAR_MISSILE] = 0;
+	num_of_bounce[ARROW] = 2;
+	num_of_bounce[SLICER] = 0;
+
 }

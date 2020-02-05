@@ -11,7 +11,7 @@ using namespace std;
 
 int main()
 {
-	int screennum = 0;
+	int screennum = MENU_SCREEN;
 	int count_down_to_close = 600;
 
 	//boolean variable
@@ -40,6 +40,14 @@ int main()
 
 	malloc(sizeof(display));
 	al_set_display_icon(display, icon);
+
+	Animation fade;
+
+	int alpha = 0;
+	int speed = 5;
+
+	
+
 	Tile_map m;
 
 	//sets the screen to no frame
@@ -96,7 +104,6 @@ int main()
 	//game loop
 	while (!done)
 	{
-
 		switch (screennum)
 		{
 		case MENU_SCREEN:
@@ -116,7 +123,7 @@ int main()
 			quit.update(display, q, image, option, ev, screennum, done);
 			break;
 		case PAUSE_SCREEN:
-			pause.update(display, q, image, option, game, ev, screennum, done);
+			pause.update(display, q, image, option, game, ev, weapon_unlock, screennum, done);
 			break;
 		case GAME_OVER_SCREEN:
 			game_over.update(display, q, image, sound, option, ev, screennum, done);
@@ -167,6 +174,10 @@ int main()
 		al_flip_display();
 	}
 
+	
+	
+	weapon_unlock.clear_all();
+
 	//destroys display, timer and event memory
 	al_destroy_display(display);
 
@@ -177,6 +188,8 @@ int main()
 	image.Deallocate_image(m);
 	sound.Deallocate_sound();
 	al_destroy_bitmap(icon);
+
+	std::cout << "Assets Deallocated" << std::endl;
 
 	//uninstall audio and keyboard
 	al_uninstall_audio();

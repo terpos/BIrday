@@ -2,7 +2,7 @@
 
 
 
-Fire_bomb::Fire_bomb(Image &sprite_sheet, int x, int y, int vel, int direction): P_Weapon(sprite_sheet, x, y, vel, direction)
+Fire_bomb::Fire_bomb(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce): P_Weapon(sprite_sheet, x, y, vel, direction, num_of_bounce)
 {
 	set_id(FIRE_BOMBS);
 	set_x(x);

@@ -49,6 +49,8 @@ void Sound::Load_Sound()
 	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Tape_Slow_Down.ogg"));
 	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Wind.ogg"));
 	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Zap.ogg"));
+	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/missile_Shot.ogg"));
+
 
 	Sound_error_check();
 

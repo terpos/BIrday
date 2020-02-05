@@ -2,7 +2,7 @@
 
 
 
-Arrow::Arrow(Image &sprite_sheet, int x, int y, int vel, int direction): P_Weapon (sprite_sheet, x, y, vel, direction)
+Arrow::Arrow(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce): P_Weapon (sprite_sheet, x, y, vel, direction, num_of_bounce)
 {
 	set_id(ARROW);
 	set_x(x);
@@ -10,7 +10,7 @@ Arrow::Arrow(Image &sprite_sheet, int x, int y, int vel, int direction): P_Weapo
 	set_vel(vel);
 	set_direction(direction);
 
-	set_hit(false, 2);
+	set_hit(false, num_of_bounce);
 	set_kill(false);
 
 

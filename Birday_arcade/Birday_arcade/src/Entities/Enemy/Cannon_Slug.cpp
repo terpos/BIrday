@@ -126,8 +126,8 @@ void Cannon_Slug::shoot(std::vector<E_Weapon*>& eweapon, Options option, Sound s
 		{
 			if (option.get_sound_options())
 			{
-				al_set_sample_instance_position(sound.sound_effects(2), 0);
-				al_play_sample_instance(sound.sound_effects(2));
+				al_set_sample_instance_position(sound.sound_effects(23), 0);
+				al_play_sample_instance(sound.sound_effects(23));
 			}
 			eweapon.push_back(new Missile(spritesheet, get_x(), get_y(), 20, get_direction()));
 			this->reload_time = 40;

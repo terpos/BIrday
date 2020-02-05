@@ -4,7 +4,7 @@
 class Ice_Bomb:public P_Weapon
 {
 public:
-	Ice_Bomb(Image &sprite_sheet, int x, int y, int vel, int direction);
+	Ice_Bomb(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce);
 	~Ice_Bomb();
 
 	void abilities();

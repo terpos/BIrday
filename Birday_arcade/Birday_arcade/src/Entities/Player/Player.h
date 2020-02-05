@@ -41,9 +41,10 @@ public:
 	int get_health();
 
 	//controls the player when a key is hit
-	void control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &option, std::vector <P_Weapon*> &pweapon, bool unlock_weapon[11], int num_of_weapon);
+	void control(Image spritesheet, Sound sound, ALLEGRO_EVENT e, Options &option, std::vector <P_Weapon*> &pweapon, bool unlock_weapon[12], int num_of_weapon, int num_of_bounce[11]);
 	
 	int get_num_of_ammo(int index);
+	int get_max_num_of_ammo(int index);
 
 	//checks if the player is hit
 	std::pair <bool, int> is_hit();
@@ -69,6 +70,9 @@ public:
 	void set_health(float health);
 
 	void set_num_of_ammo(int number_of_ammo, int index);
+	void multiply_max_num_of_ammo(int index);
+
+
 
 	//sets whether the player is hit or not
 	void set_hit(bool ishit, int status);
@@ -90,6 +94,8 @@ public:
 
 	void set_glide(bool glide);
 
+	void reset_ammo();
+
 	//updates the player's movement as well as the weapon's movement
 	void update(std::vector <P_Weapon*> &pweapon);
 
@@ -98,7 +104,7 @@ public:
 
 private:
 	//integer variables
-	int x, y, vel, direction, buttons[7], option_weapon, delay_movement, Poisoned_duration, Num_of_Bullet[12];
+	int x, y, vel, direction, buttons[7], option_weapon, delay_movement, Poisoned_duration, Num_of_Bullet[12], Max_Num_of_Bullet[12];
 	float health;
 
 	//boolean variables and boolean variables array

@@ -2,14 +2,14 @@
 
 
 
-Lazer::Lazer(Image &sprite_sheet, int x, int y, int vel, int direction) : P_Weapon(sprite_sheet, x, y, vel, direction)
+Lazer::Lazer(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce) : P_Weapon(sprite_sheet, x, y, vel, direction, num_of_bounce)
 {
 	set_id(LAZER);
 	set_x(x);
 	set_y(y);
 	set_vel(vel);
 	set_direction(direction);
-	set_hit(false, 0);
+	set_hit(false, num_of_bounce);
 
 	set_kill(false);
 

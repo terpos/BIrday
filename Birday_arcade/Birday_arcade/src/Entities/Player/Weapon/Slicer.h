@@ -4,7 +4,7 @@
 class Slicer: public P_Weapon
 {
 public:
-	Slicer(Image &sprite_sheet, int x, int y, int vel, int direction);
+	Slicer(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of_bounce);
 	~Slicer();
 
 	int damage();

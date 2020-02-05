@@ -17,9 +17,10 @@ Copy_Chip::~Copy_Chip()
 {
 }
 
-void Copy_Chip::power_up_abilities(Sound sound, Player *& player, std::vector<Enemy*>& enemy, Options option)
+void Copy_Chip::power_up_abilities(Sound sound, Player *& player, std::vector<Enemy*>& enemy, std::vector <B_2_Bomber*> &b2, Options option)
 {
 	std::uniform_int_distribution <int> kind_of_powerup(0, 4);
+
 
 	switch (kind_of_powerup(power_up))
 	{
@@ -77,8 +78,14 @@ void Copy_Chip::power_up_abilities(Sound sound, Player *& player, std::vector<En
 			al_play_sample_instance(sound.sound_effects(2));
 		}
 
-		enemy.clear();
+		b2.push_back(new B_2_Bomber(get_image()));
+
 		break;
 	
 	}
+}
+
+int Copy_Chip::get_random_powerup()
+{
+	return this->random;
 }
