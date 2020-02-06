@@ -2,6 +2,7 @@
 #include "Entities/Enemy/Enemy.h"
 #include "Asset_management/Image.h"
 #include "B_2_Bomber.h"
+#include "needle_wind.h"
 #include "global.h"
 
 #pragma once
@@ -30,7 +31,7 @@ public:
 	virtual void set_id(int id);
 
 	//functionality of the power up
-	virtual void power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy, std::vector <B_2_Bomber*> &b2, Options option);
+	virtual void power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy, std::vector <B_2_Bomber*> &b2, std::vector <needle_wind*> &nw, Options option);
 
 	//displays the powerup
 	virtual void render();

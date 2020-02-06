@@ -1414,9 +1414,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		}
 
 
-		std::cout << num_of_kills << std::endl;
-
-
 
 		if (healing_loading[0] > 80)
 		{
@@ -1634,7 +1631,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			}
 		}
 
-		std::cout << "B2: " << destroyed_by_b2 << std::endl;
 
 		//collision for tiles (player and enemy weapon)
 		for (int tile_y = 0; tile_y < m.get_length(); tile_y++)
@@ -1743,12 +1739,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			{
 				duration1 = 200;
 
-				if (powerup[i]->get_id() == NEEDLE_WIND_BLAST_CHIP)
-				{
-					nw.push_back(new needle_wind(image));
-				}
-
-				powerup[i]->power_up_abilities(sound, player, enemy, b2, option);
+				powerup[i]->power_up_abilities(sound, player, enemy, b2, nw, option);
 				powerup.erase(powerup.begin() + i);
 			}
 		}

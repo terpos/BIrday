@@ -14,7 +14,7 @@ Health_Chip::~Health_Chip()
 {
 }
 
-void Health_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy, std::vector <B_2_Bomber*> &b2, Options option)
+void Health_Chip::power_up_abilities(Sound sound, Player* & player, std::vector<Enemy*>& enemy, std::vector <B_2_Bomber*> &b2, std::vector <needle_wind*> &nw, Options option)
 {
 	if (option.get_sound_options())
 	{

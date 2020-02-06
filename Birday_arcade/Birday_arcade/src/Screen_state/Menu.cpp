@@ -78,13 +78,11 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 
 	if (e.type == ALLEGRO_EVENT_TIMER)
 	{
-		std::cout << intro.get_alpha() << std::endl;
 		if (rect_out)
 		{
-			std::cout << bg.get_alpha() << std::endl;
 			Sel = al_map_rgba(255, 0, 0, choice.get_alpha());
 			notSel = al_map_rgba(0, 255, 0, choice.get_alpha());
-			std::cout << choice.get_alpha() << std::endl;
+
 			choice.fade_in(5);
 			bg.fade_in(5);
 			title.fade_in(5);

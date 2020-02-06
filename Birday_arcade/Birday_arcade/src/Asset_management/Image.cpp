@@ -134,17 +134,6 @@ void Image::Load_Images()
 	this->misc.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/B_2_bomber.png"), MISC));
 	this->misc.push_back(std::make_pair(al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/needle_wind.png"), MISC));
 
-	std::cout << "PLAYER SIZE: " << player.size() << std::endl;
-	std::cout << "PWEAPON SIZE: " << P_weapon.size() << std::endl;
-	std::cout << "ENEMY SIZE: " << enemies.size() << std::endl;
-	std::cout << "EWEAPON SIZE: " << E_weapon.size() << std::endl;
-	std::cout << "POWERUP SIZE: " << PowerUp.size() << std::endl;
-	std::cout << "TILE SIZE: " << tile_piece.size() << std::endl;
-	std::cout << "AMMO SIZE: " << Player_Weapon_Ammo.size() << std::endl;
-	std::cout << "BACKGROUND SIZE: " << Background.size() << std::endl;
-	std::cout << "DESTRUCTION SIZE: " << Destruction.size() << std::endl;
-	std::cout << "STATUS SIZE: " << status.size() << std::endl;
-
 
 	for (int i = 0; i < player.size(); i++)
 	{

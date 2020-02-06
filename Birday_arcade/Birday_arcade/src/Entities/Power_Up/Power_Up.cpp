@@ -60,7 +60,7 @@ void Power_Up::set_id(int id)
 	this->id = id;
 }
 
-void Power_Up::power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy, std::vector <B_2_Bomber*> &b2, Options option)
+void Power_Up::power_up_abilities(Sound sound, Player* &player, std::vector <Enemy*> &enemy, std::vector <B_2_Bomber*> &b2, std::vector <needle_wind*> &nw, Options option)
 {
 }
 

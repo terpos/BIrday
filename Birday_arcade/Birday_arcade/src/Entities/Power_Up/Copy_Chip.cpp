@@ -17,7 +17,7 @@ Copy_Chip::~Copy_Chip()
 {
 }
 
-void Copy_Chip::power_up_abilities(Sound sound, Player *& player, std::vector<Enemy*>& enemy, std::vector <B_2_Bomber*> &b2, Options option)
+void Copy_Chip::power_up_abilities(Sound sound, Player *& player, std::vector<Enemy*>& enemy, std::vector <B_2_Bomber*> &b2, std::vector <needle_wind*> &nw, Options option)
 {
 	std::uniform_int_distribution <int> kind_of_powerup(0, 4);
 
@@ -51,13 +51,8 @@ void Copy_Chip::power_up_abilities(Sound sound, Player *& player, std::vector<En
 			al_play_sample_instance(sound.sound_effects(21));
 		}
 
-		for (int i = 0; i < enemy.size(); i++)
-		{
-			if (enemy[i]->get_x() < player->get_x())
-			{
-				enemy.erase(enemy.begin() + i);
-			}
-		}
+		nw.push_back(new needle_wind(get_image()));
+
 		break;
 
 	case STOP_CHIP:

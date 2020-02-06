@@ -49,7 +49,6 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 		switch (e.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_1:
-			std::cout << options << std::endl;
 			option.set_last_screen(PAUSE_SCREEN);
 			screennum = GAME_SCREEN;
 			break;

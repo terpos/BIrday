@@ -170,13 +170,11 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 				if (sound_options)
 				{
 					set_sound_options(false);
-					std::cout << "FALSE" << std::endl;
 				}
 
 				else
 				{
 					set_sound_options(true);
-					std::cout << "TRUE" << std::endl;
 				}
 				break;
 			case 2:
@@ -294,7 +292,6 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 		max_options = 11;
 		if (press_any_key && num_of_key_pressed == 2)
 		{
-			std::cout << "key Pressed" << std::endl;
 			switch (options)
 			{
 			case 4:
@@ -334,7 +331,6 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 		max_options = 10;
 		if (press_any_key && num_of_key_pressed == 2)
 		{
-			std::cout << "key Pressed" << std::endl;
 			switch (options)
 			{
 			case 3:
