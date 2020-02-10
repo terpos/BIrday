@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Express 15 for Windows Desktop
-VisualStudioVersion = 15.0.28307.852
+VisualStudioVersion = 15.0.28307.1000
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Birday_arcade", "Birday_arcade\Birday_arcade.vcxproj", "{F9DC0ED1-6969-4ECE-BCC1-1C1C9D314136}"
+Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Birday_Arcade", "Birday_Arcade\Birday_Arcade.vcxproj", "{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -13,19 +13,19 @@ Global
 		Release|x86 = Release|x86
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{F9DC0ED1-6969-4ECE-BCC1-1C1C9D314136}.Debug|x64.ActiveCfg = Debug|x64
-		{F9DC0ED1-6969-4ECE-BCC1-1C1C9D314136}.Debug|x64.Build.0 = Debug|x64
-		{F9DC0ED1-6969-4ECE-BCC1-1C1C9D314136}.Debug|x86.ActiveCfg = Debug|Win32
-		{F9DC0ED1-6969-4ECE-BCC1-1C1C9D314136}.Debug|x86.Build.0 = Debug|Win32
-		{F9DC0ED1-6969-4ECE-BCC1-1C1C9D314136}.Release|x64.ActiveCfg = Release|x64
-		{F9DC0ED1-6969-4ECE-BCC1-1C1C9D314136}.Release|x64.Build.0 = Release|x64
-		{F9DC0ED1-6969-4ECE-BCC1-1C1C9D314136}.Release|x86.ActiveCfg = Release|Win32
-		{F9DC0ED1-6969-4ECE-BCC1-1C1C9D314136}.Release|x86.Build.0 = Release|Win32
+		{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}.Debug|x64.ActiveCfg = Debug|x64
+		{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}.Debug|x64.Build.0 = Debug|x64
+		{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}.Debug|x86.ActiveCfg = Debug|Win32
+		{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}.Debug|x86.Build.0 = Debug|Win32
+		{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}.Release|x64.ActiveCfg = Release|x64
+		{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}.Release|x64.Build.0 = Release|x64
+		{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}.Release|x86.ActiveCfg = Release|Win32
+		{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}.Release|x86.Build.0 = Release|Win32
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {29D275A5-60FF-464F-9FCF-8BA666BCC854}
+		SolutionGuid = {320A222A-582C-4F99-AA54-F852BEC8F788}
 	EndGlobalSection
 EndGlobal

@@ -18,257 +18,10 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="src\Entities\Power_Up\needle_wind.cpp" />
-    <ClCompile Include="src\Entities\Power_Up\B_2_Bomber.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\Gunk.cpp" />
-    <ClCompile Include="src\Screen_state\Game_Over.cpp" />
-    <ClCompile Include="src\Asset_management\Font.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\Ball_shot.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Fisher.cpp" />
-    <ClCompile Include="src\Entities\Power_Up\Ammo.cpp" />
-    <ClCompile Include="src\Entities\Power_Up\B_2_Bomber_Strike_Chip.cpp" />
-    <ClCompile Include="src\Entities\Power_Up\Copy_Chip.cpp" />
-    <ClCompile Include="src\Entities\Power_Up\Gliding_Chip.cpp" />
-    <ClCompile Include="src\Entities\Power_Up\Health_Chip.cpp" />
-    <ClCompile Include="src\Entities\Power_Up\Needle_Blast_Wind_Chip.cpp" />
-    <ClCompile Include="src\Entities\Power_Up\Power_Up.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\E_Weapon.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\P_Weapon.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Enemy.cpp" />
-    <ClCompile Include="src\Entities\Player\Player.cpp" />
-    <ClCompile Include="src\Entities\Collision.cpp" />
-    <ClCompile Include="src\Screen_state\Menu.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\Bubble_Blast.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\Diamond_Ice.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\Fire.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\Grapple.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\Missile.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Ball.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Cannon_Slug.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Diamondo.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Magic_Mask.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\Arrow.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\Atom_Bomb.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\BiNuke.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\Bomb.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\Fire_bomb.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\Ice_Bomb.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\Lazer.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\Rocket_lazer.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\Slicer.cpp" />
-    <ClCompile Include="src\Asset_management\Animation.cpp" />
-    <ClCompile Include="src\Asset_management\Image.cpp" />
-    <ClCompile Include="src\Asset_management\Sound.cpp" />
-    <ClCompile Include="src\Screen_state\Game.cpp" />
-    <ClCompile Include="src\Screen_state\Game_Materials.cpp" />
-    <ClCompile Include="src\Screen_state\Options.cpp" />
-    <ClCompile Include="src\Screen_state\Pause.cpp" />
-    <ClCompile Include="src\Screen_state\Quit.cpp" />
-    <ClCompile Include="src\Source.cpp" />
-    <ClCompile Include="src\Asset_management\Tile_map.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\Stunner.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\Triangular_Missle.cpp" />
-    <ClCompile Include="src\Entities\Player\Weapon\TriNuke.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Tripus.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\Star_Bomb.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\Thunder.cpp" />
-    <ClCompile Include="src\Entities\Enemy\Weapon\Venom_Spit.cpp" />
-    <ClCompile Include="src\Entities\Power_Up\Stop_Time_Chip.cpp" />
-    <ClCompile Include="src\Screen_state\Weapons_Unlocked_List.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="src\Entities\Power_Up\needle_wind.h" />
-    <ClInclude Include="src\Entities\Power_Up\B_2_Bomber.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\Gunk.h" />
-    <ClInclude Include="src\Screen_state\Game_Over.h" />
-    <ClInclude Include="src\Asset_management\Font.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\Ball_shot.h" />
-    <ClInclude Include="src\Entities\Enemy\Fisher.h" />
-    <ClInclude Include="src\Entities\Power_Up\Ammo.h" />
-    <ClInclude Include="src\Entities\Power_Up\B_2_Bomber_Strike_Chip.h" />
-    <ClInclude Include="src\Entities\Power_Up\Copy_Chip.h" />
-    <ClInclude Include="src\Entities\Power_Up\Gliding_Chip.h" />
-    <ClInclude Include="src\Entities\Power_Up\Health_Chip.h" />
-    <ClInclude Include="src\Entities\Power_Up\Needle_Blast_Wind_Chip.h" />
-    <ClInclude Include="src\Entities\Power_Up\Power_Up.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\E_Weapon.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\P_Weapon.h" />
-    <ClInclude Include="src\Entities\Enemy\Enemy.h" />
-    <ClInclude Include="src\Entities\Player\Player.h" />
-    <ClInclude Include="src\Entities\Collision.h" />
-    <ClInclude Include="src\Screen_state\Menu.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\Bubble_Blast.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\Diamond_Ice.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\Fire.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\Grapple.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\Missile.h" />
-    <ClInclude Include="src\Entities\Enemy\Ball.h" />
-    <ClInclude Include="src\Entities\Enemy\Cannon_Slug.h" />
-    <ClInclude Include="src\Entities\Enemy\Diamondo.h" />
-    <ClInclude Include="src\Entities\Enemy\Magic_Mask.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\Arrow.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\Atom_Bomb.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\BiNuke.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\Bomb.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\Fire_bomb.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\Ice_Bomb.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\Lazer.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\Rocket_lazer.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\Slicer.h" />
-    <ClInclude Include="src\Asset_management\Animation.h" />
-    <ClInclude Include="src\Asset_management\Image.h" />
-    <ClInclude Include="src\Asset_management\Sound.h" />
-    <ClInclude Include="src\global.h" />
-    <ClInclude Include="src\key_strings_allegro.h" />
-    <ClInclude Include="src\Screen_state\Game.h" />
-    <ClInclude Include="src\Screen_state\Game_Materials.h" />
-    <ClInclude Include="src\Screen_state\Options.h" />
-    <ClInclude Include="src\Screen_state\Pause.h" />
-    <ClInclude Include="src\Screen_state\Quit.h" />
-    <ClInclude Include="src\Asset_management\Tile_map.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\Stunner.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\Triangular_Missle.h" />
-    <ClInclude Include="src\Entities\Player\Weapon\TriNuke.h" />
-    <ClInclude Include="src\Entities\Enemy\Tripus.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\Star_Bomb.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\Thunder.h" />
-    <ClInclude Include="src\Entities\Enemy\Weapon\Venom_Spit.h" />
-    <ClInclude Include="src\Entities\Power_Up\Stop_Time_Chip.h" />
-    <ClInclude Include="src\Screen_state\Weapons_Unlocked_List.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="Assets\Font\pixelite.zip" />
-    <None Include="Assets\Font\pixelmix.zip" />
-    <None Include="Assets\Image\Enemy\Cannon_Slug.png~" />
-    <None Include="Assets\Image\Enemy\diamondo.png~" />
-    <None Include="Assets\Image\Enemy\diamondo_2.png~" />
-    <None Include="Assets\Image\Player\Weapon\Rocket_Lazer.png~" />
-    <None Include="Assets\Sound\Background Music\Game over.ogg" />
-    <None Include="Assets\Sound\Background Music\Level_1-4.ogg" />
-    <None Include="Assets\Sound\Background Music\Level_15-24.ogg" />
-    <None Include="Assets\Sound\Background Music\Level_25-44.ogg" />
-    <None Include="Assets\Sound\Background Music\Level_45-UP.ogg" />
-    <None Include="Assets\Sound\Background Music\Level_5-14.ogg" />
-    <None Include="Assets\Sound\Background Music\Menu-01.ogg" />
-    <None Include="Assets\Sound\Background Music\Menu.ogg" />
-    <None Include="Assets\Sound\Sound Effects\438991__stopmotionbros__wind.m4a" />
-    <None Include="Assets\Sound\Sound Effects\Arrow.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Blast.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Blasters.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Boing.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Bubble.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Clang.ogg" />
-    <None Include="Assets\Sound\Sound Effects\damage.flac" />
-    <None Include="Assets\Sound\Sound Effects\damage.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Enemy_Damage.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Enemy_Destroy.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Fast_Sparkling_Whoosh.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Flame_arrow.ogg" />
-    <None Include="Assets\Sound\Sound Effects\gunk.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Health.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Laser_shot_scilenced.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Liquid_Ice.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Missile_Launcher_Explosion.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Power_up.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Select.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Slicer.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Spit_splat.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Tape_Slow_Down.ogg" />
-    <None Include="Assets\Sound\Sound Effects\wind.ogg" />
-    <None Include="Assets\Sound\Sound Effects\Zap.ogg" />
-    <None Include="packages.config" />
-  </ItemGroup>
-  <ItemGroup>
-    <Image Include="Assets\Image\Background\Game_Over.png" />
-    <Image Include="Assets\Image\Background\Menu.png" />
-    <Image Include="Assets\Image\Enemy\Ball.png" />
-    <Image Include="Assets\Image\Enemy\Ball_2.png" />
-    <Image Include="Assets\Image\Enemy\Cannon_Slug.png" />
-    <Image Include="Assets\Image\Enemy\Cannon_Slug_2.png" />
-    <Image Include="Assets\Image\Enemy\diamondo.png" />
-    <Image Include="Assets\Image\Enemy\diamondo_2.png" />
-    <Image Include="Assets\Image\Enemy\Fisher.png" />
-    <Image Include="Assets\Image\Enemy\Fisher_2.png" />
-    <Image Include="Assets\Image\Enemy\Magic_Mask.png" />
-    <Image Include="Assets\Image\Enemy\Magic_Mask_2.png" />
-    <Image Include="Assets\Image\Enemy\Tripus.png" />
-    <Image Include="Assets\Image\Enemy\Tripus_2.png" />
-    <Image Include="Assets\Image\Enemy\Weapon\Ball_Shot.png" />
-    <Image Include="Assets\Image\Enemy\Weapon\Bubble_shot.png" />
-    <Image Include="Assets\Image\Enemy\Weapon\Diamond.png" />
-    <Image Include="Assets\Image\Enemy\Weapon\fire.png" />
-    <Image Include="Assets\Image\Enemy\Weapon\Grapple.png" />
-    <Image Include="Assets\Image\Enemy\Weapon\lightning.png" />
-    <Image Include="Assets\Image\Enemy\Weapon\Missle.png" />
-    <Image Include="Assets\Image\Enemy\Weapon\Star_shot.png" />
-    <Image Include="Assets\Image\Enemy\Weapon\Venom_saliva.png" />
-    <Image Include="Assets\Image\Player\Birday.png" />
-    <Image Include="Assets\Image\Player\Weapon\Arrow.png" />
-    <Image Include="Assets\Image\Player\Weapon\Bi_Nuke.png" />
-    <Image Include="Assets\Image\Player\Weapon\Bombs.png" />
-    <Image Include="Assets\Image\Player\Weapon\Lazer.png" />
-    <Image Include="Assets\Image\Player\Weapon\Rocket_Lazer.png" />
-    <Image Include="Assets\Image\Player\Weapon\Slicer.png" />
-    <Image Include="Assets\Image\Player\Weapon\Stunner.png" />
-    <Image Include="Assets\Image\Player\Weapon\Trianglular_Missle.png" />
-    <Image Include="Assets\Image\Player\Weapon\Tri_Nuke.png" />
-    <Image Include="Assets\Image\Power Ups\Copy_chip.png" />
-    <Image Include="Assets\Image\Power Ups\Gliding_chip.png" />
-    <Image Include="Assets\Image\Power Ups\Health_chip.png" />
-    <Image Include="Assets\Image\Power Ups\Needle_wind_blast_chip.png" />
-    <Image Include="Assets\Image\Power Ups\Stop_Chip.png" />
-    <Image Include="Assets\Image\Tiles\Blue_Circle_tile.png" />
-    <Image Include="Assets\Image\Tiles\Blue_tile.png" />
-    <Image Include="Assets\Image\Tiles\Brick_Wall_Tile.png" />
-    <Image Include="Assets\Image\Tiles\Fence_Tiles.png" />
-    <Image Include="Assets\Image\Tiles\Flower_tile.png" />
-    <Image Include="Assets\Image\Tiles\Grass_Tile.png" />
-    <Image Include="Assets\Image\Tiles\Gray_Tile.png" />
-    <Image Include="Assets\Image\Tiles\Palm_tree_tile.png" />
-    <Image Include="Assets\Image\Tiles\Pillar_tile.png" />
-    <Image Include="Assets\Image\Tiles\Purple_Circle_tile.png" />
-    <Image Include="Assets\Image\Tiles\Purple_Tile.png" />
-    <Image Include="Assets\Image\Tiles\Rock_Tile.png" />
-    <Image Include="Assets\Image\Tiles\Sand_tile.png" />
-    <Image Include="Assets\Image\Tiles\White_Circle_tile.png" />
-    <Image Include="Assets\Image\Tiles\White_tile.png" />
-    <Image Include="src\Asset_management\glass.jpg" />
-    <Image Include="src\Asset_management\white.png" />
-    <Image Include="src\Asset_management\white2.png" />
-    <Image Include="src\glass.jpg" />
-  </ItemGroup>
-  <ItemGroup>
-    <Media Include="Assets\Sound\Sound Effects\151022__bubaproducer__laser-shot-silenced.wav" />
-    <Media Include="Assets\Sound\Sound Effects\162387__zandernoriega__health-1.wav" />
-    <Media Include="Assets\Sound\Sound Effects\198113__editor-adp__clang-4.wav" />
-    <Media Include="Assets\Sound\Sound Effects\205073__robinhood76__04658-fast-sparkling-whoosh.wav" />
-    <Media Include="Assets\Sound\Sound Effects\205563__everheat__arrow.wav" />
-    <Media Include="Assets\Sound\Sound Effects\220173__gameaudio__spacey-1up-power-up.wav" />
-    <Media Include="Assets\Sound\Sound Effects\264779__anthonychan0__civilian-stun-gun-1-10s-zap.mp3" />
-    <Media Include="Assets\Sound\Sound Effects\269583__ifrosta__bubble.wav" />
-    <Media Include="Assets\Sound\Sound Effects\341596__dpsa__motor.wav" />
-    <Media Include="Assets\Sound\Sound Effects\351370__wilhellboy__heavyringingclang.mp3" />
-    <Media Include="Assets\Sound\Sound Effects\362422__alphatrooper18__hit1.wav" />
-    <Media Include="Assets\Sound\Sound Effects\411492__inspectorj__jew-s-harp-single-a-h6-xy.wav" />
-    <Media Include="Assets\Sound\Sound Effects\42994__noisecollector__blasters.wav" />
-    <Media Include="Assets\Sound\Sound Effects\433009__lauraguila89__liquid-ice.wav" />
-    <Media Include="Assets\Sound\Sound Effects\455918__bolkmar__missile-launcher-explosion-only.wav" />
-    <Media Include="Assets\Sound\Sound Effects\458867__raclure__damage-sound-effect.mp3" />
-    <Media Include="Assets\Sound\Sound Effects\459150__mattix__retro-underwater-explosion.wav" />
-    <Media Include="Assets\Sound\Sound Effects\49236__zerolagtime__tape-slow1.wav" />
-    <Media Include="Assets\Sound\Sound Effects\57708__sound-master__gunk-1.wav" />
-    <Media Include="Assets\Sound\Sound Effects\Blast-SoundBible.com-2068539061.mp3" />
-    <Media Include="Assets\Sound\Sound Effects\Flame Arrow-SoundBible.com-618067908.wav" />
-    <Media Include="Assets\Sound\Sound Effects\Spit_Splat-Mike_Koenig-1170500447.wav" />
-  </ItemGroup>
-  <ItemGroup>
-    <Text Include="Assets\Tile_map.txt" />
-  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>15.0</VCProjectVersion>
-    <ProjectGuid>{F9DC0ED1-6969-4ECE-BCC1-1C1C9D314136}</ProjectGuid>
-    <RootNamespace>Birdayarcade</RootNamespace>
+    <ProjectGuid>{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}</ProjectGuid>
+    <RootNamespace>BirdayArcade</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -317,41 +70,21 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>Birday Arcade</TargetName>
-    <IncludePath>$(SolutionDir)Birday_arcade\assets;$(VC_IncludePath);$(SolutionDir)Birday_arcade\src;$(IncludePath)</IncludePath>
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)Birday_Arcade\src</IncludePath>
     <Allegro_AddonImage>true</Allegro_AddonImage>
-    <Allegro_AddonColor>true</Allegro_AddonColor>
-    <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
     <Allegro_AddonAudio>true</Allegro_AddonAudio>
     <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
-    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
     <Allegro_AddonFont>true</Allegro_AddonFont>
-  </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>Birday Arcade</TargetName>
-    <IncludePath>$(SolutionDir)Birday_arcade\assets;$(SolutionDir)Birday_arcade\src</IncludePath>
-    <Allegro_AddonImage>true</Allegro_AddonImage>
     <Allegro_AddonColor>true</Allegro_AddonColor>
-    <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
-    <Allegro_AddonAudio>true</Allegro_AddonAudio>
-    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
-    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
-    <Allegro_AddonFont>true</Allegro_AddonFont>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <IncludePath>$(VC_VS_IncludePath);$(IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)Birday_arcade\assets;$(SolutionDir)Birday_arcade\src;$(VC_VC_IncludePath);$(VC_IncludePath)</IncludePath>
-=======
-    <IncludePath>C:\Users\Kamal\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;$(IncludePath)</IncludePath>
->>>>>>> 129b18035014b35963de9da953052d0a7db84938
-=======
-    <IncludePath>C:\Users\Kamal\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;$(IncludePath)</IncludePath>
->>>>>>> 129b18035014b35963de9da953052d0a7db84938
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)Birday_Arcade\src</IncludePath>
     <Allegro_AddonImage>true</Allegro_AddonImage>
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
@@ -359,20 +92,24 @@
     <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
     <Allegro_AddonFont>true</Allegro_AddonFont>
     <Allegro_AddonColor>true</Allegro_AddonColor>
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>Birday Arcade</TargetName>
+    <Allegro_LibraryType>StaticMonolithRelease</Allegro_LibraryType>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)Birday_Arcade\src</IncludePath>
+    <Allegro_AddonImage>true</Allegro_AddonImage>
+    <Allegro_AddonTTF>true</Allegro_AddonTTF>
+    <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
+    <Allegro_AddonAudio>true</Allegro_AddonAudio>
+    <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
+    <Allegro_AddonFont>true</Allegro_AddonFont>
+    <Allegro_AddonColor>true</Allegro_AddonColor>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
-<<<<<<< HEAD
-<<<<<<< HEAD
-    <IncludePath>$(SolutionDir)Birday_arcade\assets;$(SolutionDir)Birday_arcade\src</IncludePath>
-=======
-    <IncludePath>C:\Users\Kamal\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;$(IncludePath)</IncludePath>
->>>>>>> 129b18035014b35963de9da953052d0a7db84938
-=======
-    <IncludePath>C:\Users\Kamal\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;$(IncludePath)</IncludePath>
->>>>>>> 129b18035014b35963de9da953052d0a7db84938
+    <OutDir>$(SolutionDir)\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(SolutionDir)\bin\Intermediates\$(Platform)\$(Configuration)\</IntDir>
+    <IncludePath>$(VC_IncludePath);$(WindowsSDK_IncludePath);$(SolutionDir)Birday_Arcade\src</IncludePath>
     <Allegro_AddonImage>true</Allegro_AddonImage>
     <Allegro_AddonTTF>true</Allegro_AddonTTF>
     <Allegro_AddonPrimitives>true</Allegro_AddonPrimitives>
@@ -380,9 +117,6 @@
     <Allegro_AddonAcodec>true</Allegro_AddonAcodec>
     <Allegro_AddonFont>true</Allegro_AddonFont>
     <Allegro_AddonColor>true</Allegro_AddonColor>
-    <OutDir>$(SolutionDir)bin\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(SolutionDir)bin\intermediates\$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>Birday Arcade</TargetName>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -390,10 +124,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Birday_arcade\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
@@ -402,10 +135,9 @@
       <Optimization>Disabled</Optimization>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\Birday_arcade\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
-      <SubSystem>Windows</SubSystem>
+      <SubSystem>Console</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
@@ -416,12 +148,11 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>$(SolutionDir)\Birday_arcade\src;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
     <Link>
+      <SubSystem>Windows</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -434,21 +165,321 @@
       <ConformanceMode>true</ConformanceMode>
     </ClCompile>
     <Link>
+      <SubSystem>Console</SubSystem>
       <EnableCOMDATFolding>true</EnableCOMDATFolding>
       <OptimizeReferences>true</OptimizeReferences>
-      <SubSystem>Windows</SubSystem>
     </Link>
   </ItemDefinitionGroup>
+  <ItemGroup>
+    <Image Include="Assets\Image\Background\Ammo_Materials.png" />
+    <Image Include="Assets\Image\Background\Birday_Title.png" />
+    <Image Include="Assets\Image\Background\Character_Materials.png" />
+    <Image Include="Assets\Image\Background\Enemy_Weapon_Materials.png" />
+    <Image Include="Assets\Image\Background\Game_Over.png" />
+    <Image Include="Assets\Image\Background\Menu.png" />
+    <Image Include="Assets\Image\Background\Next_Prev.png" />
+    <Image Include="Assets\Image\Background\Player_Weapon_Materials.png" />
+    <Image Include="Assets\Image\Background\Power_Up_Materials.png" />
+    <Image Include="Assets\Image\Background\Terpos_Intro.png" />
+    <Image Include="Assets\Image\birday_icon.ico" />
+    <Image Include="Assets\Image\birday_icon.png" />
+    <Image Include="Assets\Image\Burn.png" />
+    <Image Include="Assets\Image\B_2_bomber.png" />
+    <Image Include="Assets\Image\Enemy\Ball.png" />
+    <Image Include="Assets\Image\Enemy\Ball_2.png" />
+    <Image Include="Assets\Image\Enemy\Cannon_Slug.png" />
+    <Image Include="Assets\Image\Enemy\Cannon_Slug_2.png" />
+    <Image Include="Assets\Image\Enemy\diamondo.png" />
+    <Image Include="Assets\Image\Enemy\diamondo_2.png" />
+    <Image Include="Assets\Image\Enemy\Fisher.png" />
+    <Image Include="Assets\Image\Enemy\Fisher_2.png" />
+    <Image Include="Assets\Image\Enemy\Magic_Mask.png" />
+    <Image Include="Assets\Image\Enemy\Magic_Mask_2.png" />
+    <Image Include="Assets\Image\Enemy\Tripus.png" />
+    <Image Include="Assets\Image\Enemy\Tripus_2.png" />
+    <Image Include="Assets\Image\Enemy\Weapon\Ball_Shot.png" />
+    <Image Include="Assets\Image\Enemy\Weapon\Bubble_shot.png" />
+    <Image Include="Assets\Image\Enemy\Weapon\Diamond.png" />
+    <Image Include="Assets\Image\Enemy\Weapon\Fire.png" />
+    <Image Include="Assets\Image\Enemy\Weapon\Grapple.png" />
+    <Image Include="Assets\Image\Enemy\Weapon\Gunk.png" />
+    <Image Include="Assets\Image\Enemy\Weapon\Lightning.png" />
+    <Image Include="Assets\Image\Enemy\Weapon\Missle.png" />
+    <Image Include="Assets\Image\Enemy\Weapon\Star_shot.png" />
+    <Image Include="Assets\Image\Enemy\Weapon\Venom_Spit.png" />
+    <Image Include="Assets\Image\Enemy_Destroyed.png" />
+    <Image Include="Assets\Image\Explosion_From_Bombs.png" />
+    <Image Include="Assets\Image\Explosion_From_Weapon.png" />
+    <Image Include="Assets\Image\Freeze.png" />
+    <Image Include="Assets\Image\needle_wind.png" />
+    <Image Include="Assets\Image\Player\Birday - Copy.png" />
+    <Image Include="Assets\Image\Player\Birday.png" />
+    <Image Include="Assets\Image\Player\Weapon\Arrow.png" />
+    <Image Include="Assets\Image\Player\Weapon\Atomic_Bombs.png" />
+    <Image Include="Assets\Image\Player\Weapon\Bi_Nuke.png" />
+    <Image Include="Assets\Image\Player\Weapon\Bombs.png" />
+    <Image Include="Assets\Image\Player\Weapon\Fire_Bombs.png" />
+    <Image Include="Assets\Image\Player\Weapon\Ice_Bombs.png" />
+    <Image Include="Assets\Image\Player\Weapon\Lazer.png" />
+    <Image Include="Assets\Image\Player\Weapon\Rocket_Lazer.png" />
+    <Image Include="Assets\Image\Player\Weapon\Slicer.png" />
+    <Image Include="Assets\Image\Player\Weapon\Stunner.png" />
+    <Image Include="Assets\Image\Player\Weapon\Triangular_Missle.png" />
+    <Image Include="Assets\Image\Player\Weapon\Tri_Nuke.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Arrow_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Atomic_Bomb_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Bi_Nuke_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Bomb_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Fire_Bomb_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Ice_Bomb_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Rocket_Lazer_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Slicer_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Stunner_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Triangular_Missile_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\Ammo\Tri_nuke_Ammo.png" />
+    <Image Include="Assets\Image\Power_Ups\B_2_Bomber_Strike_Chip.png" />
+    <Image Include="Assets\Image\Power_Ups\Copy_chip.png" />
+    <Image Include="Assets\Image\Power_Ups\Gliding_chip.png" />
+    <Image Include="Assets\Image\Power_Ups\Health_chip.png" />
+    <Image Include="Assets\Image\Power_Ups\Needle_wind_blast_chip.png" />
+    <Image Include="Assets\Image\Power_Ups\Stop_Chip.png" />
+    <Image Include="Assets\Image\Tiles\Blue_Circle_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Blue_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Brick_Wall_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Dark_Gray_Circle_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Dark_Gray_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Fence_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Flower_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Grass_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Gray_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Palm_tree_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Pillar_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Purple_Circle_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Purple_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Rock_Tile.png" />
+    <Image Include="Assets\Image\Tiles\Sand_Tile.png" />
+    <Image Include="src\Asset_management\glass.jpg" />
+    <Image Include="src\Asset_management\white.png" />
+    <Image Include="src\Asset_management\white2.png" />
+    <Image Include="src\glass.jpg" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="src\Asset_management\Animation.h" />
+    <ClInclude Include="src\Asset_management\Font.h" />
+    <ClInclude Include="src\Asset_management\Image.h" />
+    <ClInclude Include="src\Asset_management\Sound.h" />
+    <ClInclude Include="src\Asset_management\Tile_map.h" />
+    <ClInclude Include="src\Entities\Collision.h" />
+    <ClInclude Include="src\Entities\Enemy\Ball.h" />
+    <ClInclude Include="src\Entities\Enemy\Cannon_Slug.h" />
+    <ClInclude Include="src\Entities\Enemy\Diamondo.h" />
+    <ClInclude Include="src\Entities\Enemy\Enemy.h" />
+    <ClInclude Include="src\Entities\Enemy\Fisher.h" />
+    <ClInclude Include="src\Entities\Enemy\Magic_Mask.h" />
+    <ClInclude Include="src\Entities\Enemy\Tripus.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Ball_shot.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Bubble_Blast.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Diamond_Ice.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\E_Weapon.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Fire.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Grapple.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Gunk.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Missile.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Star_Bomb.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Thunder.h" />
+    <ClInclude Include="src\Entities\Enemy\Weapon\Venom_Spit.h" />
+    <ClInclude Include="src\Entities\Player\Player.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Arrow.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Atom_Bomb.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\BiNuke.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Bomb.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Fire_bomb.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Ice_Bomb.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Lazer.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\P_Weapon.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Rocket_lazer.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Slicer.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Stunner.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\Triangular_Missle.h" />
+    <ClInclude Include="src\Entities\Player\Weapon\TriNuke.h" />
+    <ClInclude Include="src\Entities\Power_Up\Ammo.h" />
+    <ClInclude Include="src\Entities\Power_Up\B_2_Bomber.h" />
+    <ClInclude Include="src\Entities\Power_Up\B_2_Bomber_Strike_Chip.h" />
+    <ClInclude Include="src\Entities\Power_Up\Copy_Chip.h" />
+    <ClInclude Include="src\Entities\Power_Up\Gliding_Chip.h" />
+    <ClInclude Include="src\Entities\Power_Up\Health_Chip.h" />
+    <ClInclude Include="src\Entities\Power_Up\Needle_Blast_Wind_Chip.h" />
+    <ClInclude Include="src\Entities\Power_Up\needle_wind.h" />
+    <ClInclude Include="src\Entities\Power_Up\Power_Up.h" />
+    <ClInclude Include="src\Entities\Power_Up\Stop_Time_Chip.h" />
+    <ClInclude Include="src\global.h" />
+    <ClInclude Include="src\key_strings_allegro.h" />
+    <ClInclude Include="src\Screen_state\Game.h" />
+    <ClInclude Include="src\Screen_state\Game_Materials.h" />
+    <ClInclude Include="src\Screen_state\Game_Over.h" />
+    <ClInclude Include="src\Screen_state\Menu.h" />
+    <ClInclude Include="src\Screen_state\Options.h" />
+    <ClInclude Include="src\Screen_state\Pause.h" />
+    <ClInclude Include="src\Screen_state\Quit.h" />
+    <ClInclude Include="src\Screen_state\Weapons_Unlocked_List.h" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="src\Asset_management\Animation.cpp" />
+    <ClCompile Include="src\Asset_management\Font.cpp" />
+    <ClCompile Include="src\Asset_management\Image.cpp" />
+    <ClCompile Include="src\Asset_management\Sound.cpp" />
+    <ClCompile Include="src\Asset_management\Tile_map.cpp" />
+    <ClCompile Include="src\Entities\Collision.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Ball.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Cannon_Slug.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Diamondo.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Enemy.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Fisher.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Magic_Mask.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Tripus.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Ball_shot.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Bubble_Blast.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Diamond_Ice.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\E_Weapon.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Fire.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Grapple.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Gunk.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Missile.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Star_Bomb.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Thunder.cpp" />
+    <ClCompile Include="src\Entities\Enemy\Weapon\Venom_Spit.cpp" />
+    <ClCompile Include="src\Entities\Player\Player.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Arrow.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Atom_Bomb.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\BiNuke.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Bomb.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Fire_bomb.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Ice_Bomb.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Lazer.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\P_Weapon.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Rocket_lazer.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Slicer.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Stunner.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\Triangular_Missle.cpp" />
+    <ClCompile Include="src\Entities\Player\Weapon\TriNuke.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\Ammo.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\B_2_Bomber.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\B_2_Bomber_Strike_Chip.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\Copy_Chip.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\Gliding_Chip.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\Health_Chip.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\Needle_Blast_Wind_Chip.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\needle_wind.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\Power_Up.cpp" />
+    <ClCompile Include="src\Entities\Power_Up\Stop_Time_Chip.cpp" />
+    <ClCompile Include="src\Screen_state\Game.cpp" />
+    <ClCompile Include="src\Screen_state\Game_Materials.cpp" />
+    <ClCompile Include="src\Screen_state\Game_Over.cpp" />
+    <ClCompile Include="src\Screen_state\Menu.cpp" />
+    <ClCompile Include="src\Screen_state\Options.cpp" />
+    <ClCompile Include="src\Screen_state\Pause.cpp" />
+    <ClCompile Include="src\Screen_state\Quit.cpp" />
+    <ClCompile Include="src\Screen_state\Weapons_Unlocked_List.cpp" />
+    <ClCompile Include="src\Source.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Assets\Font\PIXELITE.FON" />
+    <None Include="Assets\Image\Background\Ammo_Materials.png~" />
+    <None Include="Assets\Image\Background\Birday_Title.png~" />
+    <None Include="Assets\Image\Background\Character_Materials.png~" />
+    <None Include="Assets\Image\Background\Next_Prev.png~" />
+    <None Include="Assets\Image\Enemy\Cannon_Slug.png~" />
+    <None Include="Assets\Image\Enemy\diamondo.png~" />
+    <None Include="Assets\Image\Enemy\diamondo_2.png~" />
+    <None Include="Assets\Image\Enemy\Weapon\Gunk.png~" />
+    <None Include="Assets\Image\Player\Birday.png~" />
+    <None Include="Assets\Image\Player\Weapon\Atomic_Bombs.png~" />
+    <None Include="Assets\Image\Player\Weapon\Bombs.png~" />
+    <None Include="Assets\Image\Player\Weapon\Fire_Bombs.png~" />
+    <None Include="Assets\Image\Player\Weapon\Ice_Bombs.png~" />
+    <None Include="Assets\Image\Tiles\White_Circle_Tile.png~" />
+    <None Include="Assets\Sound\Background_Music\Game_over.ogg" />
+    <None Include="Assets\Sound\Background_Music\Level_1-4.ogg" />
+    <None Include="Assets\Sound\Background_Music\Level_15-24.ogg" />
+    <None Include="Assets\Sound\Background_Music\Level_25-44.ogg" />
+    <None Include="Assets\Sound\Background_Music\Level_41-UP.ogg" />
+    <None Include="Assets\Sound\Background_Music\Level_5-14.ogg" />
+    <None Include="Assets\Sound\Background_Music\Menu.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\438991__stopmotionbros__wind.m4a" />
+    <None Include="Assets\Sound\Sound_Effects\Arrow.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Blast.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Blasters.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Boing.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Bubble.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Clang.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\damage.flac" />
+    <None Include="Assets\Sound\Sound_Effects\Damage.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Enemy_Damage.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Enemy_Destroy.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Fast_Sparkling_Whoosh.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Flame_arrow.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Gunk.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Health.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Laser_shot_scilenced.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Liquid_Ice.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Missile_Launcher_Explosion.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\missile_shot.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Power_up.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Select.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Slicer.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Spit_splat.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Tape_Slow_Down.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Wind.ogg" />
+    <None Include="Assets\Sound\Sound_Effects\Zap.ogg" />
+    <None Include="packages.config" />
+    <None Include="src\Asset_management\Font.bat" />
+    <None Include="src\Asset_management\Image.bat" />
+    <None Include="src\Asset_management\Sound.bat" />
+  </ItemGroup>
+  <ItemGroup>
+    <Text Include="Assets\Font\license.txt" />
+    <Text Include="Assets\Font\readme.txt" />
+    <Text Include="Assets\Tile_map.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <Font Include="Assets\Font\pixelmix.ttf" />
+    <Font Include="Assets\Font\pixelmix_bold.ttf" />
+  </ItemGroup>
+  <ItemGroup>
+    <Media Include="Assets\Sound\Sound_Effects\151022__bubaproducer__laser-shot-silenced.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\162387__zandernoriega__health-1.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\198113__editor-adp__clang-4.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\205073__robinhood76__04658-fast-sparkling-whoosh.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\205563__everheat__arrow.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\220173__gameaudio__spacey-1up-power-up.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\264779__anthonychan0__civilian-stun-gun-1-10s-zap.mp3" />
+    <Media Include="Assets\Sound\Sound_Effects\269583__ifrosta__bubble.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\341596__dpsa__motor.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\351370__wilhellboy__heavyringingclang.mp3" />
+    <Media Include="Assets\Sound\Sound_Effects\362422__alphatrooper18__hit1.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\411492__inspectorj__jew-s-harp-single-a-h6-xy.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\42994__noisecollector__blasters.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\433009__lauraguila89__liquid-ice.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\455918__bolkmar__missile-launcher-explosion-only.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\458867__raclure__damage-sound-effect.mp3" />
+    <Media Include="Assets\Sound\Sound_Effects\459150__mattix__retro-underwater-explosion.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\49236__zerolagtime__tape-slow1.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\57708__sound-master__gunk-1.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\Blast-SoundBible.com-2068539061.mp3" />
+    <Media Include="Assets\Sound\Sound_Effects\Flame Arrow-SoundBible.com-618067908.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\Missile Fire War-SoundBible.com-744427122.wav" />
+    <Media Include="Assets\Sound\Sound_Effects\Spit_Splat-Mike_Koenig-1170500447.wav" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
-    <Import Project="..\packages\AllegroDeps.1.10.0.0\build\native\AllegroDeps.targets" Condition="Exists('..\packages\AllegroDeps.1.10.0.0\build\native\AllegroDeps.targets')" />
-    <Import Project="..\packages\Allegro.5.2.5.2\build\native\Allegro.targets" Condition="Exists('..\packages\Allegro.5.2.5.2\build\native\Allegro.targets')" />
+    <Import Project="..\packages\AllegroDeps.1.11.0\build\native\AllegroDeps.targets" Condition="Exists('..\packages\AllegroDeps.1.11.0\build\native\AllegroDeps.targets')" />
+    <Import Project="..\packages\Allegro.5.2.6\build\native\Allegro.targets" Condition="Exists('..\packages\Allegro.5.2.6\build\native\Allegro.targets')" />
   </ImportGroup>
   <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
     <PropertyGroup>
       <ErrorText>This project references NuGet package(s) that are missing on this computer. Use NuGet Package Restore to download them.  For more information, see http://go.microsoft.com/fwlink/?LinkID=322105. The missing file is {0}.</ErrorText>
     </PropertyGroup>
-    <Error Condition="!Exists('..\packages\AllegroDeps.1.10.0.0\build\native\AllegroDeps.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\AllegroDeps.1.10.0.0\build\native\AllegroDeps.targets'))" />
-    <Error Condition="!Exists('..\packages\Allegro.5.2.5.2\build\native\Allegro.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Allegro.5.2.5.2\build\native\Allegro.targets'))" />
+    <Error Condition="!Exists('..\packages\AllegroDeps.1.11.0\build\native\AllegroDeps.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\AllegroDeps.1.11.0\build\native\AllegroDeps.targets'))" />
+    <Error Condition="!Exists('..\packages\Allegro.5.2.6\build\native\Allegro.targets')" Text="$([System.String]::Format('$(ErrorText)', '..\packages\Allegro.5.2.6\build\native\Allegro.targets'))" />
   </Target>
 </Project>
