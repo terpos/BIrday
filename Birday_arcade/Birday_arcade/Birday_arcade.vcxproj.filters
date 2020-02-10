@@ -30,9 +30,6 @@
     <Image Include="Assets\Image\B_2_bomber.png">
       <Filter>Resource Files</Filter>
     </Image>
-    <Image Include="Assets\Image\birday_icon.ico">
-      <Filter>Resource Files</Filter>
-    </Image>
     <Image Include="Assets\Image\birday_icon.png">
       <Filter>Resource Files</Filter>
     </Image>
@@ -288,6 +285,9 @@
     <Image Include="Assets\Image\Tiles\Sand_Tile.png">
       <Filter>Resource Files</Filter>
     </Image>
+    <Image Include="Assets\Image\birday_icon.ico">
+      <Filter>Resource Files</Filter>
+    </Image>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\global.h">
@@ -462,6 +462,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Asset_management\Tile_map.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
@@ -769,5 +772,10 @@
     <Media Include="Assets\Sound\Sound_Effects\Spit_Splat-Mike_Koenig-1170500447.wav">
       <Filter>Resource Files</Filter>
     </Media>
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Birday_Arcade.rc">
+      <Filter>Resource Files</Filter>
+    </ResourceCompile>
   </ItemGroup>
 </Project>

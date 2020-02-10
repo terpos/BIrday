@@ -23,6 +23,7 @@
     <ProjectGuid>{FC9FD9E3-3268-4532-AB48-6DDACE1DC8F9}</ProjectGuid>
     <RootNamespace>BirdayArcade</RootNamespace>
     <WindowsTargetPlatformVersion>10.0.17763.0</WindowsTargetPlatformVersion>
+    <ProjectName>Birday_Arcade</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -264,6 +265,7 @@
     <Image Include="src\glass.jpg" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="resource.h" />
     <ClInclude Include="src\Asset_management\Animation.h" />
     <ClInclude Include="src\Asset_management\Font.h" />
     <ClInclude Include="src\Asset_management\Image.h" />
@@ -469,6 +471,9 @@
     <Media Include="Assets\Sound\Sound_Effects\Flame Arrow-SoundBible.com-618067908.wav" />
     <Media Include="Assets\Sound\Sound_Effects\Missile Fire War-SoundBible.com-744427122.wav" />
     <Media Include="Assets\Sound\Sound_Effects\Spit_Splat-Mike_Koenig-1170500447.wav" />
+  </ItemGroup>
+  <ItemGroup>
+    <ResourceCompile Include="Birday_Arcade.rc" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
