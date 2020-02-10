@@ -11,10 +11,10 @@ Font::~Font()
 
 void Font::load()
 {
-	text.push_back(al_load_font("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix.ttf", 24, NULL));
-	text.push_back(al_load_font("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix_bold.ttf", 72, NULL));
-	text.push_back(al_load_font("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix_bold.ttf", 12, NULL));
-	text.push_back(al_load_font("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix_bold.ttf", 16, NULL));
+	text.push_back(al_load_font("c:/Users/Kamal/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix.ttf", 24, NULL));
+	text.push_back(al_load_font("c:/Users/Kamal/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix_bold.ttf", 72, NULL));
+	text.push_back(al_load_font("c:/Users/Kamal/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix_bold.ttf", 12, NULL));
+	text.push_back(al_load_font("c:/Users/Kamal/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Font/pixelmix_bold.ttf", 16, NULL));
 
 
 	for (int i = 0; i < text.size(); i++)
@@ -37,7 +37,7 @@ void Font::Font_error_check()
 	}
 
 	catch (int x) {
-		system("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/src/Asset_management/Font.bat");
+		system("c:/Users/Kamal/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/src/Asset_management/Font.bat");
 		exit(EXIT_FAILURE);
 	}
 }

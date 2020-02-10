@@ -1,6 +1,142 @@
-﻿  Generating code
-  0 of 1645 functions ( 0.0%) were compiled, the rest were copied from previous compilation.
+<<<<<<< HEAD
+﻿  Font.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\font.cpp(20): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\font.cpp(30): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\font.cpp(39): warning C4101: 'x': unreferenced local variable
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\font.cpp(52): warning C4018: '<': signed/unsigned mismatch
+  Image.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(138): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(143): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(148): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(153): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(158): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(163): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(168): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(173): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(178): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(183): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(188): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(199): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(209): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(218): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(227): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(236): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(246): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(255): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(264): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(273): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(282): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(291): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(301): warning C4101: 'x': unreferenced local variable
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(312): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(317): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(322): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(327): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(332): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(337): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(342): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(347): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(352): warning C4018: '<': signed/unsigned mismatch
+  Sound.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\sound.cpp(65): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\sound.cpp(72): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\sound.cpp(83): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\sound.cpp(92): warning C4101: 'x': unreferenced local variable
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\sound.cpp(114): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\sound.cpp(119): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\sound.cpp(124): warning C4018: '<': signed/unsigned mismatch
+  Tile_map.cpp
+  Collision.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\entities\collision.cpp(55): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\entities\collision.cpp(64): warning C4018: '<': signed/unsigned mismatch
+  Ball.cpp
+  Cannon_Slug.cpp
+  Diamondo.cpp
+  Enemy.cpp
+  Fisher.cpp
+  Magic_Mask.cpp
+  Tripus.cpp
+  Ball_shot.cpp
+  Bubble_Blast.cpp
+  Diamond_Ice.cpp
+  E_Weapon.cpp
+  Fire.cpp
+  Grapple.cpp
+  Gunk.cpp
+  Missile.cpp
+  Compiling...
+  Star_Bomb.cpp
+  Thunder.cpp
+  Venom_Spit.cpp
+  Player.cpp
+  Arrow.cpp
+  Atom_Bomb.cpp
+  BiNuke.cpp
+  Bomb.cpp
+  Fire_bomb.cpp
+  Ice_Bomb.cpp
+  Lazer.cpp
+  P_Weapon.cpp
+  Rocket_lazer.cpp
+  Slicer.cpp
+  Stunner.cpp
+  TriNuke.cpp
+  Triangular_Missle.cpp
+  Ammo.cpp
+  B_2_Bomber.cpp
+  B_2_Bomber_Strike_Chip.cpp
+  Compiling...
+  Copy_Chip.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\entities\power_up\copy_chip.cpp(64): warning C4018: '<': signed/unsigned mismatch
+  Gliding_Chip.cpp
+  Health_Chip.cpp
+  Needle_Blast_Wind_Chip.cpp
+  Power_Up.cpp
+  Stop_Time_Chip.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\entities\power_up\stop_time_chip.cpp(24): warning C4018: '<': signed/unsigned mismatch
+  needle_wind.cpp
+  Game.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1511): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1513): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1533): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1543): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1580): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1640): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1667): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1715): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1735): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1748): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1762): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1767): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1782): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2468): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2521): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2526): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2531): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2536): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2546): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2551): warning C4018: '<': signed/unsigned mismatch
+  Game_Materials.cpp
+  Game_Over.cpp
+  Menu.cpp
+  Options.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\options.cpp(230): warning C4804: '>': unsafe use of type 'bool' in operation
+  Pause.cpp
+  Quit.cpp
+  Weapons_Unlocked_List.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\weapons_unlocked_list.cpp(73): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\weapons_unlocked_list.cpp(82): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\weapons_unlocked_list.cpp(89): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\weapons_unlocked_list.cpp(91): warning C4018: '<': signed/unsigned mismatch
+  Source.cpp
+  Generating code
+  1345 of 1645 functions (81.8%) were compiled, the rest were copied from previous compilation.
+=======
+﻿  Source.cpp
+  Generating code
+  1 of 1645 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+>>>>>>> 129b18035014b35963de9da953052d0a7db84938
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    66 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
-  Birday_arcade.vcxproj -> C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Release\Birday Arcade.exe
+  Birday_arcade.vcxproj -> C:\Users\Kamal\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Release\Birday Arcade.exe
