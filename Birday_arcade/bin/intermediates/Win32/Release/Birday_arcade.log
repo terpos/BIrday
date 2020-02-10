@@ -1,4 +1,5 @@
 <<<<<<< HEAD
+<<<<<<< HEAD
 ﻿  Font.cpp
 c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\font.cpp(20): warning C4018: '<': signed/unsigned mismatch
 c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\font.cpp(30): warning C4018: '<': signed/unsigned mismatch
@@ -131,6 +132,11 @@ c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_st
   Source.cpp
   Generating code
   1345 of 1645 functions (81.8%) were compiled, the rest were copied from previous compilation.
+=======
+﻿  Source.cpp
+  Generating code
+  1 of 1645 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+>>>>>>> 129b18035014b35963de9da953052d0a7db84938
 =======
 ﻿  Source.cpp
   Generating code
