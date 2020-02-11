@@ -16,5 +16,6 @@ public:
 
 private:
 	std::vector <ALLEGRO_FONT *> text;
+	ALLEGRO_PATH *path;
 };
 

@@ -34,7 +34,12 @@ int main()
 	//sets the new display flags
 	//al_set_new_display_flags(ALLEGRO_FULLSCREEN);
 	
-	ALLEGRO_BITMAP * icon = al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/birday_icon.png");
+	ALLEGRO_PATH *path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+	al_append_path_component(path, "Assets");
+	al_set_path_filename(path, "Image/birday_icon.png");
+
+
+	ALLEGRO_BITMAP * icon = al_load_bitmap(al_path_cstr(path, '/'));
 	//initializes and creates display
 	ALLEGRO_DISPLAY *display = al_create_display(1360, 768);
 
@@ -80,8 +85,9 @@ int main()
 	//timer variable
 	ALLEGRO_TIMER *timer = al_create_timer(1 / fps);
 
+	al_set_path_filename(path, "Tile_map.txt");
 
-	m.load("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Tile_map.txt");
+	m.load(al_path_cstr(path, '/'));
 	image.Load_Images();
 	font.load();
 	sound.Load_Sound();
@@ -183,7 +189,7 @@ int main()
 
 	al_destroy_timer(timer);
 	al_destroy_event_queue(q);
-	
+	al_destroy_path(path);
 	font.deallocate();
 	image.Deallocate_image(m);
 	sound.Deallocate_sound();

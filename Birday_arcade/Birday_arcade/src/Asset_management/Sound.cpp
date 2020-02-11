@@ -16,40 +16,76 @@ Sound::~Sound()
 
 void Sound::Load_Sound()
 {
+	path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
+	al_append_path_component(path, "Assets");
+
 
 	al_reserve_samples(30);
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Background_Music/Game_over.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Background_Music/Level_1-4.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Background_Music/Level_5-14.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Background_Music/Level_15-24.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Background_Music/Level_25-44.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Background_Music/Level_41-UP.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Background_Music/Menu.ogg"));
+	
+	al_set_path_filename(path, "Sound/Background_Music/Game_over.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Background_Music/Level_1-4.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Background_Music/Level_5-14.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Background_Music/Level_15-24.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Background_Music/Level_25-44.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Background_Music/Level_41-UP.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Background_Music/Menu.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
 
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Arrow.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Blast.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Blasters.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Boing.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Bubble.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Clang.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Damage.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Enemy_Damage.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Enemy_Destroy.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Fast_Sparkling_Whoosh.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Flame_Arrow.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Gunk.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Health.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Laser_shot_scilenced.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Liquid_Ice.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Missile_Launcher_Explosion.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Power_up.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Select.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Slicer.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Spit_splat.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Tape_Slow_Down.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Wind.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/Zap.ogg"));
-	sample.push_back(al_load_sample("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Sound/Sound_Effects/missile_Shot.ogg"));
+
+	al_set_path_filename(path, "Sound/Sound_Effects/Arrow.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Blast.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Blasters.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Boing.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Bubble.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Clang.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Damage.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Enemy_Damage.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Enemy_Destroy.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Fast_Sparkling_Whoosh.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Flame_Arrow.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Gunk.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Health.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Laser_shot_scilenced.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Liquid_Ice.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Missile_Launcher_Explosion.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Power_up.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Select.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Slicer.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Spit_splat.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Tape_Slow_Down.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Wind.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/Zap.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
+	al_set_path_filename(path, "Sound/Sound_Effects/missile_Shot.ogg");
+	sample.push_back(al_load_sample(al_path_cstr(path, '/')));
 
 
 	Sound_error_check();

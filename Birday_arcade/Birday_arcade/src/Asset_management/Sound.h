@@ -29,6 +29,7 @@ private:
 
 	//sample instance variables
 	std::vector <ALLEGRO_SAMPLE_INSTANCE *> bg, sound_fx;
+	ALLEGRO_PATH *path;
 
 
 
