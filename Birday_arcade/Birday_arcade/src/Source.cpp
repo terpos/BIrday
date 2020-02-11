@@ -32,7 +32,7 @@ int main()
 	al_init_primitives_addon();
 
 	//sets the new display flags
-	al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+	//al_set_new_display_flags(ALLEGRO_FULLSCREEN);
 	
 	ALLEGRO_BITMAP * icon = al_load_bitmap("c:/Users/gebei/Documents/GitHub/Birday/Birday_arcade/Birday_arcade/Assets/Image/birday_icon.png");
 	//initializes and creates display

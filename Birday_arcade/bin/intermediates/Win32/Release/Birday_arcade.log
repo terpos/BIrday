@@ -1,9 +1,41 @@
-﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\Community\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\\bin\Intermediates\Win32\Release\) contains files shared from another project (birday_icon.ico.vcxproj).  This can lead to incorrect clean and rebuild behavior.
-  Source.cpp
+﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\\bin\Intermediates\Win32\Release\) contains files shared from another project (birday_icon.ico.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Image.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(253): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(258): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(263): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(268): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(273): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(278): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(283): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(288): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(293): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(298): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(303): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(314): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(324): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(333): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(342): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(351): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(361): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(370): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(379): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(388): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(397): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(406): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(416): warning C4101: 'x': unreferenced local variable
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(428): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(433): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(438): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(443): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(448): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(453): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(458): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(463): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\asset_management\image.cpp(468): warning C4018: '<': signed/unsigned mismatch
   Generating code
-  1 of 1645 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  18 of 1645 functions ( 1.1%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
-    1 functions had inline decision re-evaluated but remain unchanged
+    10 functions had inline decision re-evaluated but remain unchanged
   Finished generating code
 allegro_monolith-static.lib(allegro.obj) : warning LNK4099: PDB 'allegro_monolith.pdb' was not found with 'allegro_monolith-static.lib(allegro.obj)' or at 'C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Release\allegro_monolith.pdb'; linking object as if no debug info
 allegro_monolith-static.lib(bitmap.obj) : warning LNK4099: PDB 'allegro_monolith.pdb' was not found with 'allegro_monolith-static.lib(bitmap.obj)' or at 'C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Release\allegro_monolith.pdb'; linking object as if no debug info
@@ -431,4 +463,4 @@ opusfile.lib(info.obj) : warning LNK4099: PDB 'opusfile.pdb' was not found with 
 opusfile.lib(internal.obj) : warning LNK4099: PDB 'opusfile.pdb' was not found with 'opusfile.lib(internal.obj)' or at 'C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Release\opusfile.pdb'; linking object as if no debug info
 opusfile.lib(opusfile.obj) : warning LNK4099: PDB 'opusfile.pdb' was not found with 'opusfile.lib(opusfile.obj)' or at 'C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Release\opusfile.pdb'; linking object as if no debug info
 opusfile.lib(stream.obj) : warning LNK4099: PDB 'opusfile.pdb' was not found with 'opusfile.lib(stream.obj)' or at 'C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Release\opusfile.pdb'; linking object as if no debug info
-  Birday_Arcade.vcxproj -> C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\\bin\Win32\Release\Birday_Arcade.exe
+  Birday_Arcade.vcxproj -> C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\bin\Win32\Release\Birday_Arcade.exe

@@ -54,7 +54,8 @@ private:
 	std::vector < std::pair <ALLEGRO_BITMAP*, int> > tile_piece, enemies, player, P_weapon, 
 		E_weapon, PowerUp, Player_Weapon_Ammo, Background, Destruction, status, misc; 
 
-	
+	ALLEGRO_PATH *path;
+
 	
 };
 
