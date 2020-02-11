@@ -32,7 +32,7 @@ int main()
 	al_init_primitives_addon();
 
 	//sets the new display flags
-	//al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+	al_set_new_display_flags(ALLEGRO_FULLSCREEN);
 	
 	ALLEGRO_PATH *path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
 	al_append_path_component(path, "Assets");
