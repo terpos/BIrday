@@ -606,6 +606,7 @@ void Player::update(std::vector <P_Weapon*> &pweapon)
 
 	if (is_hit().second == 1)
 	{
+
 		Damage.increment_frame();
 	}
 

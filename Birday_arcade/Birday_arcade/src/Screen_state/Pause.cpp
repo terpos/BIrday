@@ -14,7 +14,7 @@ Pause::~Pause()
 {
 }
 
-void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Options &option, Game &game, ALLEGRO_EVENT & e, Weapons_Unlocked_List &weapons_unlocked, int & screennum, bool & done)
+void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, Options &option, Game &game, Sound sound, ALLEGRO_EVENT & e, Weapons_Unlocked_List &weapons_unlocked, int & screennum, bool & done)
 {
 	al_wait_for_event(q, &e);
 
@@ -29,6 +29,8 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_UP)
 		{
+			al_set_sample_instance_position(sound.sound_effects(17), 0);
+			al_play_sample_instance(sound.sound_effects(17));
 			options--;
 			if (options < 1)
 			{
@@ -38,6 +40,8 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN)
 		{
+			al_set_sample_instance_position(sound.sound_effects(17), 0);
+			al_play_sample_instance(sound.sound_effects(17));
 			options++;
 			if (options > 4)
 			{
@@ -58,6 +62,7 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 			break;
 
 		case ALLEGRO_KEY_3:
+			option.set_last_screen_to_option(PAUSE_SCREEN);
 			option.set_last_screen(PAUSE_SCREEN);
 			screennum = OPTION_SCREEN;
 			break;
@@ -78,6 +83,8 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 			else if (options == 3)
 			{
 				option.set_last_screen(PAUSE_SCREEN);
+				option.set_last_screen_to_option(PAUSE_SCREEN);
+
 				screennum = options;
 			}
 

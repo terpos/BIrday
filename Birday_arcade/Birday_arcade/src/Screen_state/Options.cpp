@@ -24,6 +24,7 @@ Options::Options()
 	control_option[6] = ALLEGRO_KEY_S;
 	
 	press_any_key = false;
+	quit = false;
 	set_sound_options(true);
 }
 
@@ -65,6 +66,26 @@ void Options::set_last_screen(int screennum)
 	this->screennum = screennum;
 }
 
+int Options::get_last_screen_to_option()
+{
+	return this->to_option;
+}
+
+void Options::set_last_screen_to_option(int screennum)
+{
+	this->to_option = screennum;
+}
+
+bool Options::is_quitting()
+{
+	return this->quit;
+}
+
+void Options::set_quit(bool quit)
+{
+	this->quit = quit;
+}
+
 int Options::get_tile_options()
 {
 	return this->tile_options;
@@ -96,13 +117,14 @@ int Options::get_level_for_difficulty()
 	return 0;
 }
 
-void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image image, ALLEGRO_EVENT & e, int & screennum, bool & done)
+void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Sound sound, Image image, ALLEGRO_EVENT & e, int & screennum, bool & done)
 {
+	std::cout << is_quitting() << std::endl;
 	al_wait_for_event(q, &e);
 
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
-		if (get_last_screen() == MENU_SCREEN)
+		if (get_last_screen_to_option() == MENU_SCREEN)
 		{
 			if (options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9 || options == 10)
 			{
@@ -113,7 +135,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 			}
 		}
 
-		if (get_last_screen() == PAUSE_SCREEN)
+		if (get_last_screen_to_option() == PAUSE_SCREEN)
 		{
 			if (options == 3 || options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9)
 			{
@@ -133,6 +155,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 
 			else
 			{
+				set_quit(true);
 				set_last_screen(OPTION_SCREEN);
 				screennum = QUIT_SCREEN;
 			}
@@ -141,7 +164,8 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_UP && !press_any_key)
 		{
-
+			al_set_sample_instance_position(sound.sound_effects(17), 0);
+			al_play_sample_instance(sound.sound_effects(17));
 			options--;
 			if (options < 1)
 			{
@@ -152,7 +176,8 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN && !press_any_key)
 		{
-
+			al_set_sample_instance_position(sound.sound_effects(17), 0);
+			al_play_sample_instance(sound.sound_effects(17));
 			options++;
 			if (options > max_options)
 			{
@@ -249,7 +274,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 			{
 				if (options == 11)
 				{
-					screennum = get_last_screen();
+					screennum = get_last_screen_to_option();
 				}
 
 				if (options == 4 || options == 5 || options == 6 || options == 7 || options == 8 || options == 9 || options == 10)
@@ -280,18 +305,21 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 		{
 			if (!press_any_key)
 			{
-				screennum = get_last_screen();
+				screennum = get_last_screen_to_option();
 			}
 		}
 	}
+	//std::cout << key_display[70];
 
 
-
-	if (get_last_screen() == MENU_SCREEN)
+	if (get_last_screen_to_option() == MENU_SCREEN && !is_quitting())
 	{
+
 		max_options = 11;
 		if (press_any_key && num_of_key_pressed == 2)
 		{
+			std::cout << e.keyboard.keycode << std::endl;
+
 			switch (options)
 			{
 			case 4:
@@ -326,7 +354,7 @@ void Options::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image i
 		}
 	}
 
-	if (get_last_screen() == PAUSE_SCREEN)
+	if (get_last_screen_to_option() == PAUSE_SCREEN && !is_quitting())
 	{
 		max_options = 10;
 		if (press_any_key && num_of_key_pressed == 2)
@@ -373,14 +401,14 @@ void Options::render(Image image, Font font)
 
 	al_draw_text(font.get_font(1), al_map_rgb(255, 25, 90), 500, 150, NULL, "OPTION");
 
-	if (get_last_screen() == MENU_SCREEN)
+	if (get_last_screen_to_option() == MENU_SCREEN && !is_quitting())
 	{
 		al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "SOUND:");
 
 		al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "TILE STYLE:");
 		al_draw_text(font.get_font(0), notSel, 500, 390, NULL, "DIFFICULTY:");
 
-		al_draw_text(font.get_font(0), al_map_rgb(0, 200, 200), 500, 450, NULL, "CONTROLS:");
+		al_draw_text(font.get_font(0), al_map_rgb(0, 200, 200), 500, 450, NULL, "CONTROLS [PRESS ENTER TO CONFIGURE]:");
 		al_draw_text(font.get_font(0), notSel, 500, 480, NULL, "MOVE DOWN:");
 		al_draw_text(font.get_font(0), notSel, 500, 510, NULL, "MOVE UP:");
 		al_draw_text(font.get_font(0), notSel, 500, 540, NULL, "MOVE RIGHT:");
@@ -515,13 +543,13 @@ void Options::render(Image image, Font font)
 		}
 	}
 
-	if (get_last_screen() == PAUSE_SCREEN)
+	if (get_last_screen_to_option() == PAUSE_SCREEN && !is_quitting())
 	{
 		al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "SOUND:");
 
 		al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "TILE STYLE:");
 
-		al_draw_text(font.get_font(0), al_map_rgb(0, 200, 200), 500, 450, NULL, "CONTROLS:");
+		al_draw_text(font.get_font(0), al_map_rgb(0, 200, 200), 500, 450, NULL, "CONTROLS [PRESS ENTER TO CONFIGURE]:");
 		al_draw_text(font.get_font(0), notSel, 500, 480, NULL, "MOVE DOWN:");
 		al_draw_text(font.get_font(0), notSel, 500, 510, NULL, "MOVE UP:");
 		al_draw_text(font.get_font(0), notSel, 500, 540, NULL, "MOVE RIGHT:");

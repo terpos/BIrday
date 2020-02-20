@@ -40,6 +40,8 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_UP)
 		{
+			al_set_sample_instance_position(sound.sound_effects(17), 0);
+			al_play_sample_instance(sound.sound_effects(17));
 			options--;
 			if (options < 1)
 			{
@@ -49,6 +51,8 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN)
 		{
+			al_set_sample_instance_position(sound.sound_effects(17), 0);
+			al_play_sample_instance(sound.sound_effects(17));
 			options++;
 			if (options > 4)
 			{
@@ -60,6 +64,7 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 		{
 			if (options == OPTION_SCREEN)
 			{
+				option.set_last_screen_to_option(MENU_SCREEN);
 				option.set_last_screen(MENU_SCREEN);
 				screennum = options;
 			}

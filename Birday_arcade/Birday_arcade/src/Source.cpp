@@ -120,7 +120,7 @@ int main()
 			game.update(display, q, m, weapon_unlock, option, image, sound, ev, screennum, done);
 			break;
 		case OPTION_SCREEN:
-			option.update(display, q, image, ev, screennum, done);
+			option.update(display, q, sound, image, ev, screennum, done);
 			break;
 		case GAME_MATERIAL_SCREEN:
 			game_materials.update(display, q, image, option, ev, screennum, done);
@@ -129,7 +129,7 @@ int main()
 			quit.update(display, q, image, option, ev, screennum, done);
 			break;
 		case PAUSE_SCREEN:
-			pause.update(display, q, image, option, game, ev, weapon_unlock, screennum, done);
+			pause.update(display, q, image, option, game, sound, ev, weapon_unlock, screennum, done);
 			break;
 		case GAME_OVER_SCREEN:
 			game_over.update(display, q, image, sound, option, ev, screennum, done);

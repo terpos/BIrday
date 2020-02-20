@@ -1,6 +1,7 @@
 #include "global.h"
 #include "Asset_management/Image.h"
 #include "Asset_management/Font.h"
+#include "Asset_management/Sound.h"
 #include "key_strings_allegro.h"
 
 #pragma once
@@ -19,6 +20,12 @@ public:
 	int get_last_screen();
 	void set_last_screen(int screennum);
 
+	int get_last_screen_to_option();
+	void set_last_screen_to_option(int screennum);
+
+	bool is_quitting();
+	void set_quit(bool quit);
+
 	int get_tile_options();
 	void set_tile_options(int tile_options);
 
@@ -27,13 +34,13 @@ public:
 
 	int get_level_for_difficulty();
 
-	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, ALLEGRO_EVENT &e, int &screennum, bool &done);
+	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Sound sound, Image image, ALLEGRO_EVENT &e, int &screennum, bool &done);
 	void render(Image image, Font font);
 
 private:
 	Image image;
-	int options, tile_options, difficulty_option, control_option[7], screennum, num_of_key_pressed, max_options;
-	bool sound_options, press_any_key;
+	int options, tile_options, difficulty_option, control_option[7], screennum, num_of_key_pressed, max_options, to_option;
+	bool sound_options, press_any_key, quit;
 
 	ALLEGRO_COLOR Sel;
 	ALLEGRO_COLOR SelOption;

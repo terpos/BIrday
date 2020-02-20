@@ -10,7 +10,7 @@ public:
 	Quit();
 	~Quit();
 
-	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, Options option, ALLEGRO_EVENT &e, int &screennum, bool &done);
+	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, Options &option, ALLEGRO_EVENT &e, int &screennum, bool &done);
 	void render(Image image, Font font);
 
 private:

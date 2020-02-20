@@ -2,7 +2,7 @@
 
 #include <string>
 
-static std::string key_display[94] =
+static std::string key_display[227] =
 {
 	"",
 	"A",
@@ -67,23 +67,24 @@ static std::string key_display[94] =
 	"F11",
 	"F12",
 	
-	"ESC",
-	"~",
-	"-",
-	"=",
-	"BACKSPACE",
-	"TAB",
-	"{",
-	"}",
-	"ENTER",
-	";",
-	"0",
-	"\"",
-	"DE \\",
+	"ESC",//1
+	"~",//2
+	"-",//3
+	"=",//4
+	"BACKSPACE",//5
+	"TAB",//6
+	"{",//7
+	"}",//8
+	"ENTER",//9
+	";",//10
+	"\"",//11
+	"\\",
+	"DE \\",//12
 	",",
 	".",
 	"/",
 	"SPACE",
+
 	"INSERT",
 	"DEL",
 	"HOME",
@@ -101,5 +102,56 @@ static std::string key_display[94] =
 	"NUMPAD DEL",
 	"NUMPAD ENTER",
 	"PRTSCN",
-	"PAUSE" 
+	"PAUSE",
+
+	"ABNT_C1",
+	"YEN",
+	"KANA",
+	"CONVERT",
+	"NO CONVERT",
+	"@",
+	"CIRCUMFLEX",
+	": TWO",
+	"NUMPAD =",
+	"BACK \"",
+	"COMMAND",
+	"ANDROID KEY BACK",
+	"VOL UP",
+	"VOL DOWN",
+
+	"ANDROID KEY SEARCH",
+	"ANDROID KEY SEARCH",
+	"ANDROID KEY DPAD_CENTER",
+	"ANDROID KEY BUTTON_X",
+	"ANDROID KEY BUTTON_Y",
+	"ANDROID KEY DPAD_UP",
+	"ANDROID KEY DPAD_DOWN",
+	"ANDROID KEY DPAD_LEFT",
+	"ANDROID KEY DPAD_RIGHT",
+	"ANDROID KEY SELECT",
+	"ANDROID KEY START",
+	"ANDROID KEY BUTTON_L1",
+	"ANDROID KEY BUTTON_R1",
+	"ANDROID KEY BUTTON_L2",
+	"ANDROID KEY BUTTON_R2",
+	"ANDROID KEY BUTTON_A",
+	"ANDROID KEY BUTTON_B",
+	"ANDROID KEY THUMBL",
+	"ANDROID KEY THUMBR",
+	"ANDROID KEY UNKNOWN",
+
+	"LSHIFT",
+	"RSHIFT",
+	"LCTRL",
+	"RCTRL",
+	"ALT",
+	"ALTGR",
+	"LWIN",
+	"RWIN",
+	"MENU",
+	"SCROLLLOCK",
+	"NUMLOCK",
+	"CAPSLOCK"
+
 };
+

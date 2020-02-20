@@ -36,6 +36,8 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_UP)
 		{
+			al_set_sample_instance_position(sound.sound_effects(17), 0);
+			al_play_sample_instance(sound.sound_effects(17));
 			options--;
 			if (options < 1)
 			{
@@ -45,6 +47,8 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 
 		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN)
 		{
+			al_set_sample_instance_position(sound.sound_effects(17), 0);
+			al_play_sample_instance(sound.sound_effects(17));
 			options++;
 			if (options > 2)
 			{
