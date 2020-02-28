@@ -1,7 +1,89 @@
 ﻿C:\Program Files (x86)\Microsoft Visual Studio\2017\WDExpress\Common7\IDE\VC\VCTargets\Microsoft.CppBuild.targets(391,5): warning MSB8028: The intermediate directory (C:\Users\gebei\Documents\GitHub\Birday\Birday_arcade\\bin\Intermediates\Win32\Release\) contains files shared from another project (birday_icon.ico.vcxproj).  This can lead to incorrect clean and rebuild behavior.
+  Collision.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\entities\collision.cpp(55): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\entities\collision.cpp(64): warning C4018: '<': signed/unsigned mismatch
+  Ball.cpp
+  Cannon_Slug.cpp
+  Diamondo.cpp
+  Enemy.cpp
+  Fisher.cpp
+  Magic_Mask.cpp
+  Tripus.cpp
+  Ball_shot.cpp
+  Bubble_Blast.cpp
+  Diamond_Ice.cpp
+  E_Weapon.cpp
+  Fire.cpp
+  Grapple.cpp
+  Gunk.cpp
+  Missile.cpp
+  Star_Bomb.cpp
+  Thunder.cpp
+  Venom_Spit.cpp
+  Player.cpp
+  Compiling...
+  Arrow.cpp
+  Atom_Bomb.cpp
+  BiNuke.cpp
+  Bomb.cpp
+  Fire_bomb.cpp
+  Ice_Bomb.cpp
+  Lazer.cpp
+  P_Weapon.cpp
+  Rocket_lazer.cpp
+  Slicer.cpp
+  Stunner.cpp
+  TriNuke.cpp
+  Triangular_Missle.cpp
+  Ammo.cpp
+  B_2_Bomber.cpp
+  B_2_Bomber_Strike_Chip.cpp
+  Copy_Chip.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\entities\power_up\copy_chip.cpp(64): warning C4018: '<': signed/unsigned mismatch
+  Gliding_Chip.cpp
+  Health_Chip.cpp
+  Needle_Blast_Wind_Chip.cpp
+  Compiling...
+  Power_Up.cpp
+  Stop_Time_Chip.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\entities\power_up\stop_time_chip.cpp(24): warning C4018: '<': signed/unsigned mismatch
+  needle_wind.cpp
+  Game.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1528): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1530): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1557): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1566): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1605): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1672): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1699): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1751): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1771): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1784): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1798): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1804): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(1820): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2493): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2550): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2557): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2564): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2571): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2585): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\game.cpp(2592): warning C4018: '<': signed/unsigned mismatch
+  Game_Materials.cpp
+  Game_Over.cpp
+  Menu.cpp
+  Options.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\options.cpp(255): warning C4804: '>': unsafe use of type 'bool' in operation
+  Pause.cpp
+  Quit.cpp
+  Weapons_Unlocked_List.cpp
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\weapons_unlocked_list.cpp(78): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\weapons_unlocked_list.cpp(87): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\weapons_unlocked_list.cpp(93): warning C4018: '<': signed/unsigned mismatch
+c:\users\gebei\documents\github\birday\birday_arcade\birday_arcade\src\screen_state\weapons_unlocked_list.cpp(95): warning C4018: '<': signed/unsigned mismatch
   Source.cpp
   Generating code
-  1 of 1649 functions (<0.1%) were compiled, the rest were copied from previous compilation.
+  69 of 1649 functions ( 4.2%) were compiled, the rest were copied from previous compilation.
     0 functions were new in current compilation
     2 functions had inline decision re-evaluated but remain unchanged
   Finished generating code

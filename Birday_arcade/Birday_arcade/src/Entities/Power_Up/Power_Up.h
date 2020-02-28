@@ -1,3 +1,7 @@
+/*
+Classes that inherit this class will use the same functions
+*/
+
 #include "Entities/Player/Player.h"
 #include "Entities/Enemy/Enemy.h"
 #include "Asset_management/Image.h"
@@ -13,21 +17,21 @@ public:
 	Power_Up(Image image, int x, int y);
 	~Power_Up();
 
-	//gets the x position, y position, and image information/tags
+	//gets the x position, y position, image information/tags, and class id
 	virtual int get_x();
 	virtual int get_y();
-
 	virtual Image get_image();
 	virtual int get_id();
 
 	//sets the x position, y position, and image information/tags
 	virtual void set_x(int x);
 	virtual void set_y(int y);
+	virtual void set_image(Image image);
+
+	//gets random power up
 	virtual int get_random_powerup();
 
-	
-
-	virtual void set_image(Image image);
+	//sets the id of the power up
 	virtual void set_id(int id);
 
 	//functionality of the power up

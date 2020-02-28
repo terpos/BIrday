@@ -29,15 +29,16 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 	//waits until key is pressed (can be neglected since timer is on)
 	al_wait_for_event(q, &e);
 
-	//closes the window when escape key is pressed
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN && choice.get_alpha() == 255)
 	{
+		//goes to the quit screen when escape key is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
 			option.set_last_screen(MENU_SCREEN);
 			screennum = QUIT_SCREEN;
 		}
 
+		//direction of choice go up if up arrow is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_UP)
 		{
 			al_set_sample_instance_position(sound.sound_effects(17), 0);
@@ -49,6 +50,7 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 			}
 		}
 
+		//direction of choice go down if down arrow is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN)
 		{
 			al_set_sample_instance_position(sound.sound_effects(17), 0);
@@ -60,6 +62,7 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 			}
 		}
 
+		//selection occurs when enter key is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_ENTER)
 		{
 			if (options == OPTION_SCREEN)
@@ -81,6 +84,7 @@ void Menu::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image,
 
 	}
 
+	//updates info
 	if (e.type == ALLEGRO_EVENT_TIMER)
 	{
 		if (rect_out)
@@ -112,18 +116,23 @@ void Menu::render(Image image, Sound sound, Font font)
 {
 	al_clear_to_color(al_map_rgb(255, 255, 255));
 
+	//after terpos intro
 	if (rect_out)
 	{
-		
+		//plays birday's main theme
 		al_play_sample_instance(sound.bg_music(6));
+		
+		//displays the title and background
 		al_draw_tinted_bitmap(image.Background_image(MENU).first, al_map_rgba(255, 255, 255, bg.get_alpha()), 0, 0, NULL);
 		al_draw_tinted_bitmap(image.Background_image(BANNER).first, al_map_rgba(255, 255, 255, title.get_alpha()), 0, 0, NULL);
 
+		//renders all texts to the screen
 		al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "PLAY");
 		al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "MATERIALS IN THE GAME");
 		al_draw_text(font.get_font(0), notSel, 500, 390, NULL, "OPTION");
 		al_draw_text(font.get_font(0), notSel, 500, 420, NULL, "QUIT");
 
+		//renders the text based on selection
 		switch (options)
 		{
 		case GAME_SCREEN:
@@ -141,6 +150,7 @@ void Menu::render(Image image, Sound sound, Font font)
 		}
 	}
 
+	//during terpos intro
 	else
 	{
 		al_draw_tinted_bitmap(image.Background_image(9).first, al_map_rgba(255, 255, 255, intro.get_alpha()), -25, 0, NULL);

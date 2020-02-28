@@ -259,13 +259,14 @@ void Enemy::shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound,
 
 void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector <P_Weapon*> &pweapon, Image spritesheet, Sound sound)
 {
-	
+	//if enemy ran out of health
 	if (get_health() <= 0)
 	{
 		set_vel(0);
 		dead.increment_frame();
 	}
 
+	//if enemy is frozen, it stops and set duration
 	if (is_hit().first && is_hit().second == 2)
 	{
 		set_vel(0);
@@ -273,6 +274,7 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 		stop_duration = 300;
 	}
 
+	//if enemy is burned, it stops and sets duration
 	if (is_hit().first && is_hit().second == 3)
 	{
 		set_vel(0);
@@ -280,17 +282,20 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 		stop_duration = 300;
 	}
 
+	//if damage frame is greater than 100 it resets
 	if (damage.get_frame() >= 100)
 	{
 		set_hit(false, 0);
 		damage.reset_frame();
 	}
 
+	//if enemy gets damaged
 	if (is_hit().first && is_hit().second == 1)
 	{
 		damage.increment_frame();
 	}
 
+	//if enemy is stunned, it stops and sets duration
 	if (is_hit().first && is_hit().second == 4)
 	{
 		damage.increment_frame();
@@ -298,11 +303,14 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 		stop_duration++;
 	}
 
+	//sets random boundaries
 	std::uniform_int_distribution<int> d(0, 3);
 	std::uniform_int_distribution<int> duration(1, 7);
+
+	//enemy does move
 	if (get_vel() > 0)
 	{
-
+		//delays for enemies to change direction
 		if (nochange > 0)
 		{
 			this->nochange-=get_vel();
@@ -316,6 +324,7 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 
 		}
 
+		//enemies animation
 		if (animation.get_frame() == 100)
 		{
 			animation.reset_frame();
@@ -323,6 +332,7 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 
 		animation.increment_frame();
 
+		//shoots weapon
 		shoot(eweapon, option, sound, spritesheet);
 
 		if (get_direction() == 0)
@@ -348,6 +358,7 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 		
 	}
 
+	//if enemy does not move
 	else if (get_vel() == 0)
 	{
 		if (dead.get_frame() >= 20)
@@ -379,6 +390,7 @@ void Enemy::update(std::vector <E_Weapon*> &eweapon, Options option, std::vector
 
 void Enemy::render(Image death)
 {
+	//if enemy dies
 	if (get_health() <= 0)
 	{
 		if (dead.get_frame_position(21) >= 0 && dead.get_frame_position(21) <= 10)
@@ -392,6 +404,7 @@ void Enemy::render(Image death)
 		}
 	}
 
+	//if enemy does not die
 	else
 	{
 		if (is_hit().first && (is_hit().second == 1  || is_hit().second == 4))

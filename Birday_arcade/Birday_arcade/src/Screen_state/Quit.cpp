@@ -19,11 +19,13 @@ void Quit::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image imag
 
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
+		//goes to the quit screen when escape key is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
 			done = true;
 		}
 
+		//direction of choice go up if up arrow is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_UP)
 		{
 			options--;
@@ -33,6 +35,7 @@ void Quit::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image imag
 			}
 		}
 
+		//direction of choice go down if down arrow is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN)
 		{
 			options++;
@@ -42,6 +45,7 @@ void Quit::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image imag
 			}
 		}
 
+		//selection occurs when enter key is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_ENTER)
 		{
 			switch (options)
@@ -61,13 +65,17 @@ void Quit::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image imag
 
 void Quit::render(Image image, Font font)
 {
+	//background
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
+	//title
 	al_draw_text(font.get_font(1), al_map_rgb(255, 255, 255), 400, 150, NULL, "ARE YOU SURE");
 
+	//renders all texts to the screen
 	al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "YES");
 	al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "NO");
 
+	//renders the text based on selection
 	switch (options)
 	{
 	case 1:

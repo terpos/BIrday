@@ -86,6 +86,7 @@ Game::~Game()
 
 void Game::init(Options option)
 {
+	//initializes some variables if initial is true
 	if (initial)
 	{
 		this->level = option.get_level_for_difficulty();
@@ -105,6 +106,7 @@ void Game::load(Image image)
 
 void Game::enemies_spawn(Image image, int random_num, std::uniform_int_distribution <int> randomx, std::uniform_int_distribution <int> randomy)
 {
+	//random enemies spawn
 	switch (random_num)
 	{
 	case TRIPUS:
@@ -156,7 +158,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 	//closes the window when escape key is pressed
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
-		
+		//stops music if escape or enter key is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
 			al_stop_sample_instance(sound.bg_music(1));
@@ -165,6 +167,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			al_stop_sample_instance(sound.bg_music(4));
 			al_stop_sample_instance(sound.bg_music(5));
 
+			//transitions to quit screen state
 			option.set_last_screen(GAME_SCREEN);
 			screennum = QUIT_SCREEN;
 		}
@@ -176,6 +179,8 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			al_stop_sample_instance(sound.bg_music(3));
 			al_stop_sample_instance(sound.bg_music(4));
 			al_stop_sample_instance(sound.bg_music(5));
+
+			//transitions to pause screen states
 			screennum = PAUSE_SCREEN;
 		}
 	}
@@ -214,12 +219,14 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		}
 	}
 	
+	//random int distribution
 	std::uniform_int_distribution <int> pwrup(0, 5);
 	std::uniform_int_distribution <int> ammos(0, num_of_weapon);
 	std::uniform_int_distribution <int> enemiesspawn(0, 11);
 	std::uniform_int_distribution <int> ypos(0, 3);
 	std::uniform_int_distribution <int> xpos(0, 8);
 
+	//put in enemies based on levels
 	if (levelup && level_duration == 0)
 	{
 
@@ -1389,7 +1396,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 	}
 
-	//updates stuff
+	//updates elements of an object
 	if (e.type == ALLEGRO_EVENT_TIMER && x1 == 0 && x2 == 1360)
 	{
 
@@ -1403,36 +1410,58 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 0;
 		}
 
-		//levels up
-
+		
+		//if player's health is zero or below, screen state changes to game over
 		if (player->get_health() <= 0)
 		{
 			reset(weapons_unlocked);
 			screennum = GAME_OVER_SCREEN;
 		}
 
+		//limits the max health to 100
 		if (player->get_health() > 100)
 		{
 			player->set_health(100);
 		}
 
 
-
+		//limits the max width of healing spot to 80
 		if (healing_loading[0] > 80)
 		{
 			healing_loading[0] = 80.00;
 		}
 
+		if (healing_loading[1] > 80)
+		{
+			healing_loading[1] = 80.00;
+		}
+
+		//if player did not touch the healing spot and healing spot is at max width, the healing spot glows 
 		if (healing_loading[0] == 80.00 && !collision.collision_detect(player->get_x(), player->get_y(), 80 * 8, 0))
 		{
 			healing[0].increment_frame();
 		}
 
+		if (healing_loading[1] == 80.00 && !collision.collision_detect(player->get_x(), player->get_y(), 80 * 8, 80 * 8))
+		{
+			healing[1].increment_frame();
+		}
+
+
+		//if player did not touch the healing spot and healing spot is not at max width, the healing spot increments width
+		//by .1
 		if (healing_loading[0] < 80.00 && !collision.collision_detect(player->get_x(), player->get_y(), 80 * 8, 0))
 		{
 			healing_loading[0] += .1;
 		}
 
+		if (healing_loading[1] < 80.00 && !collision.collision_detect(player->get_x(), player->get_y(), 80 * 8, 80 * 8))
+		{
+			healing_loading[1] += .1;
+		}
+
+
+		//if player did collide with healing spot and healing spot is at max width, players get healed to max health
 		if (healing_loading[0] == 80.00 && collision.collision_detect(player->get_x(), player->get_y(), 80 * 8, 0))
 		{
 
@@ -1458,25 +1487,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 				healing_loading[1] = 0;
 			}
 		}
-
-
-
-
-		if (healing_loading[1] > 80)
-		{
-			healing_loading[1] = 80.00;
-		}
-
-		if (healing_loading[1] == 80.00 && !collision.collision_detect(player->get_x(), player->get_y(), 80 * 8, 80 * 8))
-		{
-			healing[1].increment_frame();
-		}
-
-		if (healing_loading[1] < 80.00 && !collision.collision_detect(player->get_x(), player->get_y(), 80 * 8, 80 * 8))
-		{
-			healing_loading[1] += .1;
-		}
-
+	
 		if (healing_loading[1] == 80.00 && collision.collision_detect(player->get_x(), player->get_y(), 80 * 8, 80 * 8))
 		{
 			if (player->get_health() < 100.00)
@@ -1507,7 +1518,10 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		//updates player's info
 		player->update(pweapon);
 
+		//collision between player and borders of the window
 		collision.Window_Collision(display, e, player);
+
+		//collision between weapons and borders of the window
 		collision.Window_Collision(display, e, pweapon, eweapon);
 
 		//updates enemies' info
@@ -1515,23 +1529,23 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 		{
 			if (i < enemy.size())
 			{
-
+				//collision between enemies and borders of the window
 				collision.Window_Collision(display, e, enemy[i]);
 
+				//enemeis reacts when player is near them
 				enemy[i]->react(image, sound, player, eweapon, option);
 
-
+				//if enemy and player touch each other, player takes damage
 				if (collision.collision_detect(player->get_x(), player->get_y(), enemy[i]->get_x(), enemy[i]->get_y()) && player->is_hit().second == 0)
 				{
 					if (option.get_sound_options())
 					{
-						//al_set_sample_instance_position(sound.sound_effects(6), 0);
 						al_play_sample_instance(sound.sound_effects(6));
 					}
 					player->set_hit(true, 1);
 				}
 
-
+				//damage is dealt to player
 				if (player->is_hit().first && player->is_hit().second)
 				{
 					player->set_health(player->get_health() - enemy[i]->Damage() / defense);
@@ -1539,16 +1553,16 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 					
 				}
 
+				//if needle wind hits the enemy, the enemy dies
 				for (int j = 0; j < nw.size(); j++)
 				{
-					
-
 					if (collision.collision_detect(nw[j]->get_x(), nw[j]->get_y(), enemy[i]->get_x(), enemy[i]->get_y())) 
 					{
 						enemy[i]->set_health(0);
 					}
 				}
 
+				//if b2 bomber is at a certain y position, all enemies die
 				for (int j = 0; j < b2.size(); j++)
 				{
 
@@ -1559,6 +1573,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 					}
 				}
 
+				//updates enemies' data
 				enemy[i]->update(eweapon, option, pweapon, image, sound);
 
 				//enemy & tile collision 
@@ -1586,6 +1601,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 					}
 				}
 
+				//if enemy is hit by player's weapon, it takes damage
 				for (int j = 0; j < pweapon.size(); j++)
 				{
 					if (enemy.size() > 0)
@@ -1627,6 +1643,8 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 					}
 				}
 
+				//if enemy's health is zero, it dies and number of kills gets recorded if it 
+				//got killed by player's weapon
 				if (enemy[i]->is_dead())
 				{
 					if (!destroyed_by_b2)
@@ -1776,12 +1794,13 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			}
 		}
 
-		//updates player weapon
+		//updates player weapon's info
 		for (int i = 0; i < pweapon.size(); i++)
 		{
 			pweapon[i]->update();
 		}
 
+		//updates b2 bomber's info
 		for (int i = 0; i < b2.size(); i++)
 		{			
 			if (b2[i]->get_y() + al_get_bitmap_width(image.misc_image(0).first) < -1000)
@@ -1797,6 +1816,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			}
 		}
 
+		//updates needle wind's info
 		for (int i = 0; i < nw.size(); i++)
 		{
 			nw[i]->go_right();
@@ -1817,6 +1837,9 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 
 		}
 
+		
+		// if ammo or power up appearence duration is not one
+		// decrement it
 		if (appear_duration1 > 1)
 		{
 			appear_duration1--;
@@ -1827,6 +1850,8 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			appear_duration2--;
 		}
 
+
+		//if time is up power up and/or ammo disappear
 		if (appear_duration1 == 1)
 		{
 			powerup.clear();
@@ -1841,6 +1866,9 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			appear_duration2--;
 		}
 
+
+		//if power up appearance delay is up the power up object
+		//adds a random powerup
 		if (duration1 == 1)
 		{
 			switch (pwrup(power_up_popup))
@@ -1869,12 +1897,15 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			appear_duration1 = 200;
 		}
 
+		//if power up appearance delay is not up, the delay decrements
 		else if (duration1 > 1)
 		{
 			duration1--;
 		}
 
 
+		//if ammo appearance delay is up the ammo object
+		//adds a random powerup
 		if (duration2 == 1)
 		{
 
@@ -1923,12 +1954,14 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			appear_duration2 = 200;
 		}
 
+		//if ammo appearance delay is not up, the delay decrements
 		else if (duration2 > 1)
 		{
 			duration2--;
 		}
 	
 
+		//Abilities and weapons is unlocked based on number of kills
 		if (num_of_kills == 2 && !unlock_weapon[ROCKET_LAZER])
 		{
 			unlock_weapon[ROCKET_LAZER] = true;
@@ -1940,7 +1973,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 8 && !increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -1954,7 +1986,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			num_of_notification++;
 
 		}
-
 		if (num_of_kills == 10 && !unlock_weapon[STUNNER])
 		{
 			notification_duration = 0;
@@ -1969,7 +2000,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 15 && !increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -1984,7 +2014,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 20 && !unlock_weapon[BOMBS])
 		{
 			notification_duration = 0;
@@ -2026,7 +2055,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			num_of_notification++;
 
 		}
-
 		if (num_of_kills == 32 && !increment_defense)
 		{
 			notification_duration = 0;
@@ -2038,7 +2066,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 35 && !increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -2052,7 +2079,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 40 && increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -2066,7 +2092,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 45 && !increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -2080,7 +2105,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 50 && !unlock_weapon[BI_NUKE])
 		{
 			notification_duration = 0;
@@ -2096,7 +2120,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 52 && !increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -2110,7 +2133,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 55 && !increase_bounce)
 		{
 			notification_duration = 0;
@@ -2122,7 +2144,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 60 && !unlock_weapon[TRI_NUKE])
 		{
 			notification_duration = 0;
@@ -2136,7 +2157,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 62 && !increment_defense)
 		{
 			notification_duration = 0;
@@ -2147,7 +2167,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 65 && !increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -2161,7 +2180,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 70 && !unlock_weapon[TRIANGULAR_MISSILE])
 		{
 			notification_duration = 0;
@@ -2178,7 +2196,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 75 && !increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -2192,7 +2209,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 80 && !unlock_weapon[ARROW])
 		{
 			notification_duration = 0;
@@ -2207,7 +2223,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 85 && !increase_bounce)
 		{
 			notification_duration = 0;
@@ -2219,7 +2234,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 90 && !increment_max_ammo)
 		{
 			increase_bounce = false;
@@ -2234,7 +2248,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 100 && !unlock_weapon[SLICER])
 		{
 			notification_duration = 0;
@@ -2248,7 +2261,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 110 && !increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -2262,7 +2274,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 115 && !increase_bounce)
 		{
 			notification_duration = 0;
@@ -2274,7 +2285,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 130 && !increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -2289,7 +2299,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 140 && !increase_bounce)
 		{
 			notification_duration = 0;
@@ -2301,7 +2310,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 155 && increase_bounce)
 		{
 			notification_duration = 0;
@@ -2313,9 +2321,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
-		
-
 		if (num_of_kills == 175 && !increment_max_ammo)
 		{
 			notification_duration = 0;
@@ -2327,7 +2332,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 155 && increase_bounce)
 		{
 			notification_duration = 0;
@@ -2339,7 +2343,6 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 			notification_duration = 150;
 			num_of_notification++;
 		}
-
 		if (num_of_kills == 180 && !increment_defense)
 		{
 			notification_duration = 0;
@@ -2359,6 +2362,7 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 	//clears the trails images has left over
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
+	//plays music if player's health is not zero and the game is already opened
 	if (player->get_health() > 0 && x1 == 0 && x2 == 1360)
 	{
 		if (option.get_sound_options())
@@ -2406,6 +2410,8 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 		al_stop_sample_instance(sound.bg_music(5));
 	}
 
+
+	//renders tiles
 	for (int i = 0; i < m.get_length(); i++)
 	{
 		for (int j = 0; j < m.get_width(); j++)
@@ -2483,11 +2489,14 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 		}
 	}
 	
+	//renders needle wind
 	for (int i = 0; i < nw.size(); i++)
 	{
 		nw[i]->render();
 	}
 	
+	
+	//renders one color of healing if healing spot is not charged
 	if (healing_loading[0] < 80)
 	{
 		al_draw_filled_rectangle(80 * 8, 0, (80 * 8) + healing_loading[0], 80, al_map_rgb(0, 150, 255));
@@ -2536,41 +2545,57 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 
 	}
 
+
+	//renders powerup
 	for (int i = 0; i < powerup.size(); i++)
 	{
 		powerup[i]->render();
 	}
 
+	
+	//renders ammo powerup
 	for (int i = 0; i < ammo.size(); i++)
 	{
 		ammo[i]->render();
 	}
 
+
+	//renders player weapon
 	for (int i = 0; i < pweapon.size(); i++)
 	{
 		pweapon[i]->render(image, sound, option.get_sound_options());
 	}
 
+
+	//renders enemy weapon
 	for (int i = 0; i < eweapon.size(); i++)
 	{
 		eweapon[i]->render();
 	}
 
+
+	//renders player if the game opened up
 	if ( x1 == 0 && x2 == 1360)
 	{
 		player->render();
 	}
 
+
+	//renders enemy
 	for (int i = 0; i < enemy.size(); i++)
 	{
 		enemy[i]->render(image);
 	}
 
+
+	//renders b2 bomber
 	for (int i = 0; i < b2.size(); i++)
 	{
 		b2[i]->render();
 	}
 
+	
+	//renders the level at the top left corner of the screen for a few seconds
 	if (level_duration != 0)
 	{
 		al_draw_filled_rectangle(0, 0, 460, 80, al_map_rgb(0, 0, 0));
@@ -2579,27 +2604,32 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 
 	}
 
+	
+	//status bar
 	al_draw_filled_rectangle(0, 720, 1360, 768, al_map_rgb(100, 1, 10));
+	
 
+	//displays score
 	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 10, 732, NULL, "SCORE:");
-
 	al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 10 + al_get_text_width(font.get_font(3), "SCORE:"), 732, NULL, "%i", score);
 
-  	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 200, 732, NULL, "HEALTH:");
 
+	//displays player's health
+  	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 200, 732, NULL, "HEALTH:");
 	al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 200 + al_get_text_width(font.get_font(3), "HEALTH:"), 732, NULL, "%i", player->get_health());
 
-	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 1200, 732, NULL, "LEVEL ");
 
+	//displays level
+	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 1200, 732, NULL, "LEVEL ");
 	al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 1200 + al_get_text_width(font.get_font(3), "LEVEL "), 732, NULL, "%i", level);
 
-	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 350, 732, NULL, "WEAPON:");
 
+	//displays weapon
+	al_draw_text(font.get_font(3), al_map_rgb(255, 255, 255), 350, 732, NULL, "WEAPON:");
 	if (player->get_option_weapon() == 0)
 	{
 		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 350 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, "LAZER");
 	}
-
 	else
 	{
 		al_draw_textf(font.get_font(3), al_map_rgb(255, 255, 0), 350 + al_get_text_width(font.get_font(3), "WEAPON: "), 732, NULL, weapons_unlocked.get_weapon_list(player->get_option_weapon() - 1).c_str());
@@ -2608,12 +2638,16 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 
 	}
 
+	
+	//displays notification
 	if (num_of_notification >= 0 && notification_duration != 0)
 	{
  		al_draw_textf(font.get_font(3), al_map_rgb(255, 175, 0), 725, 732, NULL, weapons_unlocked.get_screen_list(num_of_notification).c_str());
  		al_draw_textf(font.get_font(3), al_map_rgb(255, 175, 0), 725 + al_get_text_width(font.get_font(3), weapons_unlocked.get_screen_list(num_of_notification).c_str()), 732, NULL, " UNLOCKED");
 	}
 
+
+	//displays rectangle to open the game up
 	al_draw_filled_rectangle(0, 0, x1, 720, al_map_rgb(0, 0, 0));
 	al_draw_filled_rectangle(x2, 0, 1360, 720, al_map_rgb(0, 0, 0));
 
@@ -2622,6 +2656,7 @@ void Game::render(Weapons_Unlocked_List &weapons_unlocked, Options option, Image
 
 void Game::reset(Weapons_Unlocked_List &weapons_unlocked)
 {
+	//resets all variables to their inital values
 	level_duration = 0;
 	enemy.clear();
 	level = 0;

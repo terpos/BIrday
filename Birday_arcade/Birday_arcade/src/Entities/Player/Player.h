@@ -34,6 +34,7 @@ public:
 	int get_vel();
 	int get_direction();
 	
+	//returns whether player is healing and/or gliding or not
 	bool is_healing();
 	bool is_gliding();
 	
@@ -64,12 +65,16 @@ public:
 	void set_vel(int vel);
 	void set_direction(int direction);
 
+	//sets whether player can heal or not
 	void set_healing(bool healing);
 
 	//sets the positive value of health
 	void set_health(float health);
 
+	//sets number of ammo
 	void set_num_of_ammo(int number_of_ammo, int index);
+	
+	//multiply the max number of ammos
 	void multiply_max_num_of_ammo(int index);
 
 
@@ -86,14 +91,19 @@ public:
 	//updates the player's movement when collided (player moves backward)
 	void damage_col_update();
 	
+	//sets the time to delay the movement
 	void set_delay_movemement(int delay);
 
+	//not used
 	void damage_col_tile_update();
 
+	//updates player when hit
 	void col_update();
 
+	//sets whether to glide or not
 	void set_glide(bool glide);
 
+	//resets ammo to its initial value
 	void reset_ammo();
 
 	//updates the player's movement as well as the weapon's movement

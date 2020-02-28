@@ -6,9 +6,11 @@
 class Ammo
 {
 public:
+	//intial values
 	Ammo(Image image, int ammotype, int x, int y);
 	~Ammo();
 
+	//gets the x position, y position, and bitmap information/tags
 	int get_x();
 	int get_y();
 	Image get_image();

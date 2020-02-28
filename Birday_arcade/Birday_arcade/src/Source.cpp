@@ -62,10 +62,12 @@ int main()
 	double fps = 60.0;
 	double fps2 = 60.0;
 
+	//assets object declaration
 	Image image;
 	Font font;
 	Sound sound;
 
+	//screen states object decleration
 	Game game;
 	Menu menu;
 	Options option;
@@ -85,16 +87,21 @@ int main()
 	//timer variable
 	ALLEGRO_TIMER *timer = al_create_timer(1 / fps);
 
+	//sets filename for tile mapping
 	al_set_path_filename(path, "Tile_map.txt");
 
+	//loads assets
 	m.load(al_path_cstr(path, '/'));
 	image.Load_Images();
 	font.load();
 	sound.Load_Sound();
 
+	//checks if any error occurs in sound
 	image.Image_error_check();
 	font.Font_error_check();
+	sound.Sound_error_check();
 
+	//loads assets appropiate for games (e.g. initializes player)
 	game.load(image);
 	
 
@@ -110,6 +117,7 @@ int main()
 	//game loop
 	while (!done)
 	{
+		//updates based on screen states
 		switch (screennum)
 		{
 		case MENU_SCREEN:
@@ -143,7 +151,7 @@ int main()
 		//draw becomes true for the sake of cpu
 		draw = true;
 		
-		//if draw is true, display all assets
+		//if draw is true, display all assets based on which screen states
 		if (draw)
 		{
 			switch (screennum)

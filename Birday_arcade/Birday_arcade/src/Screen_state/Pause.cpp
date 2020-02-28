@@ -20,13 +20,14 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
-
+		//goes to quit screen when escape key is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
 			option.set_last_screen(PAUSE_SCREEN);
 			screennum = QUIT_SCREEN;
 		}
 
+		//direction of choice go up if up arrow is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_UP)
 		{
 			al_set_sample_instance_position(sound.sound_effects(17), 0);
@@ -38,6 +39,7 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 			}
 		}
 
+		//direction of choice go down if down arrow is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN)
 		{
 			al_set_sample_instance_position(sound.sound_effects(17), 0);
@@ -49,7 +51,7 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 			}
 		}
 
-
+		//keyboard shortcuts (1, 2, 3, and 4)
 		switch (e.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_1:
@@ -73,6 +75,8 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 			break;
 		}
 
+
+		//selection occurs when enter key is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_ENTER)
 		{
 			if (options == 2)
@@ -105,15 +109,19 @@ void Pause::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image ima
 
 void Pause::render(Image image, Font font)
 {
+	//background color
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
+	//title
 	al_draw_text(font.get_font(1), al_map_rgb(255, 25, 90), 500, 150, NULL, "PAUSE");
 
+	//renders all texts to the screen
 	al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "CONTINUE (1)");
 	al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "WEAPON UNLOCKED (2)");
 	al_draw_text(font.get_font(0), notSel, 500, 390, NULL, "OPTION (3)");
 	al_draw_text(font.get_font(0), notSel, 500, 420, NULL, "MAIN MENU (4)");
 
+	//renders the text based on selection
 	switch (options)
 	{
 	case GAME_SCREEN:

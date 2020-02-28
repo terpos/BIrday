@@ -29,11 +29,13 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
+		//goes to quit screen when escape key is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
 			screennum = QUIT_SCREEN;
 		}
 
+		//direction of choice go up if up arrow is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_UP)
 		{
 			al_set_sample_instance_position(sound.sound_effects(17), 0);
@@ -45,6 +47,7 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 			}
 		}
 
+		//direction of choice go down if down arrow is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_DOWN)
 		{
 			al_set_sample_instance_position(sound.sound_effects(17), 0);
@@ -56,6 +59,7 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 			}
 		}
 
+		//keyboard shortcuts (1 and 2)
 		switch (e.keyboard.keycode)
 		{
 		case ALLEGRO_KEY_1:
@@ -68,6 +72,7 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 
 		}
 
+		//selects the option when enter key is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_ENTER)
 		{
 			play = true;
@@ -90,7 +95,7 @@ void Game_Over::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEUE * q, Image
 
 void Game_Over::render(Image image, Sound sound, Font font, Options option)
 {
-	//system("cls");
+	//sound is played
 	if (option.get_sound_options())
 	{
 		if (play)
@@ -105,15 +110,18 @@ void Game_Over::render(Image image, Sound sound, Font font, Options option)
 		}
 	}
 
+	//background
 	al_draw_bitmap(image.Background_image(1).first, 0, 0, NULL);
 
+	//title
 	al_draw_text(font.get_font(1), al_map_rgb(255, 25, 90), 400, 150, NULL, "GAME OVER");
 
+	//texts
 	al_draw_text(font.get_font(0), notSel, 500, 330, NULL, "PLAY AGAIN (1)");
 	al_draw_text(font.get_font(0), notSel, 500, 360, NULL, "MAIN MENU (2)");
 	
 
-
+	//text to select
 	switch (options)
 	{
 	case 1:

@@ -42,11 +42,13 @@ void Weapons_Unlocked_List::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEU
 
 	if (e.type == ALLEGRO_EVENT_KEY_DOWN)
 	{
+		//goes back to pause screen when space key is pressed
 		if (e.keyboard.keycode == ALLEGRO_KEY_SPACE)
 		{
 			screennum = PAUSE_SCREEN;
 		}
 
+		//goes to quit screen when escape key is pressed
 		else if (e.keyboard.keycode == ALLEGRO_KEY_ESCAPE)
 		{
 			option.set_last_screen(WEAPONS_UNLOCKED_SCREEN);
@@ -64,41 +66,43 @@ void Weapons_Unlocked_List::update(ALLEGRO_DISPLAY * display, ALLEGRO_EVENT_QUEU
 
 void Weapons_Unlocked_List::render(Image image, Font font)
 {
+	//background
 	al_clear_to_color(al_map_rgb(0, 0, 0));
 
+	//title
 	al_draw_text(font.get_font(1), al_map_rgb(255, 25, 0), 225, 50, NULL, "WEAPONS UNLOCKED");
 	
-		for (int i = 0; i < 15; i++)
+	//lists all the weapon and abilities that are unlocked
+	for (int i = 0; i < 15; i++)
+	{
+		if (i < listing2.size())
 		{
-			if (i < listing2.size())
-			{
-				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 50, 250 + 30 * i, NULL, get_screen_list(i).c_str());
-			}
-			
+			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 50, 250 + 30 * i, NULL, get_screen_list(i).c_str());
+		}
+		
+	}
+
+	for (int i = 15; i < 30; i++)
+	{
+		if (i < listing2.size())
+		{
+			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 455, 250 + 30 * (i - 15), NULL, get_screen_list(i).c_str());
+		}
+	}
+
+	for (int i = 30; i < listing2.size(); i++)
+	{
+		if (i < listing2.size())
+		{
+			al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 560, 250 + 30 * (i - 30), NULL, get_screen_list(i).c_str());
 		}
 
-		for (int i = 15; i < 30; i++)
-		{
-			if (i < listing2.size())
-			{
-				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 455, 250 + 30 * (i - 15), NULL, get_screen_list(i).c_str());
-			}
-
-		}
-
-		for (int i = 30; i < listing2.size(); i++)
-		{
-			if (i < listing2.size())
-			{
-				al_draw_text(font.get_font(0), al_map_rgb(255, 255, 0), 560, 250 + 30 * (i - 30), NULL, get_screen_list(i).c_str());
-			}
-
-		}
+	}
 
 		
 	
 	
-
+	//prompts user to press space if they want to go back to the pause screen
 	al_draw_text(font.get_font(0), al_map_rgb(255, 255, 255), 300, 720, NULL, "PRESS [SPACE] TO RETURN TO THE PAUSE SCREEN");
 
 }

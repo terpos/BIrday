@@ -1,3 +1,8 @@
+/*
+Classes that inherit this class will use the same functions
+*/
+
+
 #include "global.h"
 #include "Asset_management/Image.h"
 #include "Asset_management/Sound.h"
@@ -10,7 +15,7 @@ public:
 	E_Weapon(Image &sprite_sheet, int x, int y, int vel, int direction);
 	~E_Weapon();
 
-	//gets x position, y position, speed, and direction of the player
+	//gets x position, y position, speed, direction, and id of the weapon
 	virtual int get_x();
 	virtual int get_y();
 	virtual int get_vel();
@@ -20,13 +25,14 @@ public:
 	//returns bitmap value
 	virtual Image get_image();
 
-	//sets the x position, y position, speed, and direction of the player 
+	//sets the x position, y position, speed, direction, and id of the weapon 
 	virtual void set_x(int x);
 	virtual void set_y(int y);
 	virtual void set_vel(int vel);
 	virtual void set_direction(int direction);
 	virtual void set_id(int id);
 
+	//abstract variable of damage of the weapon
 	virtual int damage() = 0;
 
 	//sets the bitmap information

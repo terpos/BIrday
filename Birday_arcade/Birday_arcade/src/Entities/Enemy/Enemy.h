@@ -1,3 +1,7 @@
+/*
+Classes that inherit this class will use the same functions
+*/
+
 #include "global.h"
 #include "Asset_management/Image.h"
 #include "Asset_management/Sound.h"
@@ -29,6 +33,7 @@ public:
 	virtual int get_vel();
 	virtual int get_direction();
 
+	//gets the version of the enemy
 	virtual int get_version();
 
 	//gets the positive value of health
@@ -38,8 +43,10 @@ public:
 
 	virtual int get_score() = 0;
 
+	//gets the amount of damage that will be done to the player
 	virtual int Damage();
 
+	//returns to see if it is dead
 	virtual bool is_dead();
 
 	//checks if the player is hit
@@ -48,18 +55,20 @@ public:
 	//gets the image information
 	virtual Image get_image();
 
-	//sets the x position, y position, speed, and direction of the player 
+	//sets the x position, y position, speed, and direction of the player , and duration of movement
 	virtual void set_x(int x);
 	virtual void set_y(int y);
 	virtual void set_vel(int vel);
 	virtual void set_direction(int direction);
 	virtual void set_move_duration(int duration);
 
+	//different version of the enemy
 	virtual void set_version(int version);
 
 	//sets the positive value of health
 	virtual void set_health(signed int health);
 
+	//sets kinds of enemy
 	virtual void set_id(int id);
 
 	//sets whether the player is hit or not
@@ -73,10 +82,13 @@ public:
 	//updates the enemy's info when collided (player moves backward)
 	virtual void damage_col_update();
 	
+	//reacts when something happens
 	virtual void react(Image &image, Sound sound, Player* & player, std::vector<E_Weapon*>& eweapon, Options option);
 
+	//change direction
 	virtual void change_direction();
 
+	//goes opposite direction
 	void opposite_direction();
 
 	virtual void shoot(std::vector <E_Weapon*> &eweapon, Options option, Sound sound, Image spritesheet);
@@ -99,13 +111,15 @@ private:
 	//boolean variables
 	bool draw, enemy_dead;
 	
+	//object variables
 	Animation animation;
 	Animation damage;
 	Animation dead;
+	Image image;
 
 	//pair variables
 	std::pair <bool, int> hit;
-	Image image;
+
 
 	//random engine instance variables
 	std::default_random_engine movement;

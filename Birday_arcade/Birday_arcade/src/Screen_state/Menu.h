@@ -12,19 +12,26 @@ public:
 	Menu();
 	~Menu();
 
+	//updates infos
 	void update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Image image, Sound sound, Options &option, ALLEGRO_EVENT &e, int &screennum, bool &done);
+	
+	//renders assets
 	void render(Image image, Sound sound, Font font);
 
 	void error_notify(Font font, int x);
 
 private:
+	//object variables
 	Image image;
-
-	int options;
-	bool rect_out;
-
 	Animation title, bg, choice, intro;
 
+	//int variable
+	int options;
+
+	//boolean variable
+	bool rect_out;
+	
+	//allegro color variables
 	ALLEGRO_COLOR Sel;
 	ALLEGRO_COLOR notSel;
 
