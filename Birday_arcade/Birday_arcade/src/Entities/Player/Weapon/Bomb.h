@@ -8,6 +8,7 @@ public:
 	~Bomb();
 
 	void abilities();
+	int damage();
 
 	void render(Image expl, Sound sound, bool play_sound);
 private:

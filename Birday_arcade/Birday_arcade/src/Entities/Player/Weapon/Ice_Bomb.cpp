@@ -18,6 +18,11 @@ Ice_Bomb::~Ice_Bomb()
 {
 }
 
+int Ice_Bomb::damage()
+{
+	return 3;
+}
+
 void Ice_Bomb::abilities()
 {
 	if (weapon_explosion.get_frame() > 0)

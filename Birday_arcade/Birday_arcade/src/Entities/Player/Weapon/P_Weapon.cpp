@@ -142,7 +142,7 @@ void P_Weapon::set_hit(bool hit, int hit_count)
 
 void P_Weapon::change_direction()
 {
-	std::uniform_int_distribution<int > d(0, 1);
+	std::uniform_int_distribution <int> d(0, 1);
 
 
 	if (get_direction() == 0)

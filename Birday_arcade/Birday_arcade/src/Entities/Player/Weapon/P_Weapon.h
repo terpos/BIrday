@@ -20,7 +20,7 @@ public:
 	virtual int get_y();
 	virtual int get_vel();
 	virtual int get_direction();
-	virtual int damage();
+	virtual int damage() = 0;
 	virtual int enemy_status();
 	virtual int get_id();
 

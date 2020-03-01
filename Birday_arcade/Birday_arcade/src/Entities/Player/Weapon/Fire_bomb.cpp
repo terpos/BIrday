@@ -21,6 +21,11 @@ Fire_bomb::~Fire_bomb()
 {
 }
 
+int Fire_bomb::damage()
+{
+	return 4;
+}
+
 void Fire_bomb::abilities()
 {
 	if (weapon_explosion.get_frame() > 0)
@@ -28,6 +33,12 @@ void Fire_bomb::abilities()
 		set_enemy_status(3);
 		set_hit(true, is_hit().second);
 		set_enemy_damage(true);
+	}
+
+	else
+	{
+		set_hit(false, is_hit().second);
+		set_enemy_damage(false);
 	}
 }
 

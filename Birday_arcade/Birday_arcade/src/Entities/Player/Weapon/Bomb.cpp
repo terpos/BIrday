@@ -10,7 +10,7 @@ Bomb::Bomb(Image &sprite_sheet, int x, int y, int vel, int direction, int num_of
 	set_vel(vel);
 	set_direction(direction);
 
-
+	
 	bomb_detonate.set_frame(0);
 	type = 1;
 }
@@ -24,9 +24,21 @@ void Bomb::abilities()
 {
 	if (weapon_explosion.get_frame() > 0)
 	{
+		set_enemy_status(1);
 		set_hit(true, is_hit().second);
 		set_enemy_damage(true);
 	}
+
+	else
+	{
+		set_hit(false, is_hit().second);
+		set_enemy_damage(false);
+	}
+}
+
+int Bomb::damage()
+{
+	return 2;
 }
 
 void Bomb::render(Image expl, Sound sound, bool play_sound)
