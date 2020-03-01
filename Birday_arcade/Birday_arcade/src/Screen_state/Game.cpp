@@ -1399,7 +1399,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 	//updates elements of an object
 	if (e.type == ALLEGRO_EVENT_TIMER && x1 == 0 && x2 == 1360)
 	{
-
+		//amount of duration that the notification appear on the screen
 		if (notification_duration > 0)
 		{
 			notification_duration--;
@@ -1606,30 +1606,37 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 				{
 					if (enemy.size() > 0)
 					{
+						
+
 						if (collision.collision_detect(pweapon[j]->get_x(), pweapon[j]->get_y(), enemy[i]->get_x(), enemy[i]->get_y()))
 						{
 							if (enemy[i]->get_health() <= 0 && pweapon[j]->is_hit().first)
 							{
 								if (option.get_sound_options())
 								{
+									al_stop_sample_instance(sound.sound_effects(7));
 									al_play_sample_instance(sound.sound_effects(8));
 								}
 								pweapon[j]->set_hit(true, pweapon[j]->is_hit().second);
 							}
 
+							
+
 							else if (enemy[i]->get_health() > 0 && !pweapon[j]->is_hit().first)
 							{
-								if (option.get_sound_options())
-								{
-									al_set_sample_instance_position(sound.sound_effects(7), 0);
-									al_play_sample_instance(sound.sound_effects(7));
-								}
+								
 								pweapon[j]->abilities();
 
 								if (pweapon[j]->enemy_damaged())
 								{
 									enemy[i]->set_hit(true, pweapon[j]->enemy_status());
 									enemy[i]->set_health(enemy[i]->get_health() - pweapon[j]->damage());
+								}
+
+								if (option.get_sound_options() && pweapon[j]->enemy_damaged())
+								{
+									al_set_sample_instance_position(sound.sound_effects(7), 0);
+									al_play_sample_instance(sound.sound_effects(7));
 								}
 
 								if (pweapon[j]->is_dead())
@@ -1647,6 +1654,7 @@ void Game::update(ALLEGRO_DISPLAY *display, ALLEGRO_EVENT_QUEUE* q, Tile_map &m,
 				//got killed by player's weapon
 				if (enemy[i]->is_dead())
 				{
+
 					if (!destroyed_by_b2)
 					{
 						score = score + enemy[i]->get_score();
