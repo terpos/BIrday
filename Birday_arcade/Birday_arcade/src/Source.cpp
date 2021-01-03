@@ -32,7 +32,7 @@ int main()
 	al_init_primitives_addon();
 
 	//sets the new display flags
-	al_set_new_display_flags(ALLEGRO_FULLSCREEN);
+	//al_set_new_display_flags(ALLEGRO_FULLSCREEN);
 	
 	ALLEGRO_PATH *path = al_get_standard_path(ALLEGRO_RESOURCES_PATH);
 	al_append_path_component(path, "Assets");
@@ -43,7 +43,7 @@ int main()
 	//initializes and creates display
 	ALLEGRO_DISPLAY *display = al_create_display(1360, 768);
 
-	malloc(sizeof(display));
+	//malloc(sizeof(display));
 	al_set_display_icon(display, icon);
 
 	Animation fade;
